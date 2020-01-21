@@ -1,0 +1,210 @@
+<section data-section-id="{{ section.id }}" id="home-product-slider">
+
+  <header>
+    <div class="text-header-container">
+      <div class="eyebrow_text">
+        <span class="slash-img"></span>
+        <h5>Style that</h5>
+      </div>
+      <h2> Belogns to you </h2>
+    </div>
+  </header>
+
+  <div id="product_slider_container">
+   
+    <div class="product_slider">
+      {% for product in collections.pants-1.products limit:10 %}
+      {% if product.available %}
+      
+      <div class="item">
+        <div class="slide-content" id="ProductSection--{{ product.id }}" data-section-id="{{ product.id }}" data-section-type="product-template">
+
+          <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+          <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+          {% capture "form_classes" %}
+            product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
+          {%- endcapture %}
+
+          {% capture "form_id" %}AddToCartForm--{{ product.id }}{%- endcapture %}
+          
+          <div class="newer-wrappers">
+            
+              <div class="new-arrivals-wrapper">
+                  <div class="img-wrapper">
+                    <div class="reveal">
+                      <div>
+                        <a href="{{ product.url | within: collections.new-arrivals }}">
+                          <img class="new-arrivals-thumb" src="{{ product | img_url: "500x" }}" alt="{{ product | alt }}">
+                        </a>
+                      </div>
+                      <div>
+                        <a href="{{ product.url | within: collections.new-arrivals }}">
+                          <img class="hidden" src="{{ product.images[2] | img_url: '450x450' }}" alt="{{ product.images[2].alt | escape }}" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>          
+              </div>
+
+          </div><!-- newer wrapper -->
+          
+          <a href="{{ product.url | within: collections.new-arrivals }}">
+            <div class="new-arrivals-wrapper">
+                <span class="new-arrivals-desc"> {{ product.title }} </span>
+                <span class="new-arrivals-price"
+                    itemprop="price"
+                    content="{{ product.price | divided_by: 100.00 }}"
+                    {% unless product.available %}aria-hidden="true"{% endunless %}>
+                    {{ product.price | money }}
+                  </span>
+            </div>
+          </a><!-- product meta -->
+        
+
+          <div class="product-collection-hover">
+
+            {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
+              {% unless product.has_only_default_variant %}
+                {% for option in product.options_with_values %}
+
+                  <div class="radio-wrapper js product-form__item">
+
+                    <label class="single-option-radio__label"
+                      for="ProductSelect-option-{{ forloop.index0 }}">
+                      {{ option.name | escape }}
+                    </label>
+
+                    {% comment %}
+                    { if section.settings.product_selector == 'radio' }
+                    {% endcomment %}
+                      <fieldset class="single-option-radio"
+                        id="ProductSelect-option-{{ forloop.index0 }}">
+                        {% assign option_index = forloop.index %}
+                        {% for value in option.values %}
+                          {% assign variant_label_state = true %}
+                          {% if product.options.size == 1 %}
+                            {% unless product.variants[forloop.index0].available  %}
+                              {% assign variant_label_state = false %}
+                            {% endunless %}
+                          {% endif %}
+                          <input type="radio"
+                            {% if option.selected_value == value %} checked="checked"{% endif %}
+                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                            value="{{ value | escape }}"
+                            data-index="option{{ option_index }}"
+                            name="option{{ option.position }}"
+                            class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                            id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+                          <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                        {% endfor %}
+                      </fieldset>
+
+                    {% comment %}
+                    { else }
+
+                      <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                        {% for value in option.values %}
+                          <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value | escape }}</option>
+                        {% endfor %}
+                      </select>
+
+                    { endif }
+                    {% endcomment %}
+
+                  </div> <!-- radio - wrapper -->
+                {% endfor %}
+              {% endunless %}
+
+              <select name="id" id="ProductSelect" class="product-single__variants no-js">
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <option {% if variant == product.selected_or_first_available_variant %}
+                      selected="selected" {% endif %}
+                      data-sku="{{ variant.sku }}"
+                      value="{{ variant.id }}">
+                      {{ variant.title }} - {{ variant.price | money_with_currency }}
+                    </option>
+                  {% else %}
+                    <option disabled="disabled">
+                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                    </option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+
+              <div class="product-single__add-to-cart">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                  <span class="btn__text">
+                    {% if current_variant.available %}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {% else %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+                  </span>
+                </button>
+                {% if section.settings.enable_payment_button %}
+                  {{ form | payment_button }}
+                {% endif %}
+              </div>
+            {% endform %}
+            
+          </div><!-- product collection hover -->
+
+        </div><!-- slide content -->
+      </div><!-- item -->
+
+        {% unless product == empty %}
+          <script type="application/json" id="ProductJson-{{ product.id }}">
+            {{ product | json }}
+          </script>
+        {% endunless %}
+      
+      {% endif %}
+      {% endfor %}
+    </div> <!-- product_slider -->
+    
+  </div> <!-- #product_slider_container -->
+
+
+</section>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $('.product_slider').slick({
+    infinite: true,
+    slidesToShow: 4,
+    draggable: false
+  });
+
+  $('.reveal').slick({
+    infinite: true,
+    draggable: false
+  });
+
+});
+</script>
+
+
+{% schema %}
+  {
+    "name": "Product_slider",
+    "settings": [
+      {
+        "id": "section-title",
+        "type": "text",
+        "label": "Heading",
+        "default": "Title"
+      }
+    ],
+	  "presets": [
+	    {
+	      "name": "Product Slider",
+	      "category": "Home Page"
+	    }
+	  ]
+  }
+{% endschema %}

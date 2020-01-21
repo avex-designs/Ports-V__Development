@@ -1,0 +1,87 @@
+<section data-section-id="{{ section.id }}" id="home_mosaic-b">
+  <div class="wrapper">
+
+    <div class="column">
+        <header>
+          <div class="text-header-container">
+            <div class="eyebrow_text">
+              <span class="slash-img"></span>
+              <h5>{{ section.settings.eyebrow }}</h5>
+            </div>
+            <h2> {{ section.settings.title }} </h2>
+          </div>
+          <p> {{ section.settings.copy }} </p>
+          {% if section.settings.link %}
+          <a href="{{ section.settings.link }}" class="ports-btn" title="link to shop products"> {{ section.settings.linktext }} </a>
+          {% endif %}
+        </header>
+        <div class="img-wrap">
+           <img src="{{ section.settings.image-picker_a | img_url: 'master' }}" alt="{{ section.settings.image-picker_a.alt }}">
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="img-wrap">
+          <img src="{{ section.settings.image-picker_b | img_url: 'master' }}" alt="{{ section.settings.image-picker_b.alt }}">
+        </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+{% schema %}
+  {
+    "name": "Mosaic Img/Text - B",
+    "settings": [
+      {
+        "id": "eyebrow",
+        "type": "text",
+        "label": "Eyebrow",
+        "default": "Hello world"
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Hello world"
+      },
+      {
+        "id": "copy",
+        "type": "textarea",
+        "label": "Copy",
+        "default": "Hello world"
+      },
+      {
+        "id": "link",
+        "type": "url",
+        "label": "Button link"
+      },
+      {
+        "id": "linktext",
+        "type": "text",
+        "label": "Button text",
+        "default": "Click here"
+      },
+      {
+        "id": "image-picker_a",
+        "type": "image_picker",
+        "label": "Left Image"
+      },
+      {
+        "id": "image-picker_b",
+        "type": "image_picker",
+        "label": "Right Image"
+      }
+    ],
+    "presets": [
+      {
+          "name": "Mosaic Img/Text - B",
+          "category": "Home Page"
+      }
+    ]
+  }
+{% endschema %}

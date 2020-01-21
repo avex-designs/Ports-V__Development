@@ -1,0 +1,97 @@
+  <div class="collection-hero">
+    <noscript>
+      <div class="collection-hero__image-no-js" style="background-image:url({{ section.settings.image-picker | img_url: 'master' }});"></div>
+    </noscript>
+
+    {% if section.settings.image-picker %}
+        {%- assign img_url = section.settings.image-picker | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    {% else %}
+        {%- assign img_url = collections.all.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    {% endif %}
+
+    {%- comment -%}
+      If the collection.image height is < 70% of its width on mobile or < 45% on desktop,
+      we crop the container to make sure it's the same height as the image.
+    {%- endcomment -%}
+    {% if collection.image %}
+      {%- assign height_width_ratio = 100 | divided_by: collection.image.aspect_ratio | floor -%}
+    {% else %}
+      {%- assign height_width_ratio = 100 | divided_by: collections.all.image.aspect_ratio | floor -%}
+    {% endif %}
+    {%- if height_width_ratio < 70 -%}
+      <style>
+        {%- if height_width_ratio < 45 -%}
+          .collection-hero__image-wrapper::after {
+            padding-bottom: {{ height_width_ratio }}%;
+            padding-bottom: 25%;
+          }
+        {%- else -%}
+          @media screen and (max-width: 768px) {
+            .collection-hero__image-wrapper::after {
+              padding-bottom: {{ height_width_ratio }}%;
+              padding-bottom: 25%;
+            }
+          }
+        {%- endif -%}
+      </style>
+    {%- endif -%}
+    <div class="collection-hero__image-wrapper">
+      <img class="collection-hero__image lazyload"
+        src="{{ collection.image | img_url: '300x' }}"
+        data-src="{{ img_url }}"
+        data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
+        data-aspectratio="{{ collection.image.aspect_ratio }}"
+        data-sizes="auto"
+        data-parent-fit="cover"
+        alt="{{ collection.image.alt | escape }}">
+    </div>
+
+    <header class="collection-section-header text-center">
+
+        {%- if section.settings.eyebrow -%}
+        <div class="grid-sub-title">
+          <div class="rte h5">
+            {{ section.settings.eyebrow }}
+          </div>
+        </div>
+        {%- endif -%}
+
+        <h1 class="h2"> {{ section.settings.title }} </h1>
+
+    </header>
+</div>
+
+
+
+
+
+{% schema %}
+  {
+    "name": "About Page Header",
+    "settings": [
+      {
+        "id": "eyebrow",
+        "type": "text",
+        "label": "Eyebrow",
+        "default": "Hello world"
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Hello world"
+      },
+      {
+        "id": "image-picker",
+        "type": "image_picker",
+        "label": "Hero Image"
+      }
+    ],
+    "presets": [
+      {
+          "name": "About Page Header",
+          "category": "About Page"
+      }
+    ]
+  }
+{% endschema %}

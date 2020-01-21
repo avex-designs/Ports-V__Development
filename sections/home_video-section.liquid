@@ -1,0 +1,56 @@
+<section id="fullscreen-video">
+
+  {{ section.settings.iframe }}
+
+  <div class="video_overlay">
+    <span class="eyebrow h5">{{ section.settings.eyebrow }}</span>
+    <h3 class="h1">{{ section.settings.title }}</h3>
+
+    {% if section.settings.link %}
+    <a href="{{ section.settings.link }}" class="ports-btn white"> {{ section.settings.linktext }} </a>
+    {% endif %}
+  </div>
+
+</section>
+
+{% schema %}
+  {
+    "name": "Video_section",
+    "settings": [
+      {
+        "id": "iframe",
+        "type": "textarea",
+        "label": "Video Iframe"
+      },
+      {
+        "id": "eyebrow",
+        "type": "text",
+        "label": "Eyebrow",
+        "default": "Hello world"
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Hello world"
+      },
+      {
+        "id": "link",
+        "type": "url",
+        "label": "Button link"
+      },
+      {
+        "id": "linktext",
+        "type": "text",
+        "label": "Button text",
+        "default": "Click here"
+      }
+    ],
+	  "presets": [
+	    {
+	      "name": "Video Section",
+	      "category": "Home Page"
+	    }
+	  ]
+  }
+{% endschema %}

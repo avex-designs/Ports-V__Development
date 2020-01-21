@@ -1,0 +1,257 @@
+<section id="Lookbook_bold_text">
+  
+  <span class="eyebrow h4"> {{ page.metafields.lookbook.eyebrow_text }}  </span>
+
+  <h2> {{ page.metafields.lookbook.bold_text }}</h2>
+
+</section>
+
+
+<section id="Lookybooky">
+
+    {% assign count = 0 %}
+
+    {% for value in page.metafields.lookbook.image_one %}
+    {% assign count = count | plus: 1 %}
+
+        {% if page.metafields.lookbook.image_two[forloop.index0].size > 0 %}
+
+            <div class="images-column-container mob-hide">
+                <div class="block half_width ports-pad-all">
+                    <div class="img-block">
+                        {{ page.metafields.lookbook.image_one[forloop.index0] | img_tag }}
+                        <button id="slider_right_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
+                        <button id="slider_right_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                    </div>
+                </div> <!-- half_width -->
+                <div class="block half_width ports-pad-all">
+                    <div class="img-block">
+                        {{ page.metafields.lookbook.image_two[forloop.index0] | img_tag }}
+                        <button id="slider_left_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
+                        <button id="slider_left_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                    </div>
+                </div> <!-- half_width -->
+            </div> <!-- images-column-container -->
+
+            <div class="slider_wrapper slider_right_{{ count }}_wrapper non-init">
+                <div class="block desk-hide">
+                    <div class="img-block">
+                     {{ page.metafields.lookbook.image_one[forloop.index0] | img_tag }}
+                      <button id="slider_right_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
+                      <button id="slider_right_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                    </div>
+                </div>
+                <div class="block-slider-container ports-pad-all">
+                    <div class="slider_right_{{ count }}">
+                        {% assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' %}
+                        {% assign product_list = collections.all.products %}
+                        {% for selected_handle in selected_handles %}
+                        {% for product in product_list %}
+                        {% if product.available and product.handle == selected_handle %}
+                        <div class="item">
+                            {% include 'product-grid-item_ports' %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div> <!-- slider -->
+                </div><!-- block-slider-container -->
+            </div><!-- column 1 wrapper -->
+
+            <div class="slider_wrapper slider_left_{{ count }}_wrapper non-init">
+                <div class="block desk-hide">
+                    <div class="img-block">
+                     {{ page.metafields.lookbook.image_two[forloop.index0] | img_tag }}
+                      <button id="slider_left_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
+                      <button id="slider_left_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                    </div>
+                </div>
+                <div class="block-slider-container ports-pad-all">
+                    <div class="slider_left_{{ count }}">
+                        {% assign selected_handles = page.metafields.lookbook.column_two_products[forloop.index0] | split: '|' %}
+                        {% assign product_list = collections.all.products %}
+                        {% for selected_handle in selected_handles %}
+                        {% for product in product_list %}
+                        {% if product.available and product.handle == selected_handle %}
+                        <div class="item">
+                            {% include 'product-grid-item_ports' %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div> <!-- slider -->
+                </div><!-- block-slider-container -->
+            </div><!-- column 2 wrapper -->
+
+
+            <script type="text/javascript">
+            $(document).ready(function(){
+
+                var index = {{ count }}
+
+                $('#slider_right_'+index+'_btn').click(function(){
+                    console.log(index);
+
+                    $(this).addClass('back');
+                    $('#slider_right_'+index+'_btn_destroy').removeClass('back');
+                    $('.slider_right_'+index+'_wrapper').removeClass('non-init');
+
+                    $('.slider_right_'+index).slick({
+                        infinite: false,
+                        slidesToShow: 4,
+                        draggable: false,
+                        responsive: [
+                          {
+                            breakpoint: 1023,
+                            settings: {
+                              slidesToShow: 3
+                            }
+                          },
+                          {
+                            breakpoint: 719,
+                            settings: {
+                            slidesToShow: 2
+                            }
+                          }
+                        ]
+                    });
+
+                });
+
+                $('#slider_right_'+index+'_btn_destroy').click(function(){
+                    $(this).addClass('back');
+                    $('#slider_right_'+index+'_btn').removeClass('back');
+                    $('.slider_right_'+index+'_wrapper').addClass('non-init');
+                    $('.slider_right_'+index).slick('unslick');
+                });
+
+
+                $('#slider_left_'+index+'_btn').click(function(){
+                    console.log(index);
+
+                    $(this).addClass('back');
+                    $('#slider_left_'+index+'_btn_destroy').removeClass('back');
+                    $('.slider_left_'+index+'_wrapper').removeClass('non-init');
+
+                    $('.slider_left_'+index).slick({
+                        infinite: false,
+                        slidesToShow: 4,
+                        draggable: false,
+                        responsive: [
+                          {
+                            breakpoint: 1023,
+                            settings: {
+                              slidesToShow: 3
+                            }
+                          },
+                          {
+                            breakpoint: 719,
+                            settings: {
+                            slidesToShow: 2
+                            }
+                          }
+                        ]
+                    });
+                });
+
+                $('#slider_left_'+index+'_btn_destroy').click(function(){
+                    $(this).addClass('back');
+                    $('#slider_left_'+index+'_btn').removeClass('back');
+                    $('.slider_left_'+index+'_wrapper').addClass('non-init');
+                    $('.slider_left_'+index).slick('unslick');
+                });
+
+            });
+            </script>
+
+        {% else %}
+
+            <div class="slider_wrapper slider_full_{{ count }}_wrapper non-init full_width">
+                <div class="block ports-pad-all">
+                    <div class="img-block">
+                     {{ page.metafields.lookbook.image_one[forloop.index0] | img_tag }}
+                      <button id="slider_full_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
+                      <button id="slider_full_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                    </div>
+                </div>
+                <div class="block-slider-container ports-pad-all">
+                    <div class="slider_full_{{ count }}">
+                        {% assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' %}
+                        {% assign product_list = collections.all.products %}
+                        {% for selected_handle in selected_handles %}
+                        {% for product in product_list %}
+                        {% if product.available and product.handle == selected_handle %}
+                        <div class="item">
+                            {% include 'product-grid-item_ports' %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div> <!-- slider -->
+                </div> <!-- block-slider-container -->
+            </div><!-- single column wrapper -->
+
+            <script type="text/javascript">
+            $(document).ready(function(){
+
+                var index = {{ count }}
+
+                $('#slider_full_'+index+'_btn').click(function(){
+
+                    $(this).addClass('back');
+                    $('#slider_full_'+index+'_btn_destroy').removeClass('back');
+                    $('.slider_full_'+index+'_wrapper').removeClass('non-init');
+
+                    $('.slider_full_'+index).slick({
+                        infinite: false,
+                        slidesToShow: 4,
+                        draggable: false,
+                        responsive: [
+                          {
+                            breakpoint: 1023,
+                            settings: {
+                              slidesToShow: 3
+                            }
+                          },
+                          {
+                            breakpoint: 719,
+                            settings: {
+                            slidesToShow: 2
+                            }
+                          }
+                        ]
+                    });
+
+                });
+
+                $('#slider_full_'+index+'_btn_destroy').click(function(){
+                    $(this).addClass('back');
+                    $('#slider_full_'+index+'_btn').removeClass('back');
+                    $('.slider_full_'+index+'_wrapper').addClass('non-init');
+                    $('.slider_full_'+index).slick('unslick');
+                });
+
+            });
+            </script>
+
+        {% endif %}
+
+    {% endfor %} 
+
+</section>
+
+
+
+{% schema %}
+  {
+    "name": "Lookbook",
+    "settings": [
+    ],
+    "presets": [
+      {
+        "name": "Lookbook Layout",
+        "category": "Lookbook Page"
+      }
+    ]
+  }
+{% endschema %}

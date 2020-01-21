@@ -1,0 +1,105 @@
+<section data-section-id="{{ section.id }}" id="about_img-text">
+
+  <div class="wrapper desk--hide tablet-down">
+    <header>
+      <div class="text-header-container">
+        <div class="eyebrow_text">
+          <span class="slash-img"></span>
+          <h5>{{ section.settings.eyebrow }}</h5>
+        </div>
+        <h4> {{ section.settings.title }} </h4>
+      </div>
+    </header>
+  </div>
+
+  <div class="wrapper">
+
+    <div class="column">
+        <div class="img-wrap">
+          <img src="{{ section.settings.image-picker | img_url: 'master' }}" alt="{{ section.settings.image-picker.alt }}">
+        </div>
+    </div>
+
+    <div class="column text-container">
+        <header>
+          <div class="text-header-container tab-down--hide">
+            <div class="eyebrow_text">
+              <span class="slash-img"></span>
+              <h5>{{ section.settings.eyebrow }}</h5>
+            </div>
+            <h4> {{ section.settings.title }} </h4>
+          </div>
+          <p> {{ section.settings.copy }} </p>
+        </header>
+        <div class="quotes tab-down--hide">
+
+            <span class="quote_copy h5">{{ section.settings.quote }}</span>
+
+            <h6 class="caption">{{ section.settings.quoted }}</h6>
+
+        </div>
+    </div>
+
+  </div>
+
+  <div class="wrapper desk--hide tablet-down">
+    <div class="quotes">
+        <span class="quote_copy h5">{{ section.settings.quote }}</span>
+        <h6 class="caption">{{ section.settings.quoted }}</h6>
+    </div>
+  </div>
+
+
+</section>
+
+
+
+
+{% schema %}
+  {
+    "name": "Image & Text",
+    "settings": [
+      {
+        "id": "eyebrow",
+        "type": "text",
+        "label": "Eyebrow",
+        "default": "Hello world"
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Hello world"
+      },
+      {
+        "id": "copy",
+        "type": "textarea",
+        "label": "Copy",
+        "default": "Hello world"
+      },
+      {
+        "id": "quote",
+        "type": "textarea",
+        "label": "Quote Copy",
+        "default": "Hello world"
+      },
+      {
+        "id": "quoted",
+        "type": "text",
+        "label": "Quote Person",
+        "default": "Hello world"
+      },
+      {
+        "id": "image-picker",
+        "type": "image_picker",
+        "label": "Right Image"
+      }
+    ],
+    "presets": [
+      {
+          "name": "Image & Text",
+          "category": "About Page"
+      }
+    ]
+  }
+{% endschema %}

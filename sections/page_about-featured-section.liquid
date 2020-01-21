@@ -1,0 +1,56 @@
+<section id="about_featured">
+
+  <img src="{{ section.settings.image-picker | img_url: 'master' }}" alt="{{ section.settings.image-picker.alt }}">
+
+  <div class="img_overlay">
+    <span class="eyebrow h5">{{ section.settings.eyebrow }}</span>
+    <h3 class="h1">{{ section.settings.title }}</h3>
+
+    {% if section.settings.link %}
+    <a href="{{ section.settings.link }}" class="ports-btn white"> {{ section.settings.linktext }} </a>
+    {% endif %}
+  </div>
+
+</section>
+
+{% schema %}
+  {
+    "name": "Featured Section",
+    "settings": [
+      {
+        "id": "image-picker",
+        "type": "image_picker",
+        "label": "Right Image"
+      },
+      {
+        "id": "eyebrow",
+        "type": "text",
+        "label": "Eyebrow",
+        "default": "Hello world"
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Hello world"
+      },
+      {
+        "id": "link",
+        "type": "url",
+        "label": "Button link"
+      },
+      {
+        "id": "linktext",
+        "type": "text",
+        "label": "Button text",
+        "default": "Click here"
+      }
+    ],
+	  "presets": [
+	    {
+	      "name": "Featured Section",
+	      "category": "About Page"
+	    }
+	  ]
+  }
+{% endschema %}

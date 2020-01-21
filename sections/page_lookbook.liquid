@@ -1,0 +1,414 @@
+<section id="Lookybooky">
+
+
+  {% comment %}
+    <!--==== IF 2 COLUMNS ====-->
+    <div class="images-column-container mob-hide">
+        <div class="block">
+            <div class="img-block">
+                <img src="{{ 'lookbook-1.jpg' | file_url }}"/>
+                <button class="slider_1_btn"> slider trigger</button>
+                <button class="slider_1_btn_destroy"> slider destroy</button>
+            </div>
+        </div>
+        <div class="block">
+            <div class="img-block">
+                <img src="{{ 'lookbook-2.jpg' | file_url }}"/>
+                <button class="slider_2_btn"> slider trigger</button>
+            </div>
+        </div>
+    </div> <!-- images-column-container -->
+    <!--==== END IF 2 COLUMNS ====-->
+
+    <div class="slider_wrapper slider_1_wrapper non-init">
+        <div class="block desk-hide">
+            <div class="img-block">
+                <img src="{{ 'lookbook-1.jpg' | file_url }}"/>
+                <button class="slider_1_btn"> slider trigger</button>
+            </div>
+        </div>
+        <div class="block-slider-container">
+          <div class="slider_1">
+              {% for product in collections.pants-1.products limit:10 %}
+              {% if product.available %}
+              <div class="item">
+                  {% include 'product-grid-item_ports' %}
+              </div><!-- item -->
+              {% endif %}
+              {% endfor %}
+          </div>
+        </div><!-- block-slider-container -->
+    </div><!-- column 1 wrapper -->
+
+    <!--==== IF 2 COLUMNS ====-->
+    <div class="slider_wrapper slider_2_wrapper non-init">
+        <div class="block desk-hide">
+            <div class="img-block">
+                <img src="{{ 'lookbook-2.jpg' | file_url }}"/>
+                <button class="slider_2_btn"> slider trigger</button>
+            </div>
+        </div>
+        <div class="block-slider-container">
+          <div class="slider_2">
+              {% for product in collections.jacket.products limit:10 %}
+              {% if product.available %}
+              <div class="item">
+                  {% include 'product-grid-item_ports' %}
+              </div><!-- item -->
+              {% endif %}
+              {% endfor %}
+          </div>
+        </div> <!-- block-slider-container -->
+    </div><!-- column 2 wrapper -->
+    <!--==== END IF 2 COLUMNS ====-->
+    {% endcomment %}
+
+
+
+
+    {% assign count = 0 %}
+
+    {% for value in page.metafields.lookbook.image_one %}
+    {% assign count = count | plus: 1 %}
+
+      {% for true in page.metafields.lookbook.cols %}
+      {% if true.size > 0 %}
+      <div class="images-column-container mob-hide">
+      
+          <div class="block">
+              <div class="img-block">
+                 <!-- <img src="{{ 'lookbook-1.jpg' | file_url }}"/>-->
+                  {{ page.metafields.lookbook.image_one[forloop.index0] | img_tag }}
+                  <button class="slider_1_btn"> slider trigger</button>
+                  <button class="slider_1_btn_destroy"> slider destroy</button>
+              </div>
+          </div>
+
+          <div class="block">
+              <div class="img-block">
+                  <!-- <img src="{{ 'lookbook-2.jpg' | file_url }}"/> -->
+                  {{ page.metafields.lookbook.image_two[forloop.index0] | img_tag }}
+                  <button class="slider_2_btn"> slider trigger</button>
+                  <button class="slider_2_btn_destroy"> slider destroy</button>
+              </div>
+          </div>
+
+      </div> <!-- images-column-container -->
+      {% endif %}
+      {% endfor %}
+
+
+      <div class="slider_wrapper slider_{{ count }}_wrapper non-init {% if page.metafields.lookbook.cols %}two_column{% else %} one_column{%endif%}">
+
+          <div class="block desk-hide">
+              <div class="img-block">
+               {{ page.metafields.lookbook.image_one[forloop.index0] | img_tag }}
+                <button class="slider_{{ count }}_btn"> slider trigger</button>
+                <button class="slider_{{ count }}_btn_destroy"> slider destroy</button>
+              </div>
+          </div>
+
+          <span class="bottom-img-text">  {{ page.metafields.lookbook.column_one_products[forloop.index0] }} </span>
+
+          <div class="block-slider-container">
+              <div class="slider_{{ count }}">
+                  {% for product in collections.pants-1.products limit:10 %}
+                  {% if product.available %}
+                  <div class="item">
+                      {% include 'product-grid-item_ports' %}
+                  </div><!-- item -->
+                  {% endif %}
+                  {% endfor %}
+              </div>
+          </div><!-- block-slider-container -->
+
+      </div><!-- column 1 wrapper -->
+
+
+      {% for true in page.metafields.lookbook.cols[forloop.index0] %}
+      {% if true.size > 0 %}
+      {% assign count = count | plus: 1 %}
+      <div class="slider_wrapper slider_{{ count }}_wrapper non-init half_column">
+        
+          <div class="block desk-hide">
+              <div class="img-block">
+               {{ page.metafields.lookbook.image_two[forloop.index0] | img_tag }}
+                <button class="slider_{{ count }}_btn"> slider trigger</button>
+                <button class="slider_{{ count }}_btn_destroy"> slider destroy</button>
+              </div>
+          </div>
+
+          <span class="bottom-img-text">  {{ page.metafields.lookbook.column_two_products[forloop.index0] }} </span>
+
+          <div class="block-slider-container">
+              <div class="slider_{{ count }}">
+                  {% for product in collections.pants-1.products limit:10 %}
+                  {% if product.available %}
+                  <div class="item">
+                      {% include 'product-grid-item_ports' %}
+                  </div><!-- item -->
+                  {% endif %}
+                  {% endfor %}
+              </div>
+          </div><!-- block-slider-container -->
+
+      </div><!-- column 2 wrapper -->
+      {% endif %}
+      {% endfor %}
+
+    {% endfor %} 
+
+
+
+</section>
+
+
+
+<style>
+
+.non-init .block-slider-container {
+    display: none;
+}
+
+
+.desk-hide {
+  display: none;
+}
+
+.images-column-container {
+    display: flex;
+}
+
+#LookyBooky {
+    display: flex;
+}
+
+.half_width,
+.full_width {
+    flex: 1 1 auto;
+}
+
+.half_width {
+    width: 50%;
+}
+
+.full_width {
+    width: 100%;
+}
+
+@media screen and (max-width: 1024px ) {
+
+.mob-hide {
+  display: none;
+}
+
+.desk-hide {
+  display: initial;
+}
+
+}
+
+</style>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+    $('.slider_1_btn').click(function(){
+
+      var slider_init;
+
+
+      if ( slider_init === true ) {
+
+
+        $('.slider_1_wrapper').addClass('non-init');
+
+        $('.slider_1').slick('unslick');
+
+        var slider_init = false;
+        console.log(slider_init);
+        console.log('banana');
+
+
+      } else {
+
+
+          $('.slider_1_wrapper').removeClass('non-init');
+
+          $('.slider_1').slick({
+              infinite: false,
+              slidesToShow: 4,
+              draggable: false,
+              responsive: [
+                {
+                  breakpoint: 1023,
+                  settings: {
+                    slidesToShow: 3
+                  }
+                },
+                {
+                  breakpoint: 719,
+                  settings: {
+                  slidesToShow: 2
+                  }
+                }
+              ]
+          });
+
+          var slider_init = true;
+          console.log(slider_init);
+      }
+
+      console.log(slider_init);
+
+    });
+
+
+    $('.slider_1_btn_destroy').click(function(){
+
+        $('.slider_1_wrapper').addClass('non-init');
+
+        $('.slider_1').slick('unslick');
+
+    });
+
+});
+</script>
+
+
+
+
+{% comment %}
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $('#slider_right_1_btn').click(function(){
+
+        $(this).addClass('back');
+        $('#slider_right_1_btn_destroy').removeClass('back');
+        $('.slider_right_1_wrapper').removeClass('non-init');
+
+        $('.slider_right_1').slick({
+            infinite: false,
+            slidesToShow: 2,
+            draggable: false,
+            responsive: [
+              {
+                breakpoint: 1023,
+                settings: {
+                  slidesToShow: 3
+                }
+              },
+              {
+                breakpoint: 719,
+                settings: {
+                slidesToShow: 2
+                }
+              }
+            ]
+        });
+    });
+
+    $('#slider_right_1_btn_destroy').click(function(){
+        $(this).addClass('back');
+        $('#slider_right_1_btn').removeClass('back');
+        $('.slider_right_1_wrapper').addClass('non-init');
+        $('.slider_right_1').slick('unslick');
+    });
+
+
+    $('#slider_left_1_btn').click(function(){
+
+        $(this).addClass('back');
+        $('#slider_left_1_btn_destroy').removeClass('back');
+        $('.slider_left_1_wrapper').removeClass('non-init');
+
+        $('.slider_left_1').slick({
+            infinite: false,
+            slidesToShow: 2,
+            draggable: false,
+            responsive: [
+              {
+                breakpoint: 1023,
+                settings: {
+                  slidesToShow: 3
+                }
+              },
+              {
+                breakpoint: 719,
+                settings: {
+                slidesToShow: 2
+                }
+              }
+            ]
+        });
+    });
+
+
+    $('#slider_left_1_btn_destroy').click(function(){
+        $(this).addClass('back');
+        $('#slider_left_1_btn').removeClass('back');
+        $('.slider_left_1_wrapper').addClass('non-init');
+        $('.slider_left_1').slick('unslick');
+    });
+
+
+
+    $('#slider_full_2_btn').click(function(){
+
+        var slider_init;
+
+        $(this).addClass('back');
+        $('#slider_full_2_btn_destroy').removeClass('back');
+        $('.slider_full_2_wrapper').removeClass('non-init');
+
+        $('.slider_full_2').slick({
+            infinite: false,
+            slidesToShow: 4,
+            draggable: false,
+            responsive: [
+              {
+                breakpoint: 1023,
+                settings: {
+                  slidesToShow: 3
+                }
+              },
+              {
+                breakpoint: 719,
+                settings: {
+                slidesToShow: 2
+                }
+              }
+            ]
+        });
+    });
+
+
+    $('#slider_full_2_btn_destroy').click(function(){
+        $(this).addClass('back');
+        $('#slider_full_2_btn').removeClass('back');
+        $('.slider_full_2_wrapper').addClass('non-init');
+        $('.slider_full_2').slick('unslick');
+    });
+
+});
+</script>
+{% endcomment %}
+
+
+
+{% schema %}
+  {
+    "name": "Lookbook",
+    "settings": [
+    ],
+    "presets": [
+      {
+        "name": "Lookbook Layout",
+        "category": "Lookbook Page"
+      }
+    ]
+  }
+{% endschema %}

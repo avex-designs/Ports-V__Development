@@ -1,0 +1,57 @@
+<!-- /snippets/social-sharing.liquid -->
+{% assign shareButtonStyle = settings.social_sharing_style %}
+
+<div class="social-share-container">
+  
+  <span class="social-share-trigger h6">Share</span>
+
+  <span class="share-image active"> {{ 'product-social-share.svg' | file_url | img_tag }} </span>
+
+  <div class="social-sharing {{ shareButtonStyle }}">
+    {% if settings.share_facebook %}
+      <a target="_blank" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}" class="share-facebook" title="{{ 'general.social.alt_text.share_on_facebook' | t }}">
+        <span class="icon icon-facebook-share" aria-hidden="true"></span>
+        <span class="share-title" aria-hidden="true">{{ 'general.social.share_on_facebook' | t }}</span>
+        <span class="visually-hidden">{{ 'general.social.alt_text.share_on_facebook' | t }}</span>
+      </a>
+    {% endif %}
+    {% if settings.share_twitter %}
+      <a target="_blank" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}" class="share-twitter" title="{{ 'general.social.alt_text.share_on_twitter' | t }}">
+        <span class="icon icon-twitter-share" aria-hidden="true"></span>
+        <span class="share-title" aria-hidden="true">{{ 'general.social.share_on_twitter' | t }}</span>
+        <span class="visually-hidden">{{ 'general.social.alt_text.share_on_twitter' | t }}</span>
+      </a>
+    {% endif %}
+
+    <a target="_blank" href="mailto:" class="share-email" title="email to a friend">
+      <span class="icon icon-email-share" aria-hidden="true"></span>
+    </a>
+
+    {% if settings.share_pinterest %}
+      <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}" class="share-pinterest" title="{{ 'general.social.alt_text.share_on_pinterest' | t }}">
+        <span class="icon icon-pinterest-share" aria-hidden="true"></span>
+        <span class="share-title" aria-hidden="true">{{ 'general.social.share_on_pinterest' | t }}</span>
+        <span class="visually-hidden">{{ 'general.social.alt_text.share_on_pinterest' | t }}</span>
+      </a>
+    {% endif %}
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $('.social-share-trigger').click(function(){
+      if ( $('.share-image').hasClass('active') ) {
+          $('.share-image').removeClass('active');
+          $('.social-sharing').addClass('active');
+      }
+      else if ( $('.social-sharing').hasClass('active') ) {
+          $('.social-sharing').removeClass('active');
+          $('.share-image').addClass('active');
+      }
+  });
+
+});
+</script>

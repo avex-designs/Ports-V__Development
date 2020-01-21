@@ -1,0 +1,382 @@
+/*============================================================================
+
+	Port V - Style Guide Stylesheet
+
+==============================================================================*/
+
+
+/*********
+BREAKPOINTS BREAKPOINTS
+*********/
+
+$ports-min-desk: 1024px;
+
+$ports-max-tab: 1023px;
+$ports-tab: 720px;
+
+$ports-max-mob: 719px;
+$ports-mob: 420px;
+
+
+
+/*====================
+  Typography
+====================*/
+
+body,
+p,
+.ports-btn,
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+	font-family: "stevie-sans",sans-serif;
+	font-style:  normal;
+}
+
+body, p {
+	font-size: 0.875rem;
+	line-height: 1.5rem;
+	font-weight: 400;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h6, .h6, {
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+h1, .h1 {
+	font-size: 3.5rem;
+	line-height: 1.03;
+	letter-spacing: 0.3125rem;
+}
+
+h2, .h2 {
+	font-size: 2.5rem;
+	line-height: 3.5rem;
+	letter-spacing:0.1875rem;
+}
+
+h3, .h3 {
+	font-size: 2rem;
+	line-height: 3rem;
+	letter-spacing:0.1875rem;
+}
+
+h4, .h4 {
+	font-size: 1.5rem;
+	line-height: 2.25rem;
+	letter-spacing: .125rem;
+}
+
+h5, .h5 {
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+
+h6, .h6 {
+	font-size: .75rem;
+	line-height: 1.125rem;
+	letter-spacing: .0625rem;
+}
+
+
+
+
+
+
+@media screen and (max-width: $ports-max-tab ) {
+
+h1, .h1 {
+	font-size: 2.5rem;
+	line-height: 1.35;
+}
+
+h2, .h2 {
+	font-size: 2rem;
+	line-height: 2.5rem;
+	letter-spacing: 0.3125rem;
+}
+
+h3, .h3,
+h4, .h4 {
+	font-size: 1.25rem;
+	line-height: 1.625rem;
+	letter-spacing:0.1875rem;
+}
+
+h5, .h5 {
+	font-size: 1.25rem;
+	line-height: 2rem;
+}
+
+}
+
+
+
+@media screen and (max-width: $ports-max-mob ) {
+
+h1, .h1 {
+	font-size: 2rem;
+	line-height: 3rem;
+}
+
+h2, .h2 {
+	font-size: 1.5rem;
+	line-height: 2.25rem;
+	letter-spacing: 0.125rem;
+}
+
+h3, .h3,
+h4, .h4 {
+	font-size: 1rem;
+	line-height: 2rem;
+}
+
+h5, .h5 {
+	font-size: 1.25rem;
+	line-height: 2rem;
+}
+
+}
+
+
+
+
+
+/*====================
+  BUTTONS N SHET
+====================*/
+
+.ports-btn {
+    height: 3rem;
+    width: 100%;
+    max-width: 21.5rem;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    letter-spacing: 0.0625rem;
+    padding: 0 2rem;
+
+    &:hover {
+    	background: #2b2b2b;
+    	color: #fff;
+    }
+
+    &.white {
+    	background: #fff;
+    	color: #000;
+    }
+
+    &.white:hover {
+    	background: #f4f4f4;
+    	color: #000;
+    }
+
+
+    &.inactive,
+    &.inactive:hover  {
+    	background: #8a8a8a;
+    	color: #dadada;
+    	cursor: not-allowed;
+    }
+
+}
+
+
+
+.ports-link {
+    width: auto;
+    background: transparent;
+    color: #000;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    letter-spacing: 0.0625rem;
+    text-transform: uppercase;
+
+    &:hover {
+        color: #000;
+    }
+
+    &.inactive,
+    &.inactive:hover  {
+    	 color: #8a8a8a;
+    	 cursor: not-allowed;
+    }
+
+    &:after {
+  	    display:block;
+  	    content: '';
+  	    border-bottom: solid 2px #222323;  
+  	    transform: scaleX(0);  
+  	    transition: transform 250ms ease-in-out;
+  	    transform-origin: 100% 50%;
+  	    margin-bottom: -2px;
+  	}
+  
+  	&:hover:after {
+  	    transform: scaleX(1);
+  	    transform-origin: 0% 50%;
+  	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/***********************
+	Gutters
+***********************/
+
+$gutters: 2.5rem;
+$guttersTablet: 2rem;
+$guttersMobile: 1rem;
+
+
+/***********************
+padding
+***********************/
+.ports-pad-all { padding: $gutters; }
+
+.ports-pad-right { padding-right: $gutters; }
+.ports-pad-left { padding-left: $gutters; }
+.ports-pad-sides {
+  padding-right: $gutters;
+  padding-left: $gutters;
+}
+
+.ports-pad-top { padding-top: $gutters; }
+.ports-pad-bottom { padding-bottom: $gutters; }
+.ports-pad-vert {
+  padding-top: $gutters;
+  padding-bottom: $gutters;
+}
+
+/***********************
+margin
+***********************/
+.ports-margin-all { margin: $gutters; }
+
+.ports-margin-right { margin-right: $gutters; }
+.ports-margin-left { margin-left: $gutters; }
+.ports-margin-sides {
+  margin-right: $gutters;
+  margin-left: $gutters;
+}
+.ports-margin-top { margin-top: $gutters; }
+.ports-margin-bottom { margin-bottom: $gutters; }
+.ports-margin-vert {
+  margin-top: $gutters;
+  margin-bottom: $gutters;
+}
+
+
+
+
+
+
+@media screen and (max-width: $ports-max-tab ) {
+
+/***********************
+padding
+***********************/
+.ports-pad-all { padding: $guttersTablet; }
+
+.ports-pad-right { padding-right: $guttersTablet; }
+.ports-pad-left { padding-left: $guttersTablet; }
+.ports-pad-sides {
+  padding-right: $guttersTablet;
+  padding-left: $guttersTablet;
+}
+
+.ports-pad-top { padding-top: $guttersTablet; }
+.ports-pad-bottom { padding-bottom: $guttersTablet; }
+.ports-pad-vert {
+  padding-top: $guttersTablet;
+  padding-bottom: $guttersTablet;
+}
+
+/***********************
+margin
+***********************/
+.ports-margin-all { margin: $guttersTablet; }
+
+.ports-margin-right { margin-right: $guttersTablet; }
+.ports-margin-left { margin-left: $guttersTablet; }
+.ports-margin-sides {
+  margin-right: $guttersTablet;
+  margin-left: $guttersTablet;
+}
+.ports-margin-top { margin-top: $guttersTablet; }
+.ports-margin-bottom { margin-bottom: $guttersTablet; }
+.ports-margin-vert {
+  margin-top: $guttersTablet;
+  margin-bottom: $guttersTablet;
+}
+
+}
+
+
+@media screen and (max-width: $ports-max-mob ) {
+
+/***********************
+padding
+***********************/
+.ports-pad-all { padding: $guttersMobile; }
+
+.ports-pad-right { padding-right: $guttersMobile; }
+.ports-pad-left { padding-left: $guttersMobile; }
+.ports-pad-sides {
+  padding-right: $guttersMobile;
+  padding-left: $guttersMobile;
+}
+
+.ports-pad-top { padding-top: $guttersMobile; }
+.ports-pad-bottom { padding-bottom: $guttersMobile; }
+.ports-pad-vert {
+  padding-top: $guttersMobile;
+  padding-bottom: $guttersMobile;
+}
+
+/***********************
+margin
+***********************/
+.ports-margin-all { margin: $guttersMobile; }
+
+.ports-margin-right { margin-right: $guttersMobile; }
+.ports-margin-left { margin-left: $guttersMobile; }
+.ports-margin-sides {
+  margin-right: $guttersMobile;
+  margin-left: $guttersMobile;
+}
+.ports-margin-top { margin-top: $guttersMobile; }
+.ports-margin-bottom { margin-bottom: $guttersMobile; }
+.ports-margin-vert {
+  margin-top: $guttersMobile;
+  margin-bottom: $guttersMobile;
+}
+
+}
+
+
+

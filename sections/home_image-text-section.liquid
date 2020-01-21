@@ -1,0 +1,73 @@
+<section data-section-id="{{ section.id }}" id="home-image-text-section">
+
+    <div class="two-col-img-text">
+
+      <div class="img-wrap">
+        <img src="{{ section.settings.image-picker | img_url: 'master' }}" alt="{{ section.settings.image-picker.alt }}">
+      </div>
+
+      <div class="text-header-container">
+
+          <div class="eyebrow_text">
+            <span class="slash-img"></span>
+            <h5>{{ section.settings.eyebrow }}</h5>
+          </div>
+          <h2>{{ section.settings.title }}</h2>
+          <p> {{ section.settings.copy }}</p>
+          {% if section.settings.link %}
+          <a href="{{ section.settings.link }}" class="ports-btn" title="link to shop products"> {{ section.settings.linktext }}</a>
+          {% endif %}
+
+      </div>
+
+    </div>
+
+</section>
+
+{% schema %}
+  {
+    "name": "Img_Text_section",
+    "settings": [
+      {
+        "id": "eyebrow",
+        "type": "text",
+        "label": "Eyebrow",
+        "default": "Hello world"
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Hello world"
+      },
+      {
+        "id": "copy",
+        "type": "textarea",
+        "label": "Copy",
+        "default": "Hello world"
+      },
+      {
+        "id": "link",
+        "type": "url",
+        "label": "Button link"
+      },
+      {
+        "id": "linktext",
+        "type": "text",
+        "label": "Button text",
+        "default": "Click here"
+      },
+      {
+        "id": "image-picker",
+        "type": "image_picker",
+        "label": "Image"
+      }
+    ],
+	  "presets": [
+	    {
+	      "name": "Text and Image",
+	      "category": "Home Page"
+	    }
+	  ]
+  }
+{% endschema %}

@@ -1,0 +1,109 @@
+<section class="BANANA" data-section-id="{{ section.id }}" id="home-product-slider">
+
+  <header>
+    <div class="text-header-container">
+      <div class="eyebrow_text">
+        <span class="slash-img"></span>
+        <h5>{{ section.settings.eyebrow }}</h5>
+      </div>
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+  </header>
+
+  <div id="product_slider_container">
+   
+    <div class="product_slider">
+      {% for product in collections.pants-1.products limit:10 %}
+      {% if product.available %}
+      
+      <div class="item">
+
+        {% include 'product-grid-item_ports' %}
+
+      </div><!-- item -->
+
+      {% endif %}
+      {% endfor %}
+    </div> <!-- product_slider -->
+    
+    
+  </div> <!-- #product_slider_container -->
+
+
+</section>
+
+{% include 'ajaxify-cart' %}
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $('.product_slider').slick({
+    infinite: false,
+    slidesToShow: 4,
+    draggable: false,
+    //appendArrows: $('.arrows_append'),
+    prevArrow: '<button type="button" class="slick-prev slider-arrow">Previous</button>',
+    nextArrow: '<button type="button" class="slick-next slider-arrow">Next</button>',
+    responsive: [
+      {
+        breakpoint: 1023,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 719,
+        settings: {
+        slidesToShow: 2
+        }
+      }
+    ]
+  });
+
+
+  //$('.le_slider').slick();
+
+
+  $('.swatch :radio').change(function() {
+    var optionIndex = $(this).closest('.swatch').attr('data-option-index');
+    var optionValue = $(this).val();
+    
+    console.log(optionIndex)
+    
+    $(this)
+      .closest('form')
+      .find('.single-option-selector')
+      .eq(optionIndex)
+      .val(optionValue)
+      .trigger('change');
+  });
+
+});
+</script>
+
+
+{% schema %}
+  {
+    "name": "Product_slider",
+    "settings": [
+      {
+        "id": "eyebrow",
+        "type": "text",
+        "label": "Eyebrow",
+        "default": "Hello world"
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Hello world"
+      }
+    ],
+	  "presets": [
+	    {
+	      "name": "Product Slider",
+	      "category": "Home Page"
+	    }
+	  ]
+  }
+{% endschema %}
