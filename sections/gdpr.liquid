@@ -1,0 +1,33 @@
+{% if section.settings.gdpr_text != blank and section.settings.gdpr_button_text != blank %}
+	<div class="gdpr" id="gdpr">
+		<div class="gdpr__wrapper">
+			<div class="gdpr__text">
+				{{- section.settings.gdpr_text -}}
+			</div>
+
+			<a href="#" class="ports-btn gdpr__button js-gdpr-close">
+				{{- section.settings.gdpr_button_text -}}
+			</a>
+		</div>
+	</div>
+{% endif %}
+
+{% schema %}
+	{
+		"name": "GDPR",
+		"settings": [
+			{
+				"type": "richtext",
+				"id": "gdpr_text",
+				"label": "GDPR text",
+				"default": "<p>We use cookies to improve your website experience.</p><p>You may disable them from your browser settings at any time.</p>"
+			},
+			{
+				"type": "text",
+				"id": "gdpr_button_text",
+				"label": "GDPR button text",
+				"default": "Ok"
+			}
+		]
+	}
+{% endschema %}

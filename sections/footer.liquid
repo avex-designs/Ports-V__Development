@@ -126,7 +126,7 @@
       {% endif %}
 
       <div class="grid__item-footer copyright-noise">
-        <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}. All rights Reserved <br><span class="mob-hide">|</span> <a href="#" title="Terms and Conditions"> Terms & Conditions</a> <span>|</span> <a href="#" title="Privacy Policy"> Privacy Policy</a> </p>
+        <p class="grid__item-footer-copyright">&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}. All rights Reserved <br><span class="mob-hide">|</span> <a href="#" title="Terms and Conditions"> Terms & Conditions</a> <span>|</span> <a href="#" title="Privacy Policy"> Privacy Policy</a> </p>
         {% comment %}
           {%- if section.settings.show_payment_icons -%}
             {%- unless shop.enabled_payment_types == empty -%}

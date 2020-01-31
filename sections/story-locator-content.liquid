@@ -1,0 +1,81 @@
+<div class="story-locator__content">
+    <div class="story-locator__items-wrapper">
+        {% for block in section.blocks %}
+            <div class="story-locator__item">
+                <div class="story-locator__item-image-wrapper">
+                    <img class="story-locator__item-image" src="{{ block.settings.image | img_url:'600x' }}" alt="{{ block.settings.image.alt }}">
+                </div>
+
+                <h3 class="story-locator__item-title">{{ block.settings.title }}</h3>
+
+                <div class="story-locator__item-info">
+                    <p class="story-locator__item-info-line">
+                        {{ block.settings.address }}
+                    </p>
+
+                    <p class="story-locator__item-info-line">
+                        {{ 'customer.login.email' | t }}: {{ block.settings.email }}
+                    </p>
+
+                    <p class="story-locator__item-info-line">
+                        {{ 'customer.addresses.phone' | t }}: {{ block.settings.phone }}
+                    </p>
+                </div>
+
+                <a class="story-locator__item-link" href="{{ block.settings.link_url }}">
+                    {{ block.settings.link_text }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Story Locator",
+        "blocks": [
+            {
+                "name": "Card",
+                "type": "card",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title"
+                    },
+                    {
+                        "type": "text",
+                        "id": "address",
+                        "label": "Address"
+                    },
+                    {
+                        "type": "text",
+                        "id": "email",
+                        "label": "Email"
+                    },
+                    {
+                        "type": "text",
+                        "id": "phone",
+                        "label": "Phone"
+                    },
+                    {
+                        "type": "text",
+                        "id": "link_text",
+                        "label": "Link's Text",
+                        "default": "Get directions"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link_url",
+                        "label": "Link's url"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

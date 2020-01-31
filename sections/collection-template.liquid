@@ -150,8 +150,6 @@
 
 
 
-{% include 'ajaxify-cart' %}
-
 
 
 <script type="text/javascript">
@@ -160,9 +158,9 @@ $(document).ready(function(){
   $('.swatch :radio').change(function() {
     var optionIndex = $(this).closest('.swatch').attr('data-option-index');
     var optionValue = $(this).val();
-    
+
     console.log(optionIndex)
-    
+
     $(this)
       .closest('form')
       .find('.single-option-selector')
@@ -227,8 +225,8 @@ $(document).ready(function(){
     if ( new_array_STORED != null ) {
       //alert('non e nil');
       init_array = new_array_STORED;
-    
-      new_array_STORED.forEach(function(value){ 
+
+      new_array_STORED.forEach(function(value){
         //console.log(value);
         $('h6[data-attr= '+value+']').addClass('select');
         $('#' + value).addClass('banana');

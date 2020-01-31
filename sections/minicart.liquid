@@ -1,0 +1,43 @@
+<div id="minicart"></div>
+
+<script>
+	let buttons = [];
+
+	{% for block in section.blocks %}
+		{% if block.settings.title != blank and block.settings.link != blank %}
+			buttons.push({
+				'title': '{{- block.settings.title -}}',
+				'link': '{{- block.settings.link -}}'
+			});
+		{% endif %}
+	{% endfor %}
+
+	theme.MinicartButtons = {
+		...buttons
+	}
+
+</script>
+
+{% schema %}
+	{
+		"name": "Minicart",
+		"blocks": [
+			{
+				"type": "Button",
+				"name": "Button",
+				"settings": [
+					{
+						"type": "text",
+						"id": "title",
+						"label": "Button that will shows in Empty cart"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Button link"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}

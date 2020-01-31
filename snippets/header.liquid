@@ -312,15 +312,15 @@
                     <div class="search-bar-wrappa">
                     {% include 'search-bar-header', search_btn_style: 'btn-account', search_bar_location: 'search-bar--header-auto' %}
                    </div>
-                    <a id="search_init_btn" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}">  Search </a>
+                    <a id="search_init_btn" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}">  {{ 'general.search.title' | t }} </a>
                   </li>
                   {% if shop.customer_accounts_enabled %}
                   <li class="site-nav__item site-nav__expanded-item site-nav__item--compressed">
-                    <a class="site-nav__link site-nav__link--icon" href="{{ routes.account_url }}"> Account </a>
+                    <a class="site-nav__link site-nav__link--icon" href="{{ routes.account_url }}"> {{ 'layout.customer.account' | t }} </a>
                   </li>
                   {% endif %}
                   <li class="site-nav__item site-nav__item--compressed">
-                    <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
+                    <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-open-cart" aria-controls="CartDrawer">
                       <span class="cart-item-count"> {{ cart.item_count }} </span>
                     </a>
                   </li>
@@ -329,11 +329,11 @@
 
             <div class="grid__item desk--hide one-quarter">
               <div class="site-nav--mobile text-right">
-                <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
+                <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-open-cart" aria-controls="CartDrawer">
                   <span class="cart-item-count"> {{ cart.item_count }} </span>
                 </a>
                 {% comment %}
-                <a href="{{ routes.cart_url }}" class="site-nav__link cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
+                <a href="{{ routes.cart_url }}" class="site-nav__link cart-link js-open-cart" aria-controls="CartDrawer">
                   <span class="icon-fallback-text">
                     <span class="icon icon-cart" aria-hidden="true"></span>
                     <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>

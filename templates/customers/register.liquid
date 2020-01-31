@@ -1,39 +1,67 @@
 <!-- /templates/customers/register.liquid -->
+<div class="account-page--wrapper">
 
-<div class="grid">
+      {% form 'create_customer', class: 'general-form' %}
 
-  <div class="grid__item large--one-third push--large--one-third text-center">
+        <div class="grid">
+          <div class="grid__item large--one-half push--large--one-quarter text-center">
 
-    <header class="section-header">
-      <h1>{{ 'customer.register.title' | t }}</h1>
-      <hr class="hr--small">
-    </header>
+            <header class="section-header">
+              <h1 class="section-header__title h2">{{ 'customer.register.title' | t }}</h1>
+              <p><span>{% if form.errors %}{{ 'customer.login.try_again' | t }}{% else %}{{ 'layout.customer.have_an_account' | t }}{% endif %}</span> {{ 'layout.customer.log_in' | t | customer_login_link | replace: 'href=', 'class="underlined-link" href=' }}</p>
+            </header>
 
-    <div class="form-vertical">
-      {% form 'create_customer' %}
+          </div>
+        </div>
 
-        {{ form.errors | default_errors }}
+        <div class="grid">
 
-        <label for="FirstName" class="hidden-label">{{ 'customer.register.first_name' | t }}</label>
-        <input type="text" name="customer[first_name]" id="FirstName" class="input-full" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+          <div class="grid__item xlarge--four-twelfths large--one-half push--xlarge--one-third push--large--one-quarter text-center">
 
-        <label for="LastName" class="hidden-label">{{ 'customer.register.last_name' | t }}</label>
-        <input type="text" name="customer[last_name]" id="LastName" class="input-full" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+            <div class="general-form--inner">
 
-        <label for="Email" class="hidden-label">{{ 'customer.register.email' | t }}</label>
-        <input type="email" name="customer[email]" id="Email" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+              {{ form.errors | default_errors }}
 
-        <label for="CreatePassword" class="hidden-label">{{ 'customer.register.password' | t }}</label>
-        <input type="password" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.register.password' | t }}">
+              <div class="input-group">
+                <input type="text" name="customer[first_name]" id="FirstName" class="input-full" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words">
+                <label for="FirstName" class="floated-label">{{ 'customer.register.first_name' | t }}</label>
+              </div>
 
-        <p>
-          <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--full">
-        </p>
-        <a href="{{ shop.url }}">{{ 'customer.register.cancel' | t }}</a>
+              <div class="input-group">
+                <input type="text" name="customer[last_name]" id="LastName" class="input-full" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+                <label for="LastName" class="floated-label">{{ 'customer.register.last_name' | t }}</label>
+              </div>
+
+              <div class="input-group">
+                <input type="email" name="customer[email]" id="Email" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+                <label for="Email" class="floated-label">{{ 'customer.register.email' | t }}</label>
+              </div>
+
+              <div class="input-group">
+                <a href="#" class="toggle-password icon-eye"></a>
+                <input type="password" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.register.password' | t }}">
+                <label for="CreatePassword" class="floated-label">{{ 'customer.register.password' | t }}</label>
+              </div>
+
+              <label class="checkbox-group">
+                <input type="hidden" name="customer[accepts_marketing]" value="" />
+                <input type="checkbox" name="customer[accepts_marketing]" checked="checked" />
+                <span class="checkbox-label">{{ 'layout.customer.accepts_marketing' | t }}</span>
+              </label>
+
+              <p>
+                <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--full general-form__submit">
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
 
       {% endform %}
+
     </div>
 
   </div>
-
 </div>

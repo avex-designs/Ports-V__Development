@@ -21,13 +21,13 @@
   {% assign search_btn_style = 'btn--secondary' %}
 {% endunless %}
 
-<form action="{{ routes.search_url }}" method="get" class="input-group search-bar {{ search_bar_location }}" role="search">
+<form action="{{ routes.search_url }}" method="get" class="input-group search-bar {{ search_bar_location }} search__form {% if search.results_count == 0 %} search__form--without-result {% endif %}" role="search">
   {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
-  <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field" aria-label="{{ 'general.search.placeholder' | t }}">
+  <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field search__input" aria-label="{{ 'general.search.placeholder' | t }}" required="required">
+  <input type="hidden" name="type" value="article,product">
   <span class="input-group-btn">
-    <button type="submit" class="{{ search_btn_style }} icon-fallback-text">
-      <span class="icon icon-search" aria-hidden="true"></span>
-      <span class="fallback-text">{{ 'general.search.submit' | t }}</span>
+    <button type="submit" class="{{ search_btn_style }} search__button">
+      {% include 'icon-search' %}
     </button>
   </span>
 </form>

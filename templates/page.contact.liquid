@@ -29,7 +29,7 @@
             {{ form.errors | default_errors }}
 
             <div class="grid grid--small">
-              <div class="grid__item large--one-half">
+              <div class="grid__item xlarge--six-tenths push--xlarge--one-fifth large--eight-tenths push--large--one-tenth medium--three-quarters push--medium--one-eighth">
                 <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }}</label>
                 <input type="text" id="ContactFormName" class="input-full" name="contact[name]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
               </div>

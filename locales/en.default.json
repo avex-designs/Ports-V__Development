@@ -43,13 +43,14 @@
       "newsletter_email": "Sign up to our mailing list",
       "newsletter_placeholder": "Your email",
       "newsletter_confirmation": "Thanks for subscribing",
-      "submit": "Subscribe"
+      "submit": "Subscribe",
+	  "sign_up": "Sign Up"
     },
     "search": {
-      "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
-      "results_for_html": "Your search for \"{{ terms }}\" revealed the following:",
+      "no_results_html": "Search results for \"{{ terms }}\" did not yield any results.",
+      "results_for_html": "Search results for \"{{ terms }}\":",
       "title": "Search",
-      "placeholder": "Search our store",
+      "placeholder": "Search",
       "submit": "Search"
     },
     "drawers": {
@@ -86,7 +87,7 @@
   },
   "cart": {
     "general": {
-      "title": "Your cart",
+      "title": "Shopping bag",
       "remove": "Remove",
       "note": "Special instructions for seller",
       "subtotal": "Subtotal",
@@ -94,18 +95,25 @@
       "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
       "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
       "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
+	  "tax_and_shipping_calculates_at_checkout": "Tax and shipping calculates at checkout",
       "update": "Update Cart",
       "checkout": "Check Out",
-      "empty": "Your cart is currently empty.",
+      "empty": "Your Cart is empty",
       "continue_browsing_html": "Continue browsing <a href=\"{{ link }}\">here<\/a>.",
       "close_cart": "Close Cart",
       "savings_html": "You're saving {{ savings }}",
       "reduce_quantity": "Reduce item quantity by one",
       "increase_quantity": "Increase item quantity by one",
-      "cookies_required": "Enable cookies to use the shopping cart"
+      "cookies_required": "Enable cookies to use the shopping cart",
+      "continue_shopping": "Continue Shopping",
+	  "proceed_to_checkout": "Proceed to checkout",
+	  "view_bag": "View full bag"
     },
     "label": {
       "quantity": "Quantity",
+      "item": "Item",
+      "options": "Options",
+      "price": "Price",
       "total": "Total"
     }
   },
@@ -123,20 +131,30 @@
   },
   "contact": {
     "form": {
-      "name": "Name",
-      "email": "Email",
-      "phone": "Phone Number",
-      "message": "Message",
-      "send": "Send",
-      "post_success": "Thanks for contacting us. We'll get back to you as soon as possible."
-    }
+	  "name": "Name",
+	  "first_name": "First Name",
+	  "last_name": "Last Name",
+	  "email": "Email",
+	  "subject": "Subject",
+	  "phone": "Phone Number",
+	  "message": "Message",
+	  "send": "Submit",
+	  "post_success_title": "Thank you!",
+	  "post_success": "Your message has been submitted. We will promptly respond to you email within 3 business days.",
+	  "post_success_continue": "Continue shopping"
+	}
   },
   "customer": {
     "account": {
-      "title": "My Account",
-      "details": "Account Details",
-      "view_addresses": "View Addresses",
-      "return": "Return to Account Details"
+	  "title": "My Account",
+	  "back_to_account_link": "Back to my account",
+	  "back_to_account_overview_link": "Back to account overview",
+	  "back_to_order_history_link": "Back to order history",
+	  "hello": "Hello",
+	  "details": "Account Details",
+	  "view_addresses": "View Addresses",
+	  "return": "Return to Account Details",
+	  "email": "Email"
     },
     "activate_account": {
       "title": "Activate Account",
@@ -147,45 +165,48 @@
       "cancel": "Decline Invitation"
     },
     "addresses": {
-      "title": "Your Addresses",
-      "default": "Default",
-      "add_new": "Add a New Address",
-      "edit_address": "Edit address",
-      "first_name": "First Name",
-      "last_name": "Last Name",
-      "company": "Company",
-      "address1": "Address1",
-      "address2": "Address2",
-      "city": "City",
-      "country": "Country",
-      "province": "Province",
-      "zip": "Postal\/Zip Code",
-      "phone": "Phone",
-      "set_default": "Set as default address",
-      "add": "Add Address",
-      "update": "Update Address",
-      "cancel": "Cancel",
-      "edit": "Edit",
-      "delete": "Delete"
+	  "title": "Address Book",
+	  "default": "Default",
+	  "add_new": "Add new address",
+	  "edit_address": "Edit address",
+	  "first_name": "First Name",
+	  "last_name": "Last Name",
+	  "company": "Company",
+	  "address1": "Address1",
+	  "address2": "Address2",
+	  "city": "City",
+	  "country": "Country",
+	  "province": "Province",
+	  "zip": "Postal\/Zip Code",
+	  "phone": "Phone",
+	  "set_default": "Set as default address",
+	  "add": "Add Address",
+	  "update": "Update Address",
+	  "cancel": "Cancel",
+	  "edit": "Edit",
+	  "delete": "Delete"
     },
     "login": {
-      "title": "Login",
-      "email": "Email",
-      "password": "Password",
-      "forgot_password": "Forgot your password?",
-      "sign_in": "Sign In",
-      "cancel": "Return to Store",
-      "guest_title": "Continue as a guest",
-      "guest_continue": "Continue"
+	  "title": "Log In",
+	  "title_when_errors": "OOps..",
+	  "error_email_or_password": "That doesn’t seem to be the right password.",
+	  "try_again": "Please try again or",
+	  "email": "Email",
+	  "password": "Password",
+	  "forgot_password": "Forgot your password?",
+	  "sign_in": "Log In",
+	  "cancel": "Return to Store",
+	  "guest_title": "Continue as a guest",
+	  "guest_continue": "Continue"
     },
     "orders": {
-      "title": "Order History",
-      "order_number": "Order",
-      "date": "Date",
-      "payment_status": "Payment Status",
-      "fulfillment_status": "Fulfillment Status",
-      "total": "Total",
-      "none": "You haven't placed any orders yet."
+	  "title": "Order History",
+	  "order_number": "Order No.",
+	  "date": "Date",
+	  "payment_status": "Order Status",
+	  "fulfillment_status": "Fulfillment Status",
+	  "total": "Total",
+	  "none": "You haven't placed any orders yet."
     },
     "order": {
       "title": "Order {{ name }}",
@@ -209,28 +230,30 @@
       "track_shipment": "Track shipment"
     },
     "recover_password": {
-      "title": "Reset your password",
-      "email": "Email",
-      "submit": "Submit",
-      "cancel": "Cancel",
-      "subtext": "We will send you an email to reset your password.",
-      "success": "We've sent you an email with a link to update your password."
+	  "title": "Forgot your Password?",
+	  "email": "Email",
+	  "submit": "Reset my password",
+	  "cancel": "Back to Login",
+	  "subtext": "We’ll email you with directions on restting your password.",
+	  "success_title": "Check your email",
+	  "success": "We have sent you a link to can use to create a new password."
     },
     "reset_password": {
-      "title": "Reset account password",
-      "subtext": "Enter a new password for {{ email }}",
-      "password": "Password",
-      "password_confirm": "Confirm Password",
-      "submit": "Reset Password"
+	  "title": "Reset your password",
+	  "subtext": "Enter a new password for {{ email }}",
+	  "password": "Password",
+	  "password_confirm": "Password",
+	  "submit": "Reset my password",
+	  "must_match": "Both passwords must match"
     },
     "register": {
-      "title": "Create Account",
-      "first_name": "First Name",
-      "last_name": "Last Name",
-      "email": "Email",
-      "password": "Password",
-      "submit": "Create",
-      "cancel": "Return to Store"
+	  "title": "Create an Account",
+	  "first_name": "First Name",
+	  "last_name": "Last Name",
+	  "email": "Email",
+	  "password": "Password",
+	  "submit": "Create an account",
+	  "cancel": "Return to Store"
     }
   },
   "home_page": {
@@ -263,10 +286,13 @@
       "title": "Cart"
     },
     "customer": {
-      "account": "Account",
-      "log_out": "Log Out",
-      "log_in": "Log In",
-      "create_account": "Create Account"
+	  "account": "Account",
+	  "log_out": "Log Out",
+	  "log_in": "Log In",
+	  "create_account": "Create my Account",
+	  "new_user": "New to PORTS V?",
+	  "have_an_account": "Already have an Account?",
+	  "accepts_marketing": "Sign up for future PORTS V drops and updates"
     },
     "footer": {
       "social_platform": "{{ name }} on {{ platform }}"
@@ -280,7 +306,8 @@
       "regular_price": "Regular price",
       "include_taxes": "Tax included.",
       "shipping_policy_html": "<a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
-      "unit_price": "Unit price"
+      "unit_price": "Unit price",
+      "sale": "Sale"
     },
     "product": {
       "sold_out": "Sold Out",

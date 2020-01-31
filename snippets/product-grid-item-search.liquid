@@ -1,0 +1,106 @@
+{% unless grid_item_width %}
+{% assign grid_item_width = 'large--one-third medium--one-half' %}
+{% endunless %}
+
+{% unless width %}
+{%- assign width = 310 -%}
+{% endunless %}
+{% unless height %}
+{%- assign height = 415 -%}
+{% endunless %}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+    {% assign sold_out = false %}
+{% endif %}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{% capture img_id_class %}ProductImage-{{ product.featured_image.id }}{% endcapture %}
+{% capture img_wrapper_id %}ProductImageWrapper-{{ product.featured_image.id }}{% endcapture %}
+{%- assign img_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+<div class="grid__item grid-product search__item {% if sold_out %} is-sold-out{% endif %}">
+    <div class="grid-product__wrapper">
+        <div class="grid-product__image-wrapper">
+            <a class="grid-product__image-link{% unless product.featured_image.src == blank %} grid-product__image-link--loading{% endunless %}"
+               href="{{ product.url | within: collection }}" data-image-link>
+                {% if product.featured_image.src == blank %}
+                    <div class="search__item-no-image-wrapper">
+                        <img class="grid-product__image search__item-no-image" src="{{ product.featured_image.src | img_url: '1024x' }}"
+                             alt="{{ product.featured_image.alt | escape }}">
+                    </div>
+                {% else %}
+                    <div id="{{ img_wrapper_id }}" class="product--wrapper">
+                        <div style="padding-top:{{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%;">
+                            <img class="product--image lazyload {{ img_id_class }}"
+                                 data-src="{{ img_url }}"
+                                 data-widths="[180, 370, 590, 740, 900, 1080, 1296, 1512, 1728, 2048]"
+                                 data-aspectratio="{{ product.featured_image.aspect_ratio }}"
+                                 data-sizes="auto"
+                                 alt="{{ product.featured_image.alt | escape }}"
+                                 data-image>
+                        </div>
+                    </div>
+                    <noscript>
+                        <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}"
+                             alt="{{ product.featured_image.alt | escape }}">
+                    </noscript>
+                {% endif %}
+            </a>
+            {% if sold_out %}
+                <div class="search__item-label search__item-label--sold-out">
+                    <p>{{ 'products.product.sold_out_html' | t }}</p>
+                </div>
+                {% elsif on_sale %}
+                <div class="search__item-label search__item-label--sale">
+                    <p>{{ 'products.general.sale' | t }}</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <a href="{{ product.url | within: collection }}" class="grid-product__meta">
+            <span class="search__item-title">{{ product.title }}</span>
+            <span class="grid-product__price-wrap">
+                <span class="grid-product__price">
+                  {% if on_sale %}
+                      <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+                      <span>{{ product.price | money_without_trailing_zeros }}</span>
+                      <span class="search__item-price search__item-price--sale">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                  {% else %}
+                      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                      {{ product.price | money_without_trailing_zeros }}
+                  {% endif %}
+                </span>
+
+            {%- if product.price_varies == false and variant.available and variant.unit_price_measurement -%}
+                {%- capture unit_price_separator -%}
+                    <span aria-hidden="true">/</span><span
+                        class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                {%- endcapture -%}
+
+              {%- capture unit_price_base_unit -%}
+                <span>
+                  {%- if variant.unit_price_measurement.reference_value != 1 -%}
+                      {{- variant.unit_price_measurement.reference_value -}}
+                  {%- endif -%}
+                    {{ variant.unit_price_measurement.reference_unit }}
+                </span>
+            {%- endcapture -%}
+              <span class="product-unit-price">
+                <span class="visually-hidden">{{ 'products.general.unit_price' | t }}</span>
+                <span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+              </span>
+            {%- endif -%}
+          </span>
+            {% if section.settings.product_vendor_enable %}
+                <p class="grid-product__vendor">{{ product.vendor }}</p>
+            {% endif %}
+        </a>
+    </div>
+</div>

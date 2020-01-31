@@ -11,11 +11,11 @@
   </header>
 
   <div id="product_slider_container">
-   
+
     <div class="product_slider">
       {% for product in collections.pants-1.products limit:10 %}
       {% if product.available %}
-      
+
       <div class="item">
 
         {% include 'product-grid-item_ports' %}
@@ -25,14 +25,12 @@
       {% endif %}
       {% endfor %}
     </div> <!-- product_slider -->
-    
-    
+
+
   </div> <!-- #product_slider_container -->
 
 
 </section>
-
-{% include 'ajaxify-cart' %}
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -67,9 +65,9 @@ $(document).ready(function(){
   $('.swatch :radio').change(function() {
     var optionIndex = $(this).closest('.swatch').attr('data-option-index');
     var optionValue = $(this).val();
-    
+
     console.log(optionIndex)
-    
+
     $(this)
       .closest('form')
       .find('.single-option-selector')
