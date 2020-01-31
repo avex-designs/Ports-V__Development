@@ -145,7 +145,7 @@
       "hello": "Hello",
       "details": "Account Details",
       "view_addresses": "View Addresses",
-      "return": "Return to Account Details",
+      "return": "Back to order history",
       "email": "Email"
     },
     "activate_account": {
