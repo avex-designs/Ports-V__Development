@@ -1,0 +1,74 @@
+<!-- /templates/customers/account.liquid -->
+{% comment %}
+
+  For all available customer liquid tags:
+    - http://docs.shopify.com/themes/liquid-variables/customer
+
+{% endcomment %}
+
+{% paginate customer.orders by 20 %}
+<div class="account-page--wrapper">
+
+  <div class="account-page">
+
+      <header class="section-header">
+        <h1 class="section-header__title h2">{{ 'customer.account.title' | t }}</h1>
+        <a href="/account" class="underlined-link section-header__back-link">{{ 'customer.account.back_to_account_overview_link' | t }}</a>
+      </header>
+
+      <div class="account-page--content">
+
+        <aside class="account-page--left">
+          {% include 'account-menu' %}
+        </aside>
+
+        <section class="account-page--right">
+          <h3 class="account-page--content__title h4">{{ 'customer.orders.title' | t }}</h3>
+
+          {% comment %}
+            If we have past orders, loop through each one
+          {% endcomment %}
+          {% if customer.orders.size != 0 %}
+
+            <div class="table-wrap">
+              <table class="table--orders">
+                <thead>
+                  <tr>
+                    <th>{{ 'customer.orders.order_number' | t }}</th>
+                    <th>{{ 'customer.orders.date' | t }}</th>
+                    <th>{{ 'customer.orders.payment_status' | t }}</th>
+                    <th>{{ 'customer.orders.total' | t }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in customer.orders %}
+                    <tr class="table__section">
+                      <td data-label="{{ 'customer.orders.order_number' | t }}" class="table--orders__order_num">{{ order.name | link_to: order.customer_url }}</td>
+                      <td data-label="{{ 'customer.orders.date' | t }}" class="table--orders__date">{{ order.created_at | date: '%b %d, %Y' }}</td>
+                      <td data-label="{{ 'customer.orders.payment_status' | t }}" class="table--orders__status">{{ order.financial_status_label }}</td>
+                      <td data-label="{{ 'customer.orders.total' | t }}" class="table--orders__total">{{ order.total_price | money_without_trailing_zeros }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <hr class="hr--clear">
+
+          {% else %}
+
+            <p>{{ 'customer.orders.none' | t }}</p>
+
+          {% endif %}
+        </section>
+
+      </div>
+
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+      {% endif %}
+
+  </div>
+
+</div>
+{% endpaginate %}

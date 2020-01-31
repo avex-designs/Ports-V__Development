@@ -32,8 +32,9 @@
   <!-- CSS ================================================== -->
    {{ 'foundation.accordion.min.css' | asset_url | stylesheet_tag }}
   {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'jcf.scss.css' | asset_url | stylesheet_tag }}
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
- 
+
   {% comment %} {{ 'style-guide.scss.css' | asset_url | stylesheet_tag }} {% endcomment %}
 
   <!-- Stevie Sans Font -->
@@ -65,6 +66,13 @@
 
   <script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
 
+
+
+{% if template contains 'customers/reset' %}
+ {{ '//www.huratips.com/scripts/jquery.pwstrength/jquery.pwstrength.min.js' | script_tag }}
+ {{ '//www.huratips.com/scripts/jquery.pwstrength/jquery.pwstrength.min.css' | stylesheet_tag }}
+{% endif %}
+
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'foundation.accordion.min.js' | asset_url }}" defer="defer"></script>
 
@@ -81,7 +89,7 @@
   {% endif %}
 
   {% section 'filter-menu-settings' %}
-  
+
 
 </head>
 
@@ -126,7 +134,7 @@
       {% endunless %}
     </main>
 
-    {% if template == "product" or template == "blog" %} 
+    {% if template == "product" or template == "blog" %}
     {% section 'newsletter' %}
     {% endif %}
 
@@ -167,7 +175,7 @@
       </script>
     {% endif %}
 
-    
+
     {% include 'spurit_po2_theme_snippet' %}
 
   <div id="SearchModal" class="mfp-hide">

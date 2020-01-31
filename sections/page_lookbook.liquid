@@ -74,7 +74,7 @@
       {% for true in page.metafields.lookbook.cols %}
       {% if true.size > 0 %}
       <div class="images-column-container mob-hide">
-      
+
           <div class="block">
               <div class="img-block">
                  <!-- <img src="{{ 'lookbook-1.jpg' | file_url }}"/>-->
@@ -129,7 +129,7 @@
       {% if true.size > 0 %}
       {% assign count = count | plus: 1 %}
       <div class="slider_wrapper slider_{{ count }}_wrapper non-init half_column">
-        
+
           <div class="block desk-hide">
               <div class="img-block">
                {{ page.metafields.lookbook.image_two[forloop.index0] | img_tag }}

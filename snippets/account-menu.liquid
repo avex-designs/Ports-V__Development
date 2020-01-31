@@ -1,0 +1,16 @@
+{% if linklists['account-menu'].links.size > 0 %}
+    {% assign page_view = template | remove: '.' | split: request.page_type | last %}
+    {% if page_view != blank %}
+      {% assign view_param = '?view=' | append: page_view %}
+    {% else %}
+      {% assign view_param = 'no-view-param' %}
+    {% endif %}
+    <ul id="account-menu" class="vertical-nav no-bullets">
+      {% for link in linklists['account-menu'].links %}
+        <li class="vertical-nav_item">
+          <a href="{{ link.url }}" class="vertical-nav_link{% if link.url contains view_param %} active{% else %}{% unless link.url contains '?view=' %}{% if link.active and view_param == 'no-view-param' %} active{% endif %}{% endunless %}{% endif %}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+{% endif %}
+{{ 'layout.customer.log_out'| t | customer_logout_link | replace: 'href=', 'class="underlined-link" href=' }}

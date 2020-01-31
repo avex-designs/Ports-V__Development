@@ -7,68 +7,44 @@
 {% endcomment %}
 
 {% paginate customer.orders by 20 %}
+<div class="account-page--wrapper">
 
-<header class="section-header text-center">
-  <h1>{{ 'customer.account.title' | t }}</h1>
-  {{ 'layout.customer.log_out'| t | customer_logout_link }}
-  <hr class="hr--small">
-</header>
+    <div class="account-page">
 
-<div class="grid">
+          <header class="section-header">
+            <h1 class="section-header__title h2">{{ 'customer.account.title' | t }}</h1>
+          </header>
 
-  <div class="grid__item two-thirds medium-down--one-whole">
-    <h2 class="h3">{{ 'customer.orders.title' | t }}</h2>
+          <div class="account-page--content">
 
-    {% comment %}
-      If we have past orders, loop through each one
-    {% endcomment %}
-    {% if customer.orders.size != 0 %}
+            <aside class="account-page--left">
+              {% include 'account-menu' %}
+            </aside>
 
-      <div class="table-wrap">
-        <table class="full table--responsive">
-          <thead>
-            <tr>
-              <th>{{ 'customer.orders.order_number' | t }}</th>
-              <th>{{ 'customer.orders.date' | t }}</th>
-              <th>{{ 'customer.orders.payment_status' | t }}</th>
-              <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
-              <th>{{ 'customer.orders.total' | t }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for order in customer.orders %}
-              <tr class="table__section">
-                <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
-                <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'date' }}</td>
-                <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
-                <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
-                <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+            <section class="account-page--right">
 
-      <hr class="hr--clear">
+                <div class="account-overview">
 
-    {% else %}
+                    <h3 class="account-page--content__title h4">{{ 'customer.account.hello' | t }}, {{ customer.first_name }}!</h3>
 
-      <p>{{ 'customer.orders.none' | t }}</p>
+                    <div class="linksbox-list">
+                        {% for link in linklists['account-menu'].links %}
+                            {% unless link.active %}
+                                <a href="{{ link.url }}" class="linksbox__item">
+                                    <i class="img-icon {{ link.url | handle }}"></i>
+                                    {{ link.title }}
+                                </a>
+                            {% endunless %}
+                        {% endfor %}
+                    </div>
+                    {{ 'layout.customer.log_out'| t | customer_logout_link | replace: 'href=', 'class="underlined-link logout-link" href=' }}
+                </div>
 
-    {% endif %}
-  </div>
+            </section>
 
-  <div class="grid__item one-third medium-down--one-whole">
-    <h3>{{ 'customer.account.details' | t }}</h3>
+          </div>
 
-    {{ customer.default_address | format_address }}
-
-    <p><a href="{{ routes.account_addresses_url }}" class="text-link">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
-  </div>
+    </div>
 
 </div>
-
-{% if paginate.pages > 1 %}
-  {% include 'pagination' %}
-{% endif %}
 {% endpaginate %}

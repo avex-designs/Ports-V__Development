@@ -313,8 +313,8 @@ $breakpoints: (
   'xlarge' '(min-width: #{$xlarge})'
 );
 $breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'xlarge');
-$breakpoint-has-push:  ('medium', 'medium-down', 'large');
-$breakpoint-has-pull:  ('medium', 'medium-down', 'large');
+$breakpoint-has-push:  ('medium', 'medium-down', 'large', 'xlarge');
+$breakpoint-has-pull:  ('medium', 'medium-down', 'large', 'xlarge');
 
 /*================ Color variables ================*/
 $colorPrimary: {{ settings.color_primary }};
@@ -812,6 +812,7 @@ $pull:               false;
 /* Force clearfix on grids */
 .grid,
 .grid-uniform {
+  overflow: auto;
   @include clearfix;
 }
 
@@ -3288,4 +3289,3 @@ $socialIconFontStack: 'icons';
   color: $colorTextBody;
   display: block;
 }
-
