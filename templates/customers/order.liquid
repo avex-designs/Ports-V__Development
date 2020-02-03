@@ -39,11 +39,11 @@
             {%- if order.cancelled -%}
               {%- assign cancelled_at = order.cancelled_at | date: format: 'date_at_time' -%}
               <div class="order-info__item">
-                  <div class="error order-info__title">{{ 'customer.order.cancelled' | t }}</div>
-                  <div class="order-info__value">{{ date: cancelled_at }}</div>
+                <div class="error order-info__title">{{ 'customer.order.cancelled' | t }}</div>
+                <div class="order-info__value">{{ date: cancelled_at }}</div>
               </div>
               <div class="order-info__item">
-                  <div class="error order-info__title">{{ 'customer.order.cancelled_reason' | t }}</div>
+                <div class="error order-info__title">{{ 'customer.order.cancelled_reason' | t }}</div>
                 <div class="order-info__value">{{ reason: order.cancel_reason }}</div>
               </div>
             {%- endif -%}
