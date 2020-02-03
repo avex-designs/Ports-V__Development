@@ -1,90 +1,58 @@
 <!-- /templates/page.contact.liquid -->
-<div class="general-page--wrapper contact-page--wrapper">
-  <div class="grid">
+<div class="grid">
 
-    <div class="grid__item large--four-eighths push--large--two-eighths">
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
 
-      {% form 'contact', class: 'general-form'  %}
+    <header class="section-header text-center">
+      <h1>{{ page.title }}</h1>
+      <hr class="hr--small">
+    </header>
 
-        {% comment %}
-          Successful message
-        {% endcomment %}
-        {% if form.posted_successfully? %}
-          <div class="general-form--success">
-            <header class="section-header text-center">
-              <h2 class="section-header__title">{{ 'contact.form.post_success_title' | t }}</h2>
-              <p>{{ 'contact.form.post_success' | t }}</p>
-            </header>
-            <div class="grid">
-              <div class="grid__item large--one-half push--large--one-quarter text-center">
-                <div class="general-form--inner">
-                  <a href="{{ shop.url }}" class="btn btn--full general-form__submit">{{ 'contact.form.post_success_continue' | t }}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        {% else %}
+    <div class="grid">
+      <div class="grid__item large--four-fifths push--large--one-tenth">
+        <div class="rte rte--nomargin rte--indented-images">
+          {{ page.content }}
+        </div>
 
+        <div class="form-vertical">
+          {% form 'contact' %}
 
-          <header class="section-header text-center contact-page__header">
-            <h1 class="section-header__title h2">{{ page.title }}</h1>
-            <div class="grid">
-              <div class="grid__item xlarge--six-tenths push--xlarge--one-fifth large--eight-tenths push--large--one-tenth medium--three-quarters push--medium--one-eighth">
-                <div class="rte rte--indented-images contact-page__content text-center">
-                  {{ page.content }}
-                </div>
-              </div>
-            </div>
-          </header>
-
-          <div class="general-form--inner">
+            {% comment %}
+              Successful message
+            {% endcomment %}
+            {% if form.posted_successfully? %}
+              <p class="note form-success">
+                {{ 'contact.form.post_success' | t }}
+              </p>
+            {% endif %}
 
             {{ form.errors | default_errors }}
 
-            <div class="grid">
-              <div class="grid__item medium--one-half large--one-half">
-                <div class="input-group">
-                  <input type="text" id="ContactFormFirstName" class="input-full" name="contact[first_name]" placeholder="{{ 'contact.form.first_name' | t }}" autocapitalize="words" value="{% if form.first_name %}{{ form.first_name }}{% elsif customer %}{{ customer.first_name }}{% endif %}">
-                  <label for="ContactFormFirstName" class="floated-label">{{ 'contact.form.first_name' | t }}</label>
-                </div>
+            <div class="grid grid--small">
+              <div class="grid__item xlarge--six-tenths push--xlarge--one-fifth large--eight-tenths push--large--one-tenth medium--three-quarters push--medium--one-eighth">
+                <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }}</label>
+                <input type="text" id="ContactFormName" class="input-full" name="contact[name]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
               </div>
 
-              <div class="grid__item medium--one-half large--one-half">
-                <div class="input-group">
-                  <input type="text" id="ContactFormLastName" class="input-full" name="contact[last_name]" placeholder="{{ 'contact.form.last_name' | t }}" autocapitalize="words" value="{% if form.first_name %}{{ form.last_name }}{% elsif customer %}{{ customer.last_name }}{% endif %}">
-                  <label for="ContactFormLastName" class="floated-label">{{ 'contact.form.last_name' | t }}</label>
-                </div>
+              <div class="grid__item large--one-half">
+                <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
+                <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
               </div>
             </div>
 
-            <div class="grid">
-              <div class="grid__item medium--one-half large--one-half">
-                <div class="input-group">
-                  <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
-                  <label for="ContactFormEmail" class="floated-label">{{ 'contact.form.email' | t }}</label>
-                </div>
-              </div>
-              <div class="grid__item medium--one-half large--one-half">
-                <div class="input-group">
-                  <input type="text" id="ContactFormSubject" class="input-full" name="contact[subject]" placeholder="{{ 'contact.form.subject' | t }}" autocorrect="off" autocapitalize="off" value="">
-                  <label for="ContactFormSubject" class="floated-label">{{ 'contact.form.subject' | t }}</label>
-                </div>
-              </div>
-            </div>
+            <label for="ContactFormPhone" class="hidden-label">{{ 'contact.form.phone' | t }}</label>
+            <input type="tel" id="ContactFormPhone" class="input-full" name="contact[phone]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
 
-            <div class="input-group">
-              <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
-              <label for="ContactFormMessage" class="floated-label label-for-textarea">{{ 'contact.form.message' | t }}</label>
-            </div>
+            <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}</label>
+            <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
 
-            <input type="submit" class="btn btn--full general-form__submit general-form__submit_limited" value="{{ 'contact.form.send' | t }}">
+            <input type="submit" class="btn right" value="{{ 'contact.form.send' | t }}">
 
-          </div>
-
-        {% endif %}
-
-      {% endform %}
-
+          {% endform %}
+        </div>
+      </div>
     </div>
+
   </div>
+
 </div>

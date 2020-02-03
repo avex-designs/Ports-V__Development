@@ -129,8 +129,6 @@ input[type=number] {
 
 
 /*================ Blocks ================*/
-
-
 .search-input-header {
     text-transform: capitalize;
 }
@@ -147,14 +145,20 @@ input[type=number] {
 
 .input-group-field{
 	outline: none;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 .input-group-field.search-bar__input--mobile{
+    appearance: none;
 	-webkit-appearance: none;
 }
 
 .drawer__inner form span.input-group-btn-mob-menu button.icon-fallback-text.search-bar__button--mobile {
+    width: 50px;
     height: 2.5rem;
+    padding: 0 15px;
+    outline: none;
 }
 
 .quantity-holder {

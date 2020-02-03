@@ -53,12 +53,11 @@
               </table>
             </div>
 
+            <hr class="hr--clear">
+
           {% else %}
 
-            <div class="empty-orders-history">
-              <p class="empty-orders-history__note">{{ 'customer.orders.none' | t }}</p>
-              <a href="" class="btn general-form__submit">{{ 'customer.orders.start_shopping' | t }}</a>
-            </div>
+            <p>{{ 'customer.orders.none' | t }}</p>
 
           {% endif %}
         </section>
