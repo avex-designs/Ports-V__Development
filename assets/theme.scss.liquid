@@ -8593,6 +8593,7 @@ ul#sortBy {
 	&:hover,
 	&.active {
 		opacity: 1;
+		font-weight: 500;
 	}
 }
 
@@ -8706,6 +8707,7 @@ ul#sortBy {
 			font-weight: 300;
 			font-style: normal;
 			line-height: 24px;
+			background: transparent;
 
 			&:hover {
 				opacity: 1;
@@ -8910,6 +8912,10 @@ ul#sortBy {
 
 .account-page--content__title {
 	margin: -9px 0 20px;
+
+	&.has-back-link-ahead {
+		margin-bottom: 10px;
+	}
 }
 
 .account-page--left {
@@ -8921,6 +8927,7 @@ ul#sortBy {
 }
 
 .account-page--right {
+	position: relative;
 	border-left: 1px solid #e4e4e4;
 	padding-left: 72px;
 	flex-grow: 1;
@@ -8992,7 +8999,7 @@ ul#sortBy {
 
 }
 
-.img-icon {
+i.img-icon {
 	display: block;
 	margin: 0 auto 20px;
 	background-repeat: no-repeat;
@@ -9280,6 +9287,67 @@ ul#sortBy {
 	}
 }
 
+.order-info__track_btn {
+	width: 210px;
+	height: 44px;
+	position: absolute;
+	top: 12px;
+	right: 0;
+
+	@media screen and (max-width: $ports-max-mob ) {
+		display: none;
+		position: static;
+	}
+}
+
+.order-info {
+	margin: 38px 0 46px;
+	position: relative;
+
+	.order-info__item {
+		display: flex;
+		margin-bottom: 15px;
+	}
+
+	.order-info__title {
+		width: 172px;
+		font-size: 12px;
+		font-weight: 500;
+		letter-spacing: 1px;
+		line-height: 18px;
+		text-transform: uppercase;
+
+		&:after {
+			content: ":";
+		}
+	}
+
+	.order-info__value {
+		left: 172px;
+		font-size: 14px;
+		font-weight: 300;
+		line-height: 24px;
+
+		br {
+			display: block;
+		}
+	}
+
+	.order-info__track_btn {
+		display: block;
+		width: 100%;
+		margin-top: 46px;
+		margin-bottom: -6px;
+	}
+}
+
+.order-info__track_btn {
+	width: 210px;
+	height: 44px;
+	position: absolute;
+	top: 12px;
+	right: 0;
+}
 
 /*========================================
 
@@ -9385,3 +9453,10 @@ ul#sortBy {
 		margin-bottom: 9px;
 	}
 }
+
+
+/*========================================
+
+  404 NOT FOUND
+
+========================================*/

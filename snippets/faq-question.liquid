@@ -1,0 +1,12 @@
+{% if block.settings.title != blank and block.settings.answer != blank %}
+
+{% endif %}
+<div class="question">
+	<button class="question__title js-accordion-button" data-control="{{ count }}">
+		{{- block.settings.title -}}
+	</button>
+
+	<div class="question__answer" data-answer="{{ count }}">
+		{{- block.settings.answer -}}
+	</div>
+</div>

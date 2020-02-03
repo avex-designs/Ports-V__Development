@@ -1,0 +1,16 @@
+{%- layout none -%}
+{% assign json = "" %}
+{%- for item in cart.items -%}
+	{% if json != "" %}
+		{% assign json = json | append: "," %}
+	{% endif %}
+
+	{% capture item_json %}
+		"{{- item.key -}}": {{- item.variant.inventory_quantity | json -}}
+	{% endcapture %}
+
+	{% assign json = json | append: item_json %}
+{%- endfor -%}
+{
+	{{ json }}
+}

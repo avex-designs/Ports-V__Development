@@ -25,3 +25,20 @@
 	});
 })();
 
+;(function(){
+	const $accordion = $('.js-accordion');
+	const buttonModifier = 'opened';
+
+	$accordion.on('click', '.js-accordion-button', (e) =>{
+		let $element = $(e.target);
+		const data = $element.data('control');
+		let $content = $accordion.find(`[data-answer="${data}"]`);
+
+		$content.stop().slideToggle(400, () => {
+			$element.css('height', '');
+		});
+
+		$element.toggleClass(buttonModifier);
+	});
+})();
+
