@@ -47,6 +47,8 @@
                 <div class="order-info__value">{{ reason: order.cancel_reason }}</div>
               </div>
             {%- endif -%}
+
+            <a href="{{ order.order_status_url }}" class="btn order-info__track_btn">{{ 'customer.order.track_shipment' | t }}</a>
           </div>
 
           <div class="cart__wrapper">

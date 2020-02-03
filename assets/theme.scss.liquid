@@ -9234,8 +9234,21 @@ i.img-icon {
   }
 }
 
+.order-info__track_btn {
+  width: 210px;
+  height: 44px;
+  position: absolute;
+  top: 12px;
+  right: 0;
+
+  @media screen and (max-width: $ports-max-mob ) {
+    display: none;
+    position: static;
+  }
+}
+
 .order-info {
-  margin: 38px 0 20px;
+  margin: 38px 0 46px;
   position: relative;
 
   .order-info__item {
@@ -9266,14 +9279,11 @@ i.img-icon {
       display: block;
     }
   }
-}
 
-.order-info__track_btn {
-  width: 210px;
-  height: 44px;
-  position: absolute;
-  top: 12px;
-  right: 0;
+  order-info__track_btn {
+    display: block;
+    width: 100%;
+  }
 }
 
 
