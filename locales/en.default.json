@@ -206,7 +206,8 @@
 	  "payment_status": "Order Status",
 	  "fulfillment_status": "Fulfillment Status",
 	  "total": "Total",
-	  "none": "You haven't placed any orders yet."
+	  "none": "You Haven’t place any orders yet",
+		"start_shopping": "Start shopping"
     },
     "order": {
 	  "title": "Order Details",
@@ -222,6 +223,7 @@
 	  "shipping": "Shipping",
 	  "tax": "Tax",
 	  "product": "Product",
+		"options": "Options",
 	  "sku": "SKU",
 	  "price": "Price",
 	  "quantity": "Quantity",
