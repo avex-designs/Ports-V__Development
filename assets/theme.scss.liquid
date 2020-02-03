@@ -8626,7 +8626,7 @@ ul#sortBy {
 	.general-form--inner {
 		@media screen and (max-width: $ports-max-tab ) {
 			max-width: 433px;
-			margin: 0 auto;
+			margin: -50px auto 0;
 		}
 	}
 
@@ -9247,6 +9247,10 @@ i.img-icon {
   padding: 51px;
   text-align: center;
 
+  @media screen and (max-width: $ports-min-desk ) {
+    max-width: none;
+  }
+
   .general-form__submit {
     margin: 0;
   }
@@ -9265,9 +9269,6 @@ i.img-icon {
 
 	@media screen and (max-width: $ports-max-mob ) {
 		flex-wrap: wrap;
-	}
-
-	@media screen and (max-width: $ports-max-mob ) {
 		display: block;
 		margin-bottom: 0;
 
