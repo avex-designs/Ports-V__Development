@@ -55,8 +55,7 @@
             <div class="cart-table">
               <div class="cart-table__header">
                 <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.product' | t }}</div>
-                <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.sku' | t }}</div>
-                <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.price' | t }}</div>
+                <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.options' | t }}</div>
                 <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.quantity' | t }}</div>
                 <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.total' | t }}</div>
               </div>
@@ -79,9 +78,7 @@
                         {% endif %}
                       </div>
                       <div class="cart-item__quantity">
-                        <div class="quantity-holder">
-                          {{ line_item.quantity }}
-                        </div>
+                        {{ line_item.quantity }}
                       </div>
                     </div>
                     <div class="cart-item__price">
