@@ -201,12 +201,13 @@
       "none": "You haven't placed any orders yet."
     },
     "order": {
-      "title": "Order {{ name }}",
-      "date": "Placed on {{ date }}",
-      "cancelled": "Order Cancelled on {{ date }}",
-      "cancelled_reason": "Reason: {{ reason }}",
+      "title": "Order Details",
+      "order_number": "Order Number",
+      "payment_status": "Status",
+      "date": "Date Placed",
+      "cancelled": "Order Cancelled on",
+      "cancelled_reason": "Cancellation Reason",
       "billing_address": "Billing Address",
-      "payment_status": "Payment Status",
       "shipping_address": "Shipping Address",
       "fulfillment_status": "Fulfillment Status",
       "discount": "Discount",
@@ -219,7 +220,7 @@
       "total": "Total",
       "fulfilled_at": "Fulfilled {{ date }}",
       "subtotal": "Subtotal",
-      "track_shipment": "Track shipment"
+      "track_shipment": "Track order"
     },
     "recover_password": {
       "title": "Forgot your Password?",
