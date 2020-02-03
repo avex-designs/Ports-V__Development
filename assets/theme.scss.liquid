@@ -8859,6 +8859,10 @@ ul#sortBy {
 
 .account-page--content__title {
   margin: -9px 0 20px;
+
+  &.has-back-link-ahead {
+    margin-bottom: 10px;
+  }
 }
 
 .account-page--left {
@@ -8873,6 +8877,7 @@ ul#sortBy {
   border-left: 1px solid #e4e4e4;
   padding-left: 72px;
   flex-grow: 1;
+  position: relative;
 
   @media screen and (max-width: $ports-min-desk ) {
     border-left: none;
@@ -9227,6 +9232,48 @@ i.img-icon {
   a {
     margin-right: 18px;
   }
+}
+
+.order-info {
+  margin: 38px 0 20px;
+  position: relative;
+
+  .order-info__item {
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  .order-info__title {
+    width: 172px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 18px;
+    text-transform: uppercase;
+
+    &:after {
+      content: ":";
+    }
+  }
+
+  .order-info__value {
+    left: 172px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 24px;
+
+    br {
+      display: block;
+    }
+  }
+}
+
+.order-info__track_btn {
+  width: 210px;
+  height: 44px;
+  position: absolute;
+  top: 12px;
+  right: 0;
 }
 
 
