@@ -129,8 +129,6 @@ input[type=number] {
 
 
 /*================ Blocks ================*/
-
-
 .search-input-header {
     text-transform: capitalize;
 }
@@ -147,14 +145,20 @@ input[type=number] {
 
 .input-group-field{
 	outline: none;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 .input-group-field.search-bar__input--mobile{
+    appearance: none;
 	-webkit-appearance: none;
 }
 
 .drawer__inner form span.input-group-btn-mob-menu button.icon-fallback-text.search-bar__button--mobile {
+    width: 50px;
     height: 2.5rem;
+    padding: 0 15px;
+    outline: none;
 }
 
 .quantity-holder {
@@ -230,7 +234,7 @@ input[type=number] {
 
 .newsletter{
 	#contact_form {
-		input{
+		.input{
 			border-bottom-color: rgba(0,0,0,0.43);
 			outline: none;
 			font-size: 14px;
@@ -258,6 +262,18 @@ input[type=number] {
 			&::placeholder{
 				color: transparent;
 			}
+
+			&.input--error{
+				border-bottom: 2px solid #be1d1d;
+
+				&:focus{
+					padding-bottom: 12px;
+				}
+			}
+		}
+
+		.errors{
+			margin-bottom: 20px;
 		}
 
 		.newsletter__label{
@@ -280,6 +296,10 @@ input[type=number] {
 		.form-group-wrapper{
 			flex: 1 1 auto;
 			margin: 0 0.75rem;
+		}
+
+		.newsletter--form{
+			background-color: transparent;
 		}
 
 		.form-group{

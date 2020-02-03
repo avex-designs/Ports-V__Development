@@ -18,18 +18,27 @@
 			{% form 'customer' %}
 				{{ form.errors | default_errors }}
 
+				{% assign email_error_modifier = '' %}
+
+				{% for error in form.errors %}
+					{% if error contains 'email' %}
+						{% assign email_error_modifier = 'input--error' %}
+
+						{% break %}
+					{% endif %}
+				{% endfor %}
+
 				{% if form.posted_successfully? %}
 					<div class="newsletter--form">
 						<div class="note form-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
 					</div>
 				{% else %}
-
 					<div class="form-input-halves">
 						<div class="form-group-wrapper">
 							<div class="form-group">
-								<input type="text" id="ContactFormFirstName" class="input-full" placeholder="{{ 'contact.form.first_name' | t }}"
+								<input type="text" id="ContactFormFirstName" class="input-full input" placeholder="{{ 'contact.form.first_name' | t }}"
 									   name="contact[first_name]"
-									   autocapitalize="off">
+									   autocapitalize="off" required="required">
 								{% comment %} value="{% if form.first_name %}{{ form.first_name }}{% elsif customer %}{{ customer.first_name }}{% endif %}"> {% endcomment %}
 								<label for="ContactFormFirstName"
 									   class="newsletter__label">{{ 'contact.form.first_name' | t }}</label>
@@ -38,8 +47,8 @@
 
 						<div class="form-group-wrapper">
 							<div class="form-group">
-								<input type="text" id="ContactFormLastName" placeholder="{{ 'contact.form.last_name' | t }}" class="input-full" name="contact[last_name]"
-									   autocorrect="off" autocapitalize="off">
+								<input type="text" id="ContactFormLastName" placeholder="{{ 'contact.form.last_name' | t }}" class="input-full input" name="contact[last_name]"
+									   autocorrect="off" autocapitalize="off" required="required">
 								{% comment %} value="{% if form.last_name %}{{ form.last_name }}{% elsif customer %}{{ customer.last_name }}{% endif %}"> {% endcomment %}
 								<label for="ContactFormLastName"
 									   class="newsletter__label">{{ 'contact.form.last_name' | t }}</label>
@@ -52,7 +61,7 @@
 					<div class="form-group">
 						<input type="email" value="{% if customer %}{{ customer.email }}{% endif %}"
 							   name="contact[email]"
-							   id="Email" class="input-full" autocorrect="off" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" autocapitalize="off">
+							   id="Email" class="input-full input {{ email_error_modifier }}" autocorrect="off" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" autocapitalize="off" required="required">
 						<label for="Email"
 							   class="newsletter__label">{{ 'general.newsletter_form.newsletter_placeholder' | t }}</label>
 					</div>
