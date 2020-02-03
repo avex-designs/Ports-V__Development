@@ -3957,7 +3957,7 @@ function initCustomForms() {
 			};
 			this.blurHandler = function() {
 				if (self.options.stayFocusOnFilled) {
-          if (self.element.prop('tagName') !== 'select') {
+          if (self.element.prop('tagName') !== 'SELECT') {
             self.container.toggleClass(self.options.focusClass, !!self.element.val().trim().length);
           }
 				} else {
