@@ -3263,7 +3263,7 @@ function initCustomForms() {
 
 
 /*
- * Add Class on focus
+ * Add Class on focusthis.blurHandler = function(
  */
 ;(function ($) {
 	function AddFocusClass(options) {
@@ -3289,7 +3289,7 @@ function initCustomForms() {
 			};
 			this.blurHandler = function () {
 				if (self.options.stayFocusOnFilled) {
-					if (self.element.prop('tagName') == 'select') {
+					if (self.element.prop('tagName') == 'SELECT') {
 						self.container.toggleClass(self.options.focusClass, !!self.element.val().trim().length);
 					}
 				} else {

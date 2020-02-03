@@ -60,7 +60,7 @@
                 <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.quantity' | t }}</div>
                 <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.total' | t }}</div>
               </div>
-              <div class="table__body">
+              <div class="cart-table__body">
                 {%- for line_item in order.line_items -%}
                   <div id="{{ line_item.key }}" class="cart-item">
                     <div class="cart-item__description">
@@ -107,7 +107,7 @@
                   {%- if order.cart_level_discount_applications != blank -%}
                     <div>
                       {%- for discount_application in order.cart_level_discount_applications -%}
-                        <div scope="row" colspan="4" class="small--hide">
+                        <div class="small--hide">
                           {{ 'customer.order.discount' | t }}
                           <span class="order-discount order-discount--title">
                             <span class="icon icon-saletag" aria-hidden="true"></span>{{- discount_application.title -}}
@@ -127,20 +127,20 @@
 
                   {%- for shipping_method in order.shipping_methods -%}
                     <div>
-                      <div class="table--small-hide" scope="row" colspan="4">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</div>
+                      <div class="table--small-hide">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</div>
                       <div class="text-right" data-label="{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})" >{{ shipping_method.price | money }}</div>
                     </div>
                   {%- endfor -%}
 
                   {%- for tax_line in order.tax_lines -%}
                     <div>
-                      <div class="table--small-hide" scope="row" colspan="4">{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</div>
+                      <div class="table--small-hide">{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</div>
                       <div class="text-right" data-label="{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)" class="text-right">{{ tax_line.price | money }}</div>
                     </div>
                   {%- endfor -%}
 
                   <div>
-                    <div class="table--small-hide" scope="row" colspan="4">{{ 'customer.order.total' | t }}</d>
+                    <div class="table--small-hide">{{ 'customer.order.total' | t }}</d>
                     <div class="text-right" data-label="{{ 'customer.order.total' | t }}">{{ order.total_price | money }} {{ order.currency }}</div>
                   </div>
 

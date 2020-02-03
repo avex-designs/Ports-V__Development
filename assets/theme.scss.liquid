@@ -8481,7 +8481,7 @@ ul#sortBy {
 
 	.child-input-focused &,
 	.child-input-focused &.label-for-textarea,
-	textarea:focus + &
+	textarea:focus + &,
 	input:focus + & {
 		top: -2px;
 		transform: translateY(-100%);
@@ -8589,6 +8589,7 @@ ul#sortBy {
 	line-height: 18px;
 	text-transform: uppercase;
 	opacity: 0.5;
+	transition: all .3s ease;
 
 	&:hover,
 	&.active {
@@ -8912,6 +8913,7 @@ ul#sortBy {
 
 .account-page--content__title {
 	margin: -9px 0 20px;
+	font-weight: 500;
 
 	&.has-back-link-ahead {
 		margin-bottom: 10px;
@@ -8936,6 +8938,10 @@ ul#sortBy {
 		border-left: none;
 		padding-left: 0;
 		margin-top: 0;
+	}
+
+	.addresses & {
+		position: static;
 	}
 }
 
@@ -9062,10 +9068,10 @@ i.img-icon {
 
 .address-lightbox {
 	transition: opacity .3s ease;
-	position: fixed;
-	top: 50%;
+	position: absolute;
+	top: 183px;
 	left: -200%;
-	transform: translate(-50%, -50%);
+	transform: translateX(-50%);
 	opacity: 0;
 	visibility: hidden;
 	background: #fff;
@@ -9073,15 +9079,15 @@ i.img-icon {
 	width: 880px;
 	z-index: 9999;
 	box-shadow: 0 0 10px 1px rgba(0,0,0,.2);
+	margin-bottom: 183px;
 
 	@media screen and (max-width: $ports-min-desk) {
-		position: absolute;
+		top: 115px;
 		width: calc( 100vw - 30px );
 	}
 	@media screen and (max-width: $ports-max-mob) {
 		top: 47px;
 		padding: 73px ($gutter/2) 45px;
-		transform: translateX(-50%);
 	}
 
 	&.opened {
@@ -9334,19 +9340,15 @@ i.img-icon {
 	}
 
 	.order-info__track_btn {
-		display: block;
-		width: 100%;
-		margin-top: 46px;
-		margin-bottom: -6px;
-	}
-}
+		display: none;
 
-.order-info__track_btn {
-	width: 210px;
-	height: 44px;
-	position: absolute;
-	top: 12px;
-	right: 0;
+		@media screen and (max-width: $ports-max-mob ) {
+			display: block;
+			width: 100%;
+			margin-top: 46px;
+			margin-bottom: -6px;
+		}
+	}
 }
 
 /*========================================
