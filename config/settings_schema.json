@@ -2993,6 +2993,17 @@
         "label": "Disable the display of the Filter Menu temporarily",
         "default": false
       }
-    ]
+	]
+  },
+  {
+	"name": "Klaviyo",
+	"settings": [
+	  {
+		"type": "text",
+		"id": "klaviyo_list_id",
+		"label": "Newsletters List ID",
+		"default": "MFmjny"
+	  }
+	]
   }
 ]

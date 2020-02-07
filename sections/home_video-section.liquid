@@ -1,56 +1,117 @@
 <section id="fullscreen-video">
 
-  {{ section.settings.iframe }}
+	{% if section.settings.poster != blank %}
+		<div class="video_poster-image">
+			<img src="{{ section.settings.poster | img_url: '1920x' }}" alt="">
+		</div>
+	{% endif %}
 
-  <div class="video_overlay">
-    <span class="eyebrow h5">{{ section.settings.eyebrow }}</span>
-    <h3 class="h1">{{ section.settings.title }}</h3>
+	<div class="video-container">
+		{% if section.settings.iframe %}
+			<iframe src="{{ section.settings.iframe }}"
+					style="position:absolute;top:0;left:0;width:100%;height:100%;"
+					frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+		{% endif %}
+	</div>
 
-    {% if section.settings.link %}
-    <a href="{{ section.settings.link }}" class="ports-btn white"> {{ section.settings.linktext }} </a>
-    {% endif %}
-  </div>
+	<div class="video_overlay">
+		{% if section.settings.play_btn != blank %}
+			<div class="video_play-btn">
+				<img src="{{ section.settings.play_btn | img_url: 'master' }}" alt="">
+			</div>
+		{% endif %}
+		<span class="eyebrow h5">{{ section.settings.eyebrow }}</span>
+		<h3 class="h1">{{ section.settings.title }}</h3>
+
+		{% if section.settings.link %}
+			<a href="{{ section.settings.link }}" class="ports-btn white"> {{ section.settings.linktext }} </a>
+		{% endif %}
+	</div>
 
 </section>
 
+<script>
+	$(document).ready(function () {
+		const videoWrapper = $('#fullscreen-video');
+		const iframe = document.querySelector('.video-container iframe');
+
+		const options = {
+			controls: false
+		};
+
+		if (!iframe) return
+		const player = new Vimeo.Player(iframe, options);
+
+		if (!player) return
+
+		if (!videoWrapper.length) {
+			return;
+		}
+
+		videoWrapper.click(function () {
+			const $this = $(this);
+
+			if (!$this.hasClass('video-wrapper-active')) {
+				$(this).addClass('video-wrapper-active');
+				player.play();
+			} else {
+				$(this).removeClass('video-wrapper-active');
+				player.pause();
+			}
+
+		});
+
+	});
+</script>
+
 {% schema %}
-  {
-    "name": "Video_section",
-    "settings": [
-      {
-        "id": "iframe",
-        "type": "textarea",
-        "label": "Video Iframe"
-      },
-      {
-        "id": "eyebrow",
-        "type": "text",
-        "label": "Eyebrow",
-        "default": "Hello world"
-      },
-      {
-        "id": "title",
-        "type": "text",
-        "label": "Title",
-        "default": "Hello world"
-      },
-      {
-        "id": "link",
-        "type": "url",
-        "label": "Button link"
-      },
-      {
-        "id": "linktext",
-        "type": "text",
-        "label": "Button text",
-        "default": "Click here"
-      }
-    ],
-	  "presets": [
-	    {
-	      "name": "Video Section",
-	      "category": "Home Page"
-	    }
-	  ]
-  }
+{
+	"name": "Video_section",
+	"settings": [
+		{
+			"id": "poster",
+			"type": "image_picker",
+			"label": "Video Poster Image"
+		},
+		{
+			"id": "iframe",
+			"type": "url",
+			"label": "Video Iframe url"
+		},
+		{
+			"id": "play_btn",
+			"type": "image_picker",
+			"label": "Video Play Button"
+		},
+		{
+			"id": "eyebrow",
+			"type": "text",
+			"label": "Eyebrow",
+			"default": "Hello world"
+		},
+		{
+			"id": "title",
+			"type": "text",
+			"label": "Title",
+			"default": "Hello world"
+		},
+		{
+			"id": "link",
+			"type": "url",
+			"label": "Button link"
+		},
+		{
+			"id": "linktext",
+			"type": "text",
+			"label": "Button text",
+			"default": "Click here"
+		}
+	],
+	"presets": [
+		{
+			"name": "Video Section",
+			"category": "Home Page"
+		}
+	]
+}
 {% endschema %}

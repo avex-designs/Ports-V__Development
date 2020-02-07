@@ -1,31 +1,46 @@
 <style>
-  .site-header__logo img {
-    max-width: {{ section.settings.logo_max_width | escape | default: '180' | remove: 'px' | append: 'px' }};
-  }
+	.site-header__logo img {
+		max-width: {{ section.settings.logo_max_width | escape | default: '180' | remove: 'px' | append: 'px' }};
+	}
 
-  @media screen and (max-width: 768px) {
-    .site-header__logo img {
-      max-width: 100%;
-    }
-  }
+	@media screen and (max-width: 768px) {
+		.site-header__logo img {
+			max-width: 100%;
+		}
+	}
+
+	{% if template contains 'article.journal-post' %}
+	body {
+
+	}
+
+	{% endif %}
 </style>
 
 <div data-section-id="{{ section.id }}" data-section-type="header-section" data-template="{{ request.page_type }}">
 
-  <div id="NavDrawer" class="drawer drawer--left">
-    {% include 'drawer-menu' %}
-  </div> <!-- # Nav Drawer -->
+	<div id="NavDrawer" class="drawer drawer--left">
+		{% include 'drawer-menu' %}
+	</div> <!-- # Nav Drawer -->
 
-  {% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' %}
-  <div class="header-container index_header drawer__header-container">
-    {% include 'header' %}
-  </div> <!-- header-container -->
-  {% endif %}
-
-  <div class="header-container-scroll drawer__header-container">
-    {% include 'header' %}
-  </div> <!-- header-container -->
-
+	{% if request.page_type == 'index'
+		or template contains 'collection'
+		or template contains 'about'
+		or template contains 'blog'
+		or template contains 'article.journal-post' %}
+		<div class="header-container index_header drawer__header-container">
+			{% include 'header' %}
+		</div> <!-- header-container -->
+	{% else %}
+		<style>
+			body {
+				padding-top: 65px;
+			}
+		</style>
+		<div class="header-container-scroll drawer__header-container">
+			{% include 'header' %}
+		</div> <!-- header-container -->
+	{% endif %}
 </div>
 
 
@@ -373,7 +388,7 @@
       "id": "shop_drop_link",
       "type": "collection",
       "label": "Featured Collection Link"
-    },         
+    },
     {
       "id": "image-picker",
       "type": "image_picker",
@@ -398,7 +413,7 @@
             "id": "link",
             "type": "collection",
             "label": "Button link"
-          },         
+          },
           {
             "id": "image-picker",
             "type": "image_picker",

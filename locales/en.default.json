@@ -43,6 +43,7 @@
       "newsletter_email": "Sign up to our mailing list",
       "newsletter_placeholder": "Your email",
       "newsletter_confirmation": "Thanks for subscribing",
+	  "newsletter_enter_email": "Enter your email address…",
       "submit": "Subscribe",
 	  "sign_up": "Sign Up"
     },
@@ -68,7 +69,10 @@
       "tags": "Tags",
       "read_more": "Continue reading",
       "view_all": "View all",
-      "back_to_blog": "Back to {{ title }}"
+      "back_to_blog": "Back to {{ title }}",
+      "featured_products": "Featured products",
+      "related_articles": "Related articles",
+      "read_more_link": "Read more"
     },
     "comments": {
       "title": "Leave a comment",
@@ -206,7 +210,8 @@
 	  "payment_status": "Order Status",
 	  "fulfillment_status": "Fulfillment Status",
 	  "total": "Total",
-	  "none": "You haven't placed any orders yet."
+	  "none": "You Haven’t place any orders yet",
+	  "start_shopping": "Start shopping"
     },
     "order": {
 	  "title": "Order Details",
@@ -222,6 +227,7 @@
 	  "shipping": "Shipping",
 	  "tax": "Tax",
 	  "product": "Product",
+	  "options": "Options",
 	  "sku": "SKU",
 	  "price": "Price",
 	  "quantity": "Quantity",
@@ -313,6 +319,7 @@
     "product": {
       "sold_out": "Sold Out",
       "sold_out_html": "Sold<br \/> Out",
+	  "only_one_left_in_stock": "Only 1 Left in stock",
       "unavailable": "Unavailable",
       "quantity": "Quantity",
       "add_to_cart": "Add to Cart",

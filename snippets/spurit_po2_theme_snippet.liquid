@@ -36,18 +36,16 @@
     {% elsif pageType == 'collection' %}
         {% assign processed_products = '' | split: '' %}
 
-        {% for i in (1..90) %}
-            {% paginate collection.products by i %}
-                {% for product in collection.products %}
-                    {% assign products = processed_products | where: 'id', product.id  %}
+		{% paginate collection.products by 90 %}
+			{% for product in collection.products %}
+				{% assign products = processed_products | where: 'id', product.id  %}
 
-                    {% if products.size == 0 %}
-  				    	{% assign product_to_array = collection.products | where: 'id', product.id  %}
-                        {% assign processed_products = processed_products | concat: product_to_array %}
-                    {% endif %}
-                {% endfor %}
-            {% endpaginate %}
-        {% endfor %}
+				{% if products.size == 0 %}
+					{% assign product_to_array = collection.products | where: 'id', product.id  %}
+					{% assign processed_products = processed_products | concat: product_to_array %}
+				{% endif %}
+			{% endfor %}
+		{% endpaginate %}
 
         {% include 'spurit_po2_products_list_snippet', products: processed_products %}
     {%endif%}

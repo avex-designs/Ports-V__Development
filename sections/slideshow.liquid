@@ -37,7 +37,7 @@
 <div data-section-id="{{ section.id }}"
      data-section-type="slideshow-section"{% if section.settings.home_hero_height == 'adapt' %} class="hero--adapt"{% endif %}>
   {%- if section.blocks.size > 0 -%}
-    <div class="hero-{{ section.id }} hero hero--color-0"
+    <div class="hero-{{ section.id }} hero"
          id="Hero"
          aria-label="slideshow"
          aria-describedby="hero-info"
@@ -63,7 +63,6 @@
             background: {{ block.settings.slide_text_color }};
           }
           .hero--color-{{ forloop.index0 }} .slick-dots li a:before {
-            background: transparent;
             border-color: {{ block.settings.slide_text_color }};
           }
           .hero--color-{{ forloop.index0 }} li.slick-active a:before {

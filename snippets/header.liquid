@@ -1,350 +1,355 @@
 <div class="header-wrapper hero__header">
 
-      {% if section.settings.show_announcement %}
-        {% if section.settings.home_page_only == false or request.page_type == 'index' %}
-          {% if section.settings.link == blank %}
-            <div class="announcement-bar">
-          {% else %}
-            <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar--link">
-          {% endif %}
-            <p class="announcement-bar__message">{{ section.settings.text | escape }}</p>
-          {% if section.settings.link == blank %}
-            </div>
-          {% else %}
-            </a>
-          {% endif %}
-        {% endif %}
-      {% endif %}
+	{% if section.settings.show_announcement %}
+		{% if section.settings.home_page_only == false or request.page_type == 'index' %}
+			{% if section.settings.link == blank %}
+				<div class="announcement-bar">
+					<p class="announcement-bar__message">{{ section.settings.text | escape }}</p>
+				</div>
+			{% else %}
+				<a href="{{ section.settings.link }}" class="announcement-bar announcement-bar--link">
+					<p class="announcement-bar__message">{{ section.settings.text | escape }}</p>
+				</a>
+			{% endif %}
+		{% endif %}
+	{% endif %}
 
-      <header class="site-header" role="banner">
-        <div class="wrapper">
-          <div class="nav--wrap">
+	<header class="site-header" role="banner">
+		<div class="wrapper">
+			<div class="nav--wrap">
 
-            <div class="large--hide large--one-sixth one-quarter">
-              <div class="site-nav--open site-nav--mobile">
-                <button type="button" class="icon-fallback-text site-nav__link site-nav__link--burger js-drawer-open-button-left" aria-controls="NavDrawer">
-                  <span class="burger-icon burger-icon--top"></span>
-                  <!--<span class="burger-icon burger-icon--mid"></span>-->
-                  <span class="burger-icon burger-icon--bottom"></span>
-                  <span class="fallback-text">{{ 'general.drawers.navigation' | t }}</span>
-                </button>
-              </div>
-            </div>
+				<div class="large--hide large--one-sixth one-quarter">
+					<div class="site-nav--open site-nav--mobile">
+						<button type="button"
+								class="icon-fallback-text site-nav__link site-nav__link--burger js-drawer-open-button-left"
+								aria-controls="NavDrawer">
+							<span class="burger-icon burger-icon--top"></span>
+							<span class="burger-icon burger-icon--bottom"></span>
+							<span class="fallback-text">{{ 'general.drawers.navigation' | t }}</span>
+						</button>
+					</div>
+				</div>
 
-            <div class="large--one-thirdzor medium-down--one-half">
-               {% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' %}
-                <div class="h1 site-header__logo large--left index-clear-logo" itemscope itemtype="http://schema.org/Organization">
-                  <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-                    <img src="{{ 'black.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
-                  </a>
-                </div>
-                {% endif %}
-                <div class="h1 site-header__logo large--left fixed--logo" itemscope itemtype="http://schema.org/Organization">
-                  <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-                    <img src="{{ 'Ports_V_logo.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
-                  </a>
-                </div>
-            </div>
+				<div class="large--one-thirdzor medium-down--one-half">
+					{% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' or template contains 'article.journal-post' %}
+						<div class="h1 site-header__logo large--left index-clear-logo" itemscope
+							 itemtype="http://schema.org/Organization">
+							<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+								<img src="{{ 'black.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
+							</a>
+						</div>
+					{% endif %}
+					<div class="h1 site-header__logo large--left fixed--logo" itemscope
+						 itemtype="http://schema.org/Organization">
+						<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+							<img src="{{ 'Ports_V_logo.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
+						</a>
+					</div>
+				</div>
 
-            <nav id="Main-Nav" class="nav-menu-wrapper medium-down--hide" role="navigation">
-              <ul class="site-nav" id="AccessibleNav">
-                {% for link in linklists[section.settings.main_menu_link_list].links %}
+				<nav id="Main-Nav" class="nav-menu-wrapper medium-down--hide" role="navigation">
+					<ul class="site-nav" id="AccessibleNav">
+						{% for link in linklists[section.settings.main_menu_link_list].links %}
 
-                  {% if link.links != blank and link.title != 'Shop' %}
-                    {% comment %}
-                    <!-----
-                    DEFAULT NESTED MENU ITEMS
-                    ---->
-                    {% endcomment %}
-                    {% assign parent_index = forloop.index %}
-                    <li
-                      class="site-nav__item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}"
-                      aria-haspopup="true"
-                      data-meganav-type="parent">
-                      <a
-                        href="{{ link.url }}"
-                        class="site-nav__link ports-link"
-                        data-meganav-type="parent"
-                        aria-controls="MenuParent-{{ parent_index }}"
-                        aria-expanded="false"
-                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
-                          {{ link.title | escape }}
-                      </a>
-                      <ul
-                        id="MenuParent-{{ parent_index }}"
-                        class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
-                        data-meganav-dropdown>
-                        {% for childlink in link.links %}
-                          {% if childlink.links != blank %}
-                          {% assign child_index = forloop.index %}
-                            <li
-                              class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %}"
-                              aria-haspopup="true">
-                              <a
-                                href="{{ childlink.url }}"
-                                class="site-nav__dropdown-link"
-                                aria-controls="MenuChildren-{{ parent_index }}-{{ child_index }}"
-                                data-meganav-type="parent"
-                                {% unless request.page_type == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}
-                                tabindex="-1">
-                                  {{ childlink.title | escape }}
-                              </a>
-                              <div class="site-nav__dropdown-grandchild">
-                                <ul
-                                  id="MenuChildren-{{ parent_index }}-{{ child_index }}"
-                                  data-meganav-dropdown>
-                                  {% for grandchildlink in childlink.links %}
-                                    <li{% if grandchildlink.active %} class="site-nav--active"{% endif %}>
-                                      <a
-                                        href="{{ grandchildlink.url }}"
-                                        class="site-nav__dropdown-link"
-                                        data-meganav-type="child"
-                                        {% unless request.page_type == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}
-                                        tabindex="-1">
-                                          {{ grandchildlink.title | escape }}
-                                        </a>
-                                    </li>
-                                  {% endfor %}
-                                </ul>
-                              </div>
-                            </li>
-                          {% else %}
-                            <li{% if childlink.active %} class="site-nav--active"{% endif %}>
-                              <a
-                                href="{{ childlink.url }}"
-                                class="site-nav__dropdown-link"
-                                data-meganav-type="child"
-                                {% if childlink.active %}aria-current="page"{% endif %}
-                                tabindex="-1">
-                                  {{ childlink.title | escape }}
-                              </a>
-                            </li>
-                          {% endif %}
-                        {% endfor %}
-                      </ul>
-                    </li>
+							{% if link.links != blank and link.title != 'Shop' %}
+								{% comment %}
+									<!-----
+									DEFAULT NESTED MENU ITEMS
+									---->
+								{% endcomment %}
+								{% assign parent_index = forloop.index %}
+								<li
+										class="site-nav__item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}"
+										aria-haspopup="true"
+										data-meganav-type="parent">
+									<a
+											href="{{ link.url }}"
+											class="site-nav__link ports-link"
+											data-meganav-type="parent"
+											aria-controls="MenuParent-{{ parent_index }}"
+											aria-expanded="false"
+											{% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}>
+										{{ link.title | escape }}
+									</a>
+									<ul
+											id="MenuParent-{{ parent_index }}"
+											class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
+											data-meganav-dropdown>
+										{% for childlink in link.links %}
+											{% if childlink.links != blank %}
+												{% assign child_index = forloop.index %}
+												<li
+														class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %}"
+														aria-haspopup="true">
+													<a
+															href="{{ childlink.url }}"
+															class="site-nav__dropdown-link"
+															aria-controls="MenuChildren-{{ parent_index }}-{{ child_index }}"
+															data-meganav-type="parent"
+															{% unless request.page_type == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless %}
+															tabindex="-1">
+														{{ childlink.title | escape }}
+													</a>
+													<div class="site-nav__dropdown-grandchild">
+														<ul
+																id="MenuChildren-{{ parent_index }}-{{ child_index }}"
+																data-meganav-dropdown>
+															{% for grandchildlink in childlink.links %}
+																<li{% if grandchildlink.active %} class="site-nav--active"{% endif %}>
+																	<a
+																			href="{{ grandchildlink.url }}"
+																			class="site-nav__dropdown-link"
+																			data-meganav-type="child"
+																			{% unless request.page_type == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}
+																			tabindex="-1">
+																		{{ grandchildlink.title | escape }}
+																	</a>
+																</li>
+															{% endfor %}
+														</ul>
+													</div>
+												</li>
+											{% else %}
+												<li{% if childlink.active %} class="site-nav--active"{% endif %}>
+													<a
+															href="{{ childlink.url }}"
+															class="site-nav__dropdown-link"
+															data-meganav-type="child"
+															{% if childlink.active %}aria-current="page"{% endif %}
+															tabindex="-1">
+														{{ childlink.title | escape }}
+													</a>
+												</li>
+											{% endif %}
+										{% endfor %}
+									</ul>
+								</li>
 
-                  {% elsif link.title == 'Shop' and link.links != blank  %}
-                    {% comment %}
-                    <!-----
-                    'SHOP' MEGA MENU DROP DOWN
-                    ---->
-                    {% endcomment %}
-                    {% assign parent_index = forloop.index %}
-                    <li
-                      class="site-nav__item site-nav--has-dropdown has-mega-menu {% if link.active %}site-nav--active{% endif %}"
-                      aria-haspopup="true"
-                      data-meganav-type="parent">
-                      <a
-                        href="{{ link.url }}"
-                        class="site-nav__link ports-link"
-                        data-meganav-type="parent"
-                        aria-controls="MenuParent-{{ parent_index }}"
-                        aria-expanded="false"
-                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
-                          {{ link.title | escape }}
-                      </a>
-                      <div
-                        id="MenuParent-{{ parent_index }}"
-                        class="site-nav__dropdown shop-mega-drop {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
-                        data-meganav-dropdown>
+								{% elsif link.title == 'Shop' and link.links != blank %}
+								{% comment %}
+									<!-----
+									'SHOP' MEGA MENU DROP DOWN
+									---->
+								{% endcomment %}
+								{% assign parent_index = forloop.index %}
+								<li
+										class="site-nav__item site-nav--has-dropdown has-mega-menu {% if link.active %}site-nav--active{% endif %}"
+										aria-haspopup="true"
+										data-meganav-type="parent">
+									<a
+											href="{{ link.url }}"
+											class="site-nav__link ports-link"
+											data-meganav-type="parent"
+											aria-controls="MenuParent-{{ parent_index }}"
+											aria-expanded="false"
+											{% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}>
+										{{ link.title | escape }}
+									</a>
+									<div
+											id="MenuParent-{{ parent_index }}"
+											class="site-nav__dropdown shop-mega-drop shop-mega-drop--shop-menu {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
+											data-meganav-dropdown>
 
-                        <div>
+										<div>
 
-                          <!-- Shop featured -->
-                          <div class="shop-featured-menu">
-                            <ul class="featured-menu">
-                              {% for link in linklists[section.settings.featured_nav].links %}
-                              <li class="h6">
-                                  <a href="{{ link.url }}">
-                                   {{ link.title | escape }}
-                                  </a>
-                              </li>
-                              {% endfor %}
-                            </ul>
-                          </div>
-                          <!-- Shop featured -->
-                          <div class="shop_menu_extended_wrap">
-                            <ul class="shop_menu_extended">
-                            {% for childlink in link.links %}
-                              {% if childlink.links != blank %}
-                              {% assign child_index = forloop.index %}
-                              <li
-                                class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %}"
-                                aria-haspopup="true">
-                                <a
-                                  href="{{ childlink.url }}"
-                                  class="site-nav__dropdown-link h6"
-                                  aria-controls="MenuChildren-{{ parent_index }}-{{ child_index }}"
-                                  data-meganav-type="parent"
-                                  {% unless request.page_type == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}
-                                  tabindex="-1">
-                                    {{ childlink.title | escape }}
-                                </a>
-                                <div class="site-nav__dropdown-grandchildzor">
-                                  <ul
-                                    id="MenuChildren-{{ parent_index }}-{{ child_index }}"
-                                    data-meganav-dropdown>
-                                    {% for grandchildlink in childlink.links %}
-                                      <li{% if grandchildlink.active %} class="site-nav--active"{% endif %}>
-                                        <a
-                                          href="{{ grandchildlink.url }}"
-                                          class="site-nav__dropdown-link"
-                                          data-meganav-type="child"
-                                          {% unless request.page_type == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}
-                                          tabindex="-1">
-                                            {{ grandchildlink.title | escape }}
-                                          </a>
-                                      </li>
-                                    {% endfor %}
-                                  </ul>
-                                </div>
-                              </li>
-                              {% else %}
-                                <li{% if childlink.active %} class="site-nav--active"{% endif %}>
-                                  <a
-                                    href="{{ childlink.url }}"
-                                    class="site-nav__dropdown-link"
-                                    data-meganav-type="child"
-                                    {% if childlink.active %}aria-current="page"{% endif %}
-                                    tabindex="-1">
-                                      {{ childlink.title | escape }}
-                                  </a>
-                                </li>
-                              {% endif %}
-                            {% endfor %}
-                            </ul>
-                          </div>
-                          <div class="shop_featured-collection">
-                            <!--<div class="shop_featured_wrap">-->
-                              <a class="img-wrap" href="/collections/{{ section.settings.shop_drop_link }}">
-                                <img src="{{ section.settings.image-picker | img_url: '800x' }}" alt="{{ block.settings.image.alt }}">
-                              </a>
-                              
-                              <div>
-                                <a href="/collections/{{ section.settings.shop_drop_link }}">
-                                  {% if section.settings.linktext != blank %}
-                                  <h6> {{ section.settings.linktext }} </h6>
-                                  {% else %}
-                                  <h6> {{ section.settings.shop_drop_link }} </h6>
-                                  {% endif %}
-                                </a>
-                              </div>
-                            <!--</div>-->
-                          </div>
+											<!-- Shop featured -->
+											<div class="shop-featured-menu">
+												<ul class="featured-menu">
+													{% for link in linklists[section.settings.featured_nav].links %}
+														<li class="h6">
+															<a href="{{ link.url }}">
+																{{ link.title | escape }}
+															</a>
+														</li>
+													{% endfor %}
+												</ul>
+											</div>
+											<!-- Shop featured -->
+											<div class="shop_menu_extended_wrap">
+												<ul class="shop_menu_extended">
+													{% for childlink in link.links %}
+														{% if childlink.links != blank %}
+															{% assign child_index = forloop.index %}
+															<li
+																	class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %}"
+																	aria-haspopup="true">
+																<a
+																		href="{{ childlink.url }}"
+																		class="site-nav__dropdown-link h6"
+																		aria-controls="MenuChildren-{{ parent_index }}-{{ child_index }}"
+																		data-meganav-type="parent"
+																		{% unless request.page_type == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless %}
+																		tabindex="-1">
+																	{{ childlink.title | escape }}
+																</a>
+																<div class="site-nav__dropdown-grandchildzor">
+																	<ul
+																			id="MenuChildren-{{ parent_index }}-{{ child_index }}"
+																			data-meganav-dropdown>
+																		{% for grandchildlink in childlink.links %}
+																			<li{% if grandchildlink.active %} class="site-nav--active"{% endif %}>
+																				<a
+																						href="{{ grandchildlink.url }}"
+																						class="site-nav__dropdown-link"
+																						data-meganav-type="child"
+																						{% unless request.page_type == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}
+																						tabindex="-1">
+																					{{ grandchildlink.title | escape }}
+																				</a>
+																			</li>
+																		{% endfor %}
+																	</ul>
+																</div>
+															</li>
+														{% else %}
+															<li{% if childlink.active %} class="site-nav--active"{% endif %}>
+																<a
+																		href="{{ childlink.url }}"
+																		class="site-nav__dropdown-link"
+																		data-meganav-type="child"
+																		{% if childlink.active %}aria-current="page"{% endif %}
+																		tabindex="-1">
+																	{{ childlink.title | escape }}
+																</a>
+															</li>
+														{% endif %}
+													{% endfor %}
+												</ul>
+											</div>
+											<div class="shop_featured-collection">
+												<a href="/collections/{{ section.settings.shop_drop_link }}">
+													<div class="img-wrap">
+														<img src="{{ section.settings.image-picker | img_url: '800x' }}"
+															 alt="{{ block.settings.image.alt }}">
+													</div>
+													<span class="h6">
+														{% if section.settings.linktext != blank %}
+															{{ section.settings.linktext }}
+														{% else %}
+															{{ section.settings.shop_drop_link }}
+														{% endif %}
+													</span>
+												</a>
+											</div>
+										</div>
 
-                        </div>
-                        
-                      </div><!-- mega menu container -->
-                    </li>
+									</div><!-- mega menu container -->
+								</li>
 
-                  {% elsif link.title == 'Collections' %}
-                    {% comment %}
-                    <!-----
-                    COLLECTIONS MEGA MENU DROP DOWN
-                    ---->
-                    {% endcomment %}
-                    <li
-                      class="site-nav__item site-nav--has-dropdown has-mega-menu {% if link.active %}site-nav--active{% endif %}"
-                      aria-haspopup="true"
-                      data-meganav-type="parent">
-                      <a
-                        href="{{ link.url }}"
-                        class="site-nav__link ports-link"
-                        data-meganav-type="parent"
-                        aria-controls="MenuParent-{{ parent_index }}"
-                        aria-expanded="false"
-                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
-                          {{ link.title | escape }}
-                      </a>
-                      <div
-                        id="MenuParent-{{ parent_index }}"
-                        class="site-nav__dropdown shop-mega-drop {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
-                        data-meganav-dropdown>
+								{% elsif link.title == 'Collections' %}
+								{% comment %}
+									<!-----
+									COLLECTIONS MEGA MENU DROP DOWN
+									---->
+								{% endcomment %}
+								<li
+										class="site-nav__item site-nav--has-dropdown has-mega-menu {% if link.active %}site-nav--active{% endif %}"
+										aria-haspopup="true"
+										data-meganav-type="parent">
+									<a
+											href="{{ link.url }}"
+											class="site-nav__link ports-link"
+											data-meganav-type="parent"
+											aria-controls="MenuParent-{{ parent_index }}"
+											aria-expanded="false"
+											{% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}>
+										{{ link.title | escape }}
+									</a>
+									<div
+											id="MenuParent-{{ parent_index }}"
+											class="site-nav__dropdown shop-mega-drop {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
+											data-meganav-dropdown>
 
-                        <div class="mega-three-col">
-                          {% for block in section.blocks %}
-                          <div>
-                            <a class="img-wrap" href="/collections/{{ block.settings.link }}">
-                              <img src="{{ block.settings.image-picker | img_url: '800x' }}" alt="{{ block.settings.image.alt }}">
-                            </a>
-                            
-                            <div>
-                              <a href="/collections/{{ block.settings.link }}">
-                                {% if block.settings.linktext != blank %}
-                                <h6> {{ block.settings.linktext }} </h6>
-                                {% else %}
-                                <h6> {{ block.settings.link }} </h6>
-                                {% endif %}
-                              </a>
-                            </div>
-                          </div>
-                          {% endfor %}
-                        </div>
-                      </div>
-                    </li>
+										<div class="mega-three-col">
+											{% for block in section.blocks %}
+												<div class="mega-menu__collection-item">
+													<a href="/collections/{{ block.settings.link }}">
+														<div class="img-wrap">
+															<img src="{{ block.settings.image-picker | img_url: '800x' }}"
+																 alt="{{ block.settings.image.alt }}">
+														</div>
+														<div class="h6">
+															{% if block.settings.linktext != blank %}
+																{{ block.settings.linktext }}
+															{% else %}
+																{{ block.settings.link }}
+															{% endif %}
+														</div>
+													</a>
+												</div>
+											{% endfor %}
+										</div>
+									</div>
+								</li>
 
-                  {% else %}
-                  {% comment %}
-                  <!-----
-                  REGULAR DEGULAR MENU LINK
-                  ---->
-                  {% endcomment %}
-                    <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
-                      <a
-                        href="{{ link.url }}"
-                        class="site-nav__link ports-link"
-                        data-meganav-type="child"
-                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
-                          {{ link.title | escape }}
-                      </a>
-                    </li>
+							{% else %}
+								{% comment %}
+									<!-----
+									REGULAR DEGULAR MENU LINK
+									---->
+								{% endcomment %}
+								<li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
+									<a
+											href="{{ link.url }}"
+											class="site-nav__link ports-link"
+											data-meganav-type="child"
+											{% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}>
+										{{ link.title | escape }}
+									</a>
+								</li>
 
-                  {% endif %}
+							{% endif %}
 
-                {% endfor %}
-               </ul><!-- / main nav -->
-            </nav> <!-- #Main nav -->
+						{% endfor %}
+					</ul><!-- / main nav -->
+				</nav> <!-- #Main nav -->
 
-            <nav id="Utility-Nav" class="nav-menu-wrapper medium-down--hide" role="navigation">
-              <ul class="site-nav" id="UtilityNav">
-                  <li class="site-nav__item site-nav__item--compressed">
-                    <div class="search-bar-wrappa">
-                    {% include 'search-bar-header', search_btn_style: 'btn-account', search_bar_location: 'search-bar--header-auto' %}
-                   </div>
-                    <a id="search_init_btn" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}">  {{ 'general.search.title' | t }} </a>
-                  </li>
-                  {% if shop.customer_accounts_enabled %}
-                  <li class="site-nav__item site-nav__expanded-item site-nav__item--compressed">
-                    <a class="site-nav__link site-nav__link--icon" href="{{ routes.account_url }}"> {{ 'layout.customer.account' | t }} </a>
-                  </li>
-                  {% endif %}
-                  <li class="site-nav__item site-nav__item--compressed">
-                    <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-open-cart" aria-controls="CartDrawer">
-                      <span class="cart-item-count"> {{ cart.item_count }} </span>
-                    </a>
-                  </li>
-              </ul>
-            </nav><!-- #utility nav -->
+				<nav id="Utility-Nav" class="nav-menu-wrapper medium-down--hide" role="navigation">
+					<ul class="site-nav" id="UtilityNav">
+						<li class="site-nav__item site-nav__item--compressed">
+							<div class="search-bar-wrappa">
+								{% include 'search-bar-header', search_btn_style: 'btn-account', search_bar_location: 'search-bar--header-auto' %}
+							</div>
+							<a id="search_init_btn"
+							   class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}">  {{ 'general.search.title' | t }} </a>
+						</li>
+						{% if shop.customer_accounts_enabled %}
+							<li class="site-nav__item site-nav__expanded-item site-nav__item--compressed">
+								<a class="site-nav__link site-nav__link--icon"
+								   href="{{ routes.account_url }}"> {{ 'layout.customer.account' | t }} </a>
+							</li>
+						{% endif %}
+						<li class="site-nav__item site-nav__item--compressed">
+							<a href="{{ routes.cart_url }}"
+							   class="site-nav__link site-nav__link--icon cart-link js-open-cart"
+							   aria-controls="CartDrawer">
+								<span class="cart-item-count"> {{ cart.item_count }} </span>
+							</a>
+						</li>
+					</ul>
+				</nav><!-- #utility nav -->
 
-            <div class="grid__item desk--hide one-quarter">
-              <div class="site-nav--mobile text-right">
-                <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-open-cart" aria-controls="CartDrawer">
-                  <span class="cart-item-count"> {{ cart.item_count }} </span>
-                </a>
-                {% comment %}
-                <a href="{{ routes.cart_url }}" class="site-nav__link cart-link js-open-cart" aria-controls="CartDrawer">
+				<div class="grid__item desk--hide one-quarter">
+					<div class="site-nav--mobile text-right">
+						<a href="{{ routes.cart_url }}"
+						   class="site-nav__link site-nav__link--icon cart-link js-open-cart"
+						   aria-controls="CartDrawer">
+							<span class="cart-item-count"> {{ cart.item_count }} </span>
+						</a>
+						{% comment %}
+							<a href="{{ routes.cart_url }}" class="site-nav__link cart-link js-open-cart"
+							   aria-controls="CartDrawer">
                   <span class="icon-fallback-text">
                     <span class="icon icon-cart" aria-hidden="true"></span>
                     <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
                   </span>
-                  <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
-                </a>
-                {% endcomment %}
-              </div>
-            </div><!-- large hide one-quarter -->
+								<span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
+							</a>
+						{% endcomment %}
+					</div>
+				</div><!-- large hide one-quarter -->
 
-          </div> <!-- nav--wrap -->
-        </div> <!-- wrapper -->
-      </header>
-    </div>
+			</div> <!-- nav--wrap -->
+		</div> <!-- wrapper -->
+	</header>
+</div>

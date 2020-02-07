@@ -1,0 +1,34 @@
+<section class="BANANA journal-post-featured-products" data-section-id="{{ section.id }}" id="home-product-slider" style="padding-left: 0">
+    {% assign collection = collections[article.metafields.journal.featured_collection].products  %}
+    <h3 class="page-title">{{ 'blogs.article.featured_products' | t }}</h3>
+
+    <div class="journal-post-large-container">
+        <div class="product-scroll" id="product_slider_container">
+            <div class="product-scroll__wrapper">
+                {% for product in collection limit: 15%}
+                    {% if product.available %}
+                        <div class="item">
+                            {% include 'product-grid-item_ports' %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.swatch :radio').change(function() {
+            var optionIndex = $(this).closest('.swatch').attr('data-option-index');
+            var optionValue = $(this).val();
+
+            $(this)
+                .closest('form')
+                .find('.single-option-selector')
+                .eq(optionIndex)
+                .val(optionValue)
+                .trigger('change');
+        });
+    });
+</script>
