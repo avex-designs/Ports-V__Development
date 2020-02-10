@@ -21,10 +21,9 @@
   {% assign search_btn_style = 'btn--secondary' %}
 {% endunless %}
 
-<form action="{{ routes.search_url }}" method="get" class="input-group search-bar search-bar--header {{ search_bar_location }}" role="search">
+<form action="{{ routes.search_url }}" method="get" class="input-group search-bar {{ search_bar_location }}" role="search">
   {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
   <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="search" class="input-group-field search-input-header" aria-label="{{ 'general.search.placeholder' | t }}" required="required">
-  <input type="hidden" name="type" value="article,product">
   <span class="input-group-btn">
     <button type="submit" class="{{ search_btn_style }} icon-fallback-text">
       <img src="{{ 'search-black.svg' | file_url }}"/>

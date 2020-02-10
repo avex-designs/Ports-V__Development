@@ -37,7 +37,7 @@
 <div data-section-id="{{ section.id }}"
      data-section-type="slideshow-section"{% if section.settings.home_hero_height == 'adapt' %} class="hero--adapt"{% endif %}>
   {%- if section.blocks.size > 0 -%}
-    <div class="hero-{{ section.id }} hero"
+    <div class="hero-{{ section.id }} hero hero--color-0"
          id="Hero"
          aria-label="slideshow"
          aria-describedby="hero-info"
@@ -63,6 +63,7 @@
             background: {{ block.settings.slide_text_color }};
           }
           .hero--color-{{ forloop.index0 }} .slick-dots li a:before {
+            background: transparent;
             border-color: {{ block.settings.slide_text_color }};
           }
           .hero--color-{{ forloop.index0 }} li.slick-active a:before {
@@ -150,9 +151,9 @@
                   </h2>
                 {%- endunless -%}
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
-                  <a href="{{ block.settings.button_link }}" style="width: auto; color: {{ block.settings.slide_button_label_color }}; background-color: {{ block.settings.slide_button_background_color }}" class="ports-btn hero__cta">
+                  <a href="{{ block.settings.button_link }}" style="width: auto; color: {{ block.settings.slide_button_label_color }}; background-color: {{ block.settings.slide_button_background_color }}" class="ports-btn hero__cta"><span>
                     {{ block.settings.button_label | escape }}
-                  </a>
+                  </span></a>
                 {%- endif -%}
               </div>
             </div>

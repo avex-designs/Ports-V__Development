@@ -52,17 +52,16 @@
                              alt="{{ product.featured_image.alt | escape }}">
                     </noscript>
                 {% endif %}
-
-                {% if sold_out %}
-                    <div class="search__item-label search__item-label--sold-out">
-                        <p>{{ 'products.product.sold_out_html' | t }}</p>
-                    </div>
-                    {% elsif on_sale %}
-                    <div class="search__item-label search__item-label--sale">
-                        <p>{{ 'products.general.sale' | t }}</p>
-                    </div>
-                {% endif %}
             </a>
+            {% if sold_out %}
+                <div class="search__item-label search__item-label--sold-out">
+                    <p>{{ 'products.product.sold_out_html' | t }}</p>
+                </div>
+                {% elsif on_sale %}
+                <div class="search__item-label search__item-label--sale">
+                    <p>{{ 'products.general.sale' | t }}</p>
+                </div>
+            {% endif %}
         </div>
 
         <a href="{{ product.url | within: collection }}" class="grid-product__meta">

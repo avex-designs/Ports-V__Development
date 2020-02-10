@@ -96,6 +96,7 @@
           {% comment %}  Thumbnails layout  {% endcomment %}
 
           <div id="thumbnails_container">
+            <div class="thumbnails-holder">
               <ul class="product-single__thumbnails small--hide grid-uniform" id="ProductThumbs">
                 {% for image in product.images %}
                   {% if product.images.size > 1 %}
@@ -161,6 +162,7 @@
               </ul>
               <div class="arrows_append"></div>
             </div>
+          </div>
 
           <div class="product-thumbnail__photos product-single__photos">
             {% comment %}
@@ -303,6 +305,8 @@
 
       <div class="product-single__meta--wrapper">
         <div class="product-single__meta">
+          {% include 'breadcrumbs' %}
+        
           {% if section.settings.product_vendor_enable %}
             <h2 class="product-single__vendor" itemprop="brand">{{ product.vendor }}</h2>
           {% endif %}
@@ -349,30 +353,42 @@
                       {{ option.name | escape }}
                     </label>
                     {% if section.settings.product_selector == 'radio' %}
-                      <fieldset class="single-option-radio"
-                        id="ProductSelect-option-{{ forloop.index0 }}">
-                        {% assign option_index = forloop.index %}
-                        {% for value in option.values %}
-                          {% assign variant_label_state = true %}
-                          {% if product.options.size == 1 %}
-                            {% unless product.variants[forloop.index0].available  %}
-                              {% assign variant_label_state = false %}
-                            {% endunless %}
-                          {% endif %}
-                          <input type="radio"
-                            {% if option.selected_value == value %} checked="checked"{% endif %}
-                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
-                            value="{{ value | escape }}"
-                            data-index="option{{ option_index }}"
-                            name="option{{ option.position }}"
-                            class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
-                            id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
-                          <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
-                        {% endfor %}
-                      </fieldset>
+                    
+                      {% if option.name == 'Color' and option.values.size > 1 %}
+                        <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                          {% for value in option.values %}
+                            <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value | escape }}</option>
+                          {% endfor %}
+                        </select>
+                      {% else %}
+                        <fieldset class="single-option-radio"
+                          id="ProductSelect-option-{{ forloop.index0 }}">
+                          {% assign option_index = forloop.index %}
+                          {% for value in option.values %}
+                            {% assign variant_label_state = true %}
+                            {% if product.options.size == 1 %}
+                              {% unless product.variants[forloop.index0].available  %}
+                                {% assign variant_label_state = false %}
+                              {% endunless %}
+                            {% endif %}
+                            <input type="radio"
+                              {% if option.selected_value == value %} checked="checked"{% endif %}
+                              {% unless variant_label_state %}{% if section.settings.disable_sold_out %} disabled="disabled"{% endif %}{% endunless %}
+                              value="{{ value | escape }}"
+                              data-index="option{{ option_index }}"
+                              name="option{{ option.position }}"
+                              class="single-option-selector__radio{% unless variant_label_state %}{% if section.settings.disable_sold_out %} disabled{% endif %}{% endunless %}"
+                              id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+                            <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}" class="{{ option.name | handleize }}{% unless variant_label_state %} disabled{% endunless %}">{{ value | escape }}</label>
+                          {% endfor %}
+                        </fieldset>
+                      {% endif %}
 
                       {% if product.options contains 'Size' %}
-                      <a class="size-guide size-chart-open-popup" href="#size-chart-modal">Size Guide</a>
+                        {% assign product_tags = product.tags | join: ' ' %}
+                        {% if product_tags contains 'meta-size-chart-' or settings.size_chart != blank %}
+                            <a class="size-guide size-chart-open-popup" href="#size-chart-modal">{{ 'products.product.size_chart' | t }}</a>
+                        {% endif %}
                       {% endif %}
 
                     {% else %}
@@ -506,22 +522,7 @@
   </script>
 {% endunless %}
 
-
-<div id="size-chart-modal" class="mfp-hide">
-{% assign product_tags = product.tags | join: ' ' %}
-{% if product_tags contains 'meta-size-chart-' %}
-  {% for tag in product.tags %}
-    {% if tag contains 'meta-size-chart-' %}
-
-      {% include 'popup-size-chart', product_id: product.id %}
-
-    {% endif %}
-  {% endfor %}
-{% elsif settings.size_chart != blank %}
-  {{ 'products.product.size_chart' | t }}
-{% endif %}
-</div>
-
+{% include 'popup-size-chart', product_id: product.id %}
 
 <script src="https://scripts.sirv.com/sirv.js"></script>
 
@@ -758,6 +759,11 @@ $(document).ready(function(){
         "zh-CN": "产品选项表单",
         "zh-TW": "產品選項表單"
       }
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_sold_out",
+      "label": "Disable Soldout Options"
     },
     {
       "type": "checkbox",

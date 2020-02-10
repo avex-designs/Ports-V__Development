@@ -1,8 +1,11 @@
 <section id="Lookbook_bold_text">
-  
-  <span class="eyebrow h4"> {{ page.metafields.lookbook.eyebrow_text }}  </span>
 
-  <h2> {{ page.metafields.lookbook.bold_text }}</h2>
+    <div class="eyebrow_text">
+      <span class="eyebrow h4"> {{ page.metafields.lookbook.eyebrow_text }}  </span>
+      <span class="slash-img"></span>
+    </div>
+
+  <h2 class="h3"> {{ page.metafields.lookbook.bold_text }}</h2>
 
 </section>
 
@@ -12,240 +15,133 @@
     {% assign count = 0 %}
 
     {% for value in page.metafields.lookbook.image_one %}
-    {% assign count = count | plus: 1 %}
+
+        {% assign count = count | plus: 1 %}
 
         {% if page.metafields.lookbook.image_two[forloop.index0].size > 0 %}
 
-            <div class="images-column-container mob-hide">
-                <div class="block half_width ports-pad-all">
-                    <div class="img-block">
+            <div class="animation-holder viewport-section images-column-container mob-hide">
+                <div class="block animation-block half_width ports-pad-all">
+                    <div class="img-block animation-img-block">
                         {{ page.metafields.lookbook.image_one[forloop.index0] | img_tag }}
-                        <button id="slider_right_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
-                        <button id="slider_right_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                        <button class="ports-btn white slider_btn" data-slider="slider_right_{{ count }}"><span>+ Shop the look</span></button>
+                        <button class="ports-btn white back slider_btn_destroy" data-slider="slider_right_{{ count }}"><span>&#x2715; Hide products</span></button>
                     </div>
                 </div> <!-- half_width -->
-                <div class="block half_width ports-pad-all">
-                    <div class="img-block">
+                <div class="block animation-block half_width ports-pad-all">
+                    <div class="img-block animation-img-block">
                         {{ page.metafields.lookbook.image_two[forloop.index0] | img_tag }}
-                        <button id="slider_left_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
-                        <button id="slider_left_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                        <button class="ports-btn white slider_btn" data-slider="slider_left_{{ count }}"><span>+  Shop the look</span></button>
+                        <button class="ports-btn white back slider_btn_destroy" data-slider="slider_left_{{ count }}"><span>&#x2715; Hide products</span></button>
                     </div>
                 </div> <!-- half_width -->
             </div> <!-- images-column-container -->
 
-            <div class="slider_wrapper slider_right_{{ count }}_wrapper non-init">
-                <div class="block desk-hide">
-                    <div class="img-block">
+            <div class="slider_wrapper animation-holder viewport-section non-init">
+                <div class="block animation-block desk-hide">
+                    <div class="img-block animation-img-block">
                      {{ page.metafields.lookbook.image_one[forloop.index0] | img_tag }}
-                      <button id="slider_right_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
-                      <button id="slider_right_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                      <button class="ports-btn white slider_btn" data-slider="slider_right_{{ count }}"><span>+ Shop the look</span></button>
+                      <button class="ports-btn white back slider_btn_destroy" data-slider="slider_right_{{ count }}"><span>&#x2715; Hide products</span></button>
                     </div>
                 </div>
-                <div class="block-slider-container ports-pad-all">
-                    <div class="slider_right_{{ count }}">
-                        {% assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' %}
-                        {% assign product_list = collections.all.products %}
+                <div class="block-slider-container ports-pad-all product-scroll">
+                    <div id="slider_right_{{ count }}">
+                        {%- assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' -%}
                         {% for selected_handle in selected_handles %}
-                        {% for product in product_list %}
-                        {% if product.available and product.handle == selected_handle %}
-                        <div class="item">
-                            {% include 'product-grid-item_ports' %}
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+                            {% assign product = all_products[selected_handle] %}
+                            {% if product != empty %}
+                                {% if section.settings.show_sold_out %}
+                                    <div class="item">
+                                        {% include 'product-grid-item_ports' %}
+                                    </div>
+                                {% elsif product.available %}
+                                    <div class="item">
+                                        {% include 'product-grid-item_ports' %}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
                         {% endfor %}
                     </div> <!-- slider -->
                 </div><!-- block-slider-container -->
             </div><!-- column 1 wrapper -->
 
-            <div class="slider_wrapper slider_left_{{ count }}_wrapper non-init">
-                <div class="block desk-hide">
-                    <div class="img-block">
+            <div class="slider_wrapper animation-holder viewport-section non-init">
+                <div class="block animation-block desk-hide">
+                    <div class="img-block animation-img-block">
                      {{ page.metafields.lookbook.image_two[forloop.index0] | img_tag }}
-                      <button id="slider_left_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
-                      <button id="slider_left_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                      <button class="ports-btn white slider_btn" data-slider="slider_left_{{ count }}"><span>+ Shop the look</span></button>
+                      <button class="ports-btn white back slider_btn_destroy" data-slider="slider_left_{{ count }}"><span>&#x2715; Hide products</span></button>
                     </div>
                 </div>
-                <div class="block-slider-container ports-pad-all">
-                    <div class="slider_left_{{ count }}">
-                        {% assign selected_handles = page.metafields.lookbook.column_two_products[forloop.index0] | split: '|' %}
-                        {% assign product_list = collections.all.products %}
+                <div class="block-slider-container ports-pad-all product-scroll">
+                    <div id="slider_left_{{ count }}">
+                        {%- assign selected_handles = page.metafields.lookbook.column_two_products[forloop.index0] | split: '|' -%}
                         {% for selected_handle in selected_handles %}
-                        {% for product in product_list %}
-                        {% if product.available and product.handle == selected_handle %}
-                        <div class="item">
-                            {% include 'product-grid-item_ports' %}
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+                            {% assign product = all_products[selected_handle] %}
+                            {% if product != empty %}
+                                {% if section.settings.show_sold_out %}
+                                    <div class="item">
+                                        {% include 'product-grid-item_ports' %}
+                                    </div>
+                                {% elsif product.available %}
+                                    <div class="item">
+                                        {% include 'product-grid-item_ports' %}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
                         {% endfor %}
                     </div> <!-- slider -->
                 </div><!-- block-slider-container -->
             </div><!-- column 2 wrapper -->
 
-
-            <script type="text/javascript">
-            $(document).ready(function(){
-
-                var index = {{ count }}
-
-                $('#slider_right_'+index+'_btn').click(function(){
-                    console.log(index);
-
-                    $(this).addClass('back');
-                    $('#slider_right_'+index+'_btn_destroy').removeClass('back');
-                    $('.slider_right_'+index+'_wrapper').removeClass('non-init');
-
-                    $('.slider_right_'+index).slick({
-                        infinite: false,
-                        slidesToShow: 4,
-                        draggable: false,
-                        responsive: [
-                          {
-                            breakpoint: 1023,
-                            settings: {
-                              slidesToShow: 3
-                            }
-                          },
-                          {
-                            breakpoint: 719,
-                            settings: {
-                            slidesToShow: 2
-                            }
-                          }
-                        ]
-                    });
-
-                });
-
-                $('#slider_right_'+index+'_btn_destroy').click(function(){
-                    $(this).addClass('back');
-                    $('#slider_right_'+index+'_btn').removeClass('back');
-                    $('.slider_right_'+index+'_wrapper').addClass('non-init');
-                    $('.slider_right_'+index).slick('unslick');
-                });
-
-
-                $('#slider_left_'+index+'_btn').click(function(){
-                    console.log(index);
-
-                    $(this).addClass('back');
-                    $('#slider_left_'+index+'_btn_destroy').removeClass('back');
-                    $('.slider_left_'+index+'_wrapper').removeClass('non-init');
-
-                    $('.slider_left_'+index).slick({
-                        infinite: false,
-                        slidesToShow: 4,
-                        draggable: false,
-                        responsive: [
-                          {
-                            breakpoint: 1023,
-                            settings: {
-                              slidesToShow: 3
-                            }
-                          },
-                          {
-                            breakpoint: 719,
-                            settings: {
-                            slidesToShow: 2
-                            }
-                          }
-                        ]
-                    });
-                });
-
-                $('#slider_left_'+index+'_btn_destroy').click(function(){
-                    $(this).addClass('back');
-                    $('#slider_left_'+index+'_btn').removeClass('back');
-                    $('.slider_left_'+index+'_wrapper').addClass('non-init');
-                    $('.slider_left_'+index).slick('unslick');
-                });
-
-            });
-            </script>
-
         {% else %}
 
-            <div class="slider_wrapper slider_full_{{ count }}_wrapper non-init full_width">
-                <div class="block ports-pad-all">
-                    <div class="img-block">
+
+            <div class="slider_wrapper animation-holder viewport-section non-init {% if page.metafields.lookbook.full_bleed[forloop.index0] == 'true' %}full_bleed{% else %}full_width{% endif %}">
+                <div class="block animation-block ports-pad-all">
+                    <div class="img-block animation-img-block">
                      {{ page.metafields.lookbook.image_one[forloop.index0] | img_tag }}
-                      <button id="slider_full_{{ count }}_btn" class="ports-btn white"> Shop the look</button>
-                      <button id="slider_full_{{ count }}_btn_destroy" class="ports-btn white back"> Hide products</button>
+                      <button data-slider="slider_full_{{ count }}" class="ports-btn white slider_btn"><span>+ Shop the look</span></button>
+                      <button data-slider="slider_full_{{ count }}" class="ports-btn white back slider_btn_destroy"><span>&#x2715; Hide products</span></button>
                     </div>
                 </div>
                 <div class="block-slider-container ports-pad-all">
-                    <div class="slider_full_{{ count }}">
+                    <div id="slider_full_{{ count }}">
                         {% assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' %}
-                        {% assign product_list = collections.all.products %}
                         {% for selected_handle in selected_handles %}
-                        {% for product in product_list %}
-                        {% if product.available and product.handle == selected_handle %}
-                        <div class="item">
-                            {% include 'product-grid-item_ports' %}
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+                            {% assign product = all_products[selected_handle] %}
+                            {% if product != empty %}
+                                {% if section.settings.show_sold_out %}
+                                    <div class="item">
+                                        {% include 'product-grid-item_ports' %}
+                                    </div>
+                                {% elsif product.available %}
+                                    <div class="item">
+                                        {% include 'product-grid-item_ports' %}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
                         {% endfor %}
                     </div> <!-- slider -->
                 </div> <!-- block-slider-container -->
             </div><!-- single column wrapper -->
 
-            <script type="text/javascript">
-            $(document).ready(function(){
-
-                var index = {{ count }}
-
-                $('#slider_full_'+index+'_btn').click(function(){
-
-                    $(this).addClass('back');
-                    $('#slider_full_'+index+'_btn_destroy').removeClass('back');
-                    $('.slider_full_'+index+'_wrapper').removeClass('non-init');
-
-                    $('.slider_full_'+index).slick({
-                        infinite: false,
-                        slidesToShow: 4,
-                        draggable: false,
-                        responsive: [
-                          {
-                            breakpoint: 1023,
-                            settings: {
-                              slidesToShow: 3
-                            }
-                          },
-                          {
-                            breakpoint: 719,
-                            settings: {
-                            slidesToShow: 2
-                            }
-                          }
-                        ]
-                    });
-
-                });
-
-                $('#slider_full_'+index+'_btn_destroy').click(function(){
-                    $(this).addClass('back');
-                    $('#slider_full_'+index+'_btn').removeClass('back');
-                    $('.slider_full_'+index+'_wrapper').addClass('non-init');
-                    $('.slider_full_'+index).slick('unslick');
-                });
-
-            });
-            </script>
-
         {% endif %}
 
-    {% endfor %} 
+    {% endfor %}
 
 </section>
-
-
 
 {% schema %}
   {
     "name": "Lookbook",
     "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_sold_out",
+            "label": "Show sold out products"
+        }
     ],
     "presets": [
       {
@@ -255,3 +151,69 @@
     ]
   }
 {% endschema %}
+
+{% javascript %}
+    $(function() {
+        initProductsOpenClose();
+    });
+
+    function initProductsOpenClose() {
+        var $btnOpen = $('.slider_btn');
+        var $btnClose = $('.slider_btn_destroy');
+        var closedClass = 'non-init';
+        var btnToggleClass = 'back';
+
+        $btnOpen.on('click', function(e) {
+            e.preventDefault();
+            var $btn = $(this);
+            var $slider = $('#'+$btn.data('slider'));
+
+            // $btnClose.trigger('click');
+
+            if (!$slider.hasClass('slick-initialized')) {
+                initProductsCarousel($slider);
+            }
+
+            $slider.resize();
+
+            $btn.addClass(btnToggleClass);
+            $btn.next().removeClass(btnToggleClass);
+            $slider.closest('.slider_wrapper').removeClass(closedClass);
+        });
+
+        $btnClose.on('click', function(e) {
+            e.preventDefault();
+            var $btn = $(this);
+            var $slider = $('#'+$btn.data('slider'));
+
+            $btn.prev().removeClass(btnToggleClass);
+            $btn.addClass(btnToggleClass);
+            $slider.closest('.slider_wrapper').addClass(closedClass);
+        });
+    }
+
+    function initProductsCarousel($slider) {
+        $slider.slick({
+            infinite: false,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            draggable: false,
+            prevArrow: '<button type="button" class="slick-prev slick-nav"><span>Previous</span></button>',
+            nextArrow: '<button type="button" class="slick-next slick-nav"><span>Next</span></button>',
+            responsive: [
+              {
+                breakpoint: 1023,
+                settings: {
+                  slidesToShow: 2
+                }
+              },
+              {
+                breakpoint: 719,
+                settings: {
+                slidesToShow: 1
+                }
+              }
+            ]
+        });
+    }
+{% endjavascript %}

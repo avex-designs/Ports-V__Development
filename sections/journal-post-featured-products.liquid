@@ -2,7 +2,7 @@
     {% assign collection = collections[article.metafields.journal.featured_collection].products  %}
     <h3 class="page-title">{{ 'blogs.article.featured_products' | t }}</h3>
 
-    <div class="journal-post-large-container">
+    <div class="journal-post-large-container viewport-section">
         <div class="product-scroll" id="product_slider_container">
             <div class="product-scroll__wrapper">
                 {% for product in collection limit: 15%}

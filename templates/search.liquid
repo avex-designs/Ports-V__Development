@@ -4,12 +4,12 @@
 			<header class="section-header text-center">
 				{% if search.performed %}
 					{% if search.results_count == 0 %}
-						<h1 class="text-center page-title search__title">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+						<h1 class="text-center search__title">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
 					{% else %}
-						<h1 class="text-center page-title search__title">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+						<h1 class="text-center search__title">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
 					{% endif %}
 				{% else %}
-					<h1 class="text-center page-title search__title">{{ 'general.search.title' | t }}</h1>
+					<h1 class="text-center search__title">{{ 'general.search.title' | t }}</h1>
 				{% endif %}
 			</header>
 

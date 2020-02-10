@@ -93,7 +93,7 @@
     {% unless sold_out %}
     <div class="product-collection-hover">
       <!--<div class="product-hover-close"> </div>-->
-      
+
       <form id="{{ product.id }}" method="post" action="/cart/add" data-product-form>
 
         <select  name="id" id="ProductSelect" class="product-single__variant no-js single-option-selector">
@@ -120,8 +120,8 @@
     </div>
 
     {% endunless %}
-      
-      
+
+
     </div>
 
     <a href="{{ product.url | within: collection }}" class="grid-product__meta">
@@ -154,6 +154,6 @@
         <p class="grid-product__vendor">{{ product.vendor }}</p>
       {% endif %}
     </a>
-    
+
   </div>
 </div>

@@ -1,155 +1,161 @@
 <!-- /templates/customers/order.liquid -->
 <div class="account-page--wrapper">
-	<div class="account-page">
+  <div class="account-page">
 
-		<header class="section-header">
-			<h1 class="section-header__title h2">{{ 'customer.account.title' | t }}</h1>
-			<a href="/account" class="underlined-link section-header__back-link">{{ 'customer.account.back_to_account_overview_link' | t }}</a>
-		</header>
+    <header class="section-header">
+      <h1 class="section-header__title h2">{{ 'customer.account.title' | t }}</h1>
+      <a href="/account" class="underlined-link section-header__back-link">{{ 'customer.account.back_to_account_overview_link' | t }}</a>
+    </header>
 
-		<div class="account-page--content">
+    <div class="account-page--content">
 
-			<aside class="account-page--left">
-				{% include 'account-menu' %}
-			</aside>
+      <aside class="account-page--left">
+        {% include 'account-menu' %}
+      </aside>
 
-			<section class="account-page--right">
+      <section class="account-page--right">
 
-				<h3 class="account-page--content__title has-back-link-ahead h4">{{ 'customer.order.title' | t }}</h3>
-				<a href="{{ routes.account_url }}" class="underlined-link">{{ 'customer.account.return' | t }}</a>
-				<a href="{{ order.order_status_url }}" class="btn order-info__track_btn">{{ 'customer.order.track_shipment' | t }}</a>
+        <h3 class="account-page--content__title has-back-link-ahead h4">{{ 'customer.order.title' | t }}</h3>
+        <a href="{{ routes.account_url }}?view=orders" class="underlined-link">{{ 'customer.account.return' | t }}</a>
+        <a href="{{ order.order_status_url }}" class="btn order-info__track_btn">{{ 'customer.order.track_shipment' | t }}</a>
 
-				<div class="order-info">
-					<div class="order-info__item">
-						<div class="order-info__title">{{ 'customer.order.order_number' | t }}</div>
-						<div class="order-info__value">{{ order.name }}</div>
-					</div>
-					<div class="order-info__item">
-						<div class="order-info__title">{{ 'customer.order.date' | t }}</div>
-						<div class="order-info__value">{{ order.created_at | date: '%b %d, %Y' }}</div>
-					</div>
-					<div class="order-info__item">
-						<div class="order-info__title">{{ 'customer.order.payment_status' | t }}</div>
-						<div class="order-info__value">{{ order.financial_status_label }}</div>
-					</div>
-					<div class="order-info__item">
-						<div class="order-info__title">{{ 'customer.order.shipping_address' | t }}</div>
-						<div class="order-info__value">{{ order.shipping_address | format_address }}</div>
-					</div>
-					{%- if order.cancelled -%}
-						{%- assign cancelled_at = order.cancelled_at | date: format: 'date_at_time' -%}
-						<div class="order-info__item">
-							<div class="error order-info__title">{{ 'customer.order.cancelled' | t }}</div>
-							<div class="order-info__value">{{ date: cancelled_at }}</div>
-						</div>
-						<div class="order-info__item">
-							<div class="error order-info__title">{{ 'customer.order.cancelled_reason' | t }}</div>
-							<div class="order-info__value">{{ reason: order.cancel_reason }}</div>
-						</div>
-					{%- endif -%}
+          <div class="order-info">
+            <div class="order-info__item">
+              <div class="order-info__title">{{ 'customer.order.order_number' | t }}</div>
+              <div class="order-info__value">{{ order.name }}</div>
+            </div>
+            <div class="order-info__item">
+              <div class="order-info__title">{{ 'customer.order.date' | t }}</div>
+              <div class="order-info__value">{{ order.created_at | date: '%b %d, %Y' }}</div>
+            </div>
+            <div class="order-info__item">
+              <div class="order-info__title">{{ 'customer.order.payment_status' | t }}</div>
+              <div class="order-info__value">{{ order.financial_status_label }}</div>
+            </div>
+            <div class="order-info__item">
+              <div class="order-info__title">{{ 'customer.order.shipping_address' | t }}</div>
+              <div class="order-info__value">{{ order.shipping_address | format_address }}</div>
+            </div>
+            {%- if order.cancelled -%}
+              {%- assign cancelled_at = order.cancelled_at | date: format: 'date_at_time' -%}
+              <div class="order-info__item">
+                <div class="error order-info__title">{{ 'customer.order.cancelled' | t }}</div>
+                <div class="order-info__value">{{ date: cancelled_at }}</div>
+              </div>
+              <div class="order-info__item">
+                <div class="error order-info__title">{{ 'customer.order.cancelled_reason' | t }}</div>
+                <div class="order-info__value">{{ reason: order.cancel_reason }}</div>
+              </div>
+            {%- endif -%}
 
-					<a href="{{ order.order_status_url }}" class="btn order-info__track_btn">{{ 'customer.order.track_shipment' | t }}</a>
-				</div>
+            <a href="{{ order.order_status_url }}" class="btn order-info__track_btn">{{ 'customer.order.track_shipment' | t }}</a>
+          </div>
 
-				<div class="cart__wrapper">
-					<div class="cart-table">
-						<div class="cart-table__header">
-							<div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.product' | t }}</div>
-							<div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.options' | t }}</div>
-							<div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.quantity' | t }}</div>
-							<div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.total' | t }}</div>
-						</div>
-						<div class="cart-table__body">
-							{%- for line_item in order.line_items -%}
-								<div id="{{ line_item.key }}" class="cart-item">
-									<div class="cart-item__description">
-										<div class="cart-item__description-image-wrapper">
-											<a href="{{ line_item.product.url }}"><img src="{{ line_item | img_url: 'small' }}"  alt="{{ line_item.product.title }}" /></a>
-										</div>
-										<a href="{{ line_item.product.url }}"><h6 class="cart-item__title cart-item__title--desktop">{{ line_item.product.title }}</h6></a>
-									</div>
-									<div class="cart-item__info">
-										<a href="{{ line_item.product.url }}"><h6 class="cart-item__title cart-item__title--desktop">{{ line_item.product.title }}</h6></a>
-										<div class="cart-item__options">
-											{% if item.product.variants.size > 0 %}
-												{% for option in item.product.options %}
-													{{ item.variant.options[forloop.index0] }}
-												{% endfor %}
-											{% endif %}
-										</div>
-										<div class="cart-item__quantity">
-											{{ line_item.quantity }}
-										</div>
-									</div>
-									<div class="cart-item__price">
-										{%- if line_item.original_line_price != line_item.final_line_price -%}
-											<span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-											<del>{{ line_item.original_line_price | money }}</del>
-											<span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
-											<span class="order-discount">{{ line_item.final_line_price | money }}</span>
-										{%- else -%}
-											{{ line_item.original_line_price | money }}
-										{%- endif -%}
-									</div>
-								</div>
-							{%- endfor -%}
-						</div>
+          <div class="cart">
 
-						<div class="cart__footer">
+            <div class="cart__wrapper cart__wrapper--order">
 
-							<div class="cart__footer-result">
+              <div class="cart-table">
 
-								<h4 class="cart__footer-subtotal"><span>{{ 'customer.order.subtotal' | t }}</span> <span>{{ order.line_items_subtotal_price | money }}</span></h4>
+                <div class="cart-table__header">
+                  <div class="cart-table__header-label cart-table__header-label--item">{{ 'customer.order.product' | t }}</div>
+                  <div class="cart-table__header-label cart-table__header-label--options">{{ 'customer.order.options' | t }}</div>
+                  <div class="cart-table__header-label cart-table__header-label--quantity">{{ 'customer.order.quantity' | t }}</div>
+                  <div class="cart-table__header-label cart-table__header-label--price">{{ 'customer.order.total' | t }}</div>
+                </div>
 
-								{%- if order.cart_level_discount_applications != blank -%}
-									<div>
-										{%- for discount_application in order.cart_level_discount_applications -%}
-											<div class="small--hide">
-												{{ 'customer.order.discount' | t }}
-												<span class="order-discount order-discount--title">
-                            <span class="icon icon-saletag" aria-hidden="true"></span>{{- discount_application.title -}}
-                          </span>
-											</div>
-											<div class="text-right" data-label="{{ 'customer.order.discount' | t }}">
-												<div class="order-discount-wrapper">
-                            <span class="order-discount order-discount--title text-left medium--hide large--hide">
-                              <span class="icon icon-saletag" aria-hidden="true"></span>{{- discount_application.title -}}
+                <div class="cart-table__body">
+                  {%- for line_item in order.line_items -%}
+                    <div id="{{ line_item.key }}" class="cart-item">
+                      <div class="cart-item__description">
+                        <div class="cart-item__description-image-wrapper">
+                            <a href="{{ line_item.product.url }}"><img src="{{ line_item | img_url: '109x' }}"  alt="{{ line_item.product.title }}" /></a>
+                        </div>
+                        <a href="{{ line_item.product.url }}"><h6 class="cart-item__title cart-item__title--desktop">{{ line_item.product.title }}</h6></a>
+                      </div>
+                      <div class="cart-item__info">
+                        <a href="{{ line_item.product.url }}"><h6 class="cart-item__title cart-item__title--tablet">{{ line_item.product.title }}</h6></a>
+                        <div class="cart-item__options">
+                          {% if line_item.product.variants.size > 0 %}
+                              {% for option in line_item.product.options %}
+                                {{ line_item.variant.options[forloop.index0] }}{% unless forloop.last %} / {% endunless %}
+                              {% endfor %}
+                          {% endif %}
+                        </div>
+                        <div class="cart-item__quantity small--hide">
+                          {{ line_item.quantity }}
+                        </div>
+                        <div class="cart-item__price">
+                          {%- if line_item.original_line_price != line_item.final_line_price -%}
+                            <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                            <del>{{ line_item.original_line_price | money }}</del>
+                            <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+                            <span class="single-order-discount">{{ line_item.final_line_price | money }}</span>
+                          {%- else -%}
+                            {{ line_item.original_line_price | money }}
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+
+                <div class="cart__footer">
+
+                  <div class="cart__footer-link-wrapper"></div>
+
+                  <div class="cart__footer-result">
+
+                    <div class="cart__footer__row">
+                      <span>{{ 'customer.order.subtotal' | t }}</span>
+                      <span>{{ order.line_items_subtotal_price | money }}</span>
+                    </div>
+
+                    {%- if order.cart_level_discount_applications != blank -%}
+                      <div class="cart__footer__row">
+                        {%- for discount_application in order.cart_level_discount_applications -%}
+                          <div class="cart__footer__row">
+                            <span>{{ 'customer.order.discount' | t }} </span>
+                            <span class="signle-order-discount order-discount--title">
+                              <span class="icon icon-saletag" aria-hidden="true"></span> {{- discount_application.title -}}
                             </span>
-													<span class="order-discount">-{{ discount_application.total_allocated_amount | money }}</span>
-												</div>
-											</div>
-										{%- endfor -%}
-									</div>
-								{%- endif -%}
+                          </div>
+                          <div class="text-right">
+                            <div class="order-discount-wrapper cart__footer__row">
+                              <span class="signle-order-discount">-{{ discount_application.total_allocated_amount | money }}</span>
+                            </div>
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                    {%- endif -%}
 
-								{%- for shipping_method in order.shipping_methods -%}
-									<div>
-										<div class="table--small-hide">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</div>
-										<div class="text-right" data-label="{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})" >{{ shipping_method.price | money }}</div>
-									</div>
-								{%- endfor -%}
+                    {%- for shipping_method in order.shipping_methods -%}
+                      <div class="cart__footer__row">
+                        <div>{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</div>
+                        <div class="text-right">{{ shipping_method.price | money }}</div>
+                      </div>
+                    {%- endfor -%}
 
-								{%- for tax_line in order.tax_lines -%}
-									<div>
-										<div class="table--small-hide">{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</div>
-										<div class="text-right" data-label="{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)" class="text-right">{{ tax_line.price | money }}</div>
-									</div>
-								{%- endfor -%}
+                    {%- for tax_line in order.tax_lines -%}
+                      <div class="cart__footer__row">
+                        <div>{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</div>
+                        <div class="text-right">{{ tax_line.price | money }}</div>
+                      </div>
+                    {%- endfor -%}
 
-								<div>
-									<div class="table--small-hide">{{ 'customer.order.total' | t }}</d>
-										<div class="text-right" data-label="{{ 'customer.order.total' | t }}">{{ order.total_price | money }} {{ order.currency }}</div>
-									</div>
+                    <h4 class="cart__footer-subtotal"><span>{{ 'customer.order.total' | t }}</span> <span>{{ order.total_price | money }}</span></h4>
 
-								</div>
+                  </div>
 
-							</div>
+                </div>
 
-						</div>
+              </div>
 
-					</div>
+            </div>
 
-			</section>
+          </div>
 
-		</div>
-	</div>
+      </section>
+
+  </div>
+</div>

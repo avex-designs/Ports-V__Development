@@ -1,4 +1,4 @@
-<section class="BANANA" data-section-id="{{ section.id }}" id="home-product-slider">
+<section class="BANANA viewport-section" data-section-id="{{ section.id }}" id="home-product-slider">
 
   <header>
     <div class="text-header-container">
@@ -10,18 +10,19 @@
     </div>
   </header>
 
-  <div class="product-scroll" id="product_slider_container">
-    <div class="product-scroll__wrapper">
+  <div id="product_slider_container">
+
+    <div class="product_slider">
       {% for product in collections.pants-1.products limit:10 %}
-        {% if product.available %}
+      {% if product.available %}
 
-          <div class="item">
+      <div class="item">
 
-            {% include 'product-grid-item_ports' %}
+        {% include 'product-grid-item_ports' %}
 
-          </div><!-- item -->
+      </div><!-- item -->
 
-        {% endif %}
+      {% endif %}
       {% endfor %}
     </div> <!-- product_slider -->
 
@@ -34,7 +35,28 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-
+  $('.product_slider').slick({
+    infinite: false,
+    slidesToShow: 4,
+    draggable: false,
+    //appendArrows: $('.arrows_append'),
+    prevArrow: '<button type="button" class="slick-prev slider-arrow">Previous</button>',
+    nextArrow: '<button type="button" class="slick-next slider-arrow">Next</button>',
+    responsive: [
+      {
+        breakpoint: 1023,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 719,
+        settings: {
+        slidesToShow: 2
+        }
+      }
+    ]
+  });
 
 
   //$('.le_slider').slick();
