@@ -3,9 +3,8 @@
 
 <div class="social-share-container">
   
-  <span class="social-share-trigger h6">Share</span>
+  <span class="social-share-trigger h6">Share <span class="share-image active"> {{ 'product-social-share.svg' | file_url | img_tag }} </span></span>
 
-  <span class="share-image active"> {{ 'product-social-share.svg' | file_url | img_tag }} </span>
 
   <div class="social-sharing {{ shareButtonStyle }}">
     {% if settings.share_facebook %}

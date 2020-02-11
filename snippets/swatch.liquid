@@ -45,34 +45,36 @@
 
   {% assign values = '' %}
   {% for variant in product.variants %}
-    {% assign value = variant.options[option_index] %}
-    {% unless values contains value %}
+    {% assign val = variant.options[option_index] %}
+    {% unless values contains val %}
       {% assign values = values | join: ',' %}
-      {% assign values = values | append: ',' | append: value %} 
+      {% assign values = values | append: ',' | append: val %} 
       {% assign values = values | split: ',' %}
-      <div data-value="{{ value | escape }}" class="swatch-element {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}">
+      <div data-value="{{ val | escape }}" class="swatch-element {% if is_color %}color {% endif %}{{ val | handle }} {% if variant.available %}available{% else %}soldout{% endif %}">
         {% if is_color %}
-        <div class="tooltip">{{ value }}</div>
+        <div class="tooltip">{{ val }}</div>
         {% endif %}
-        <input id="swatch-{{ option_index }}-{{ value | handle }}-{{ variant.id }}" type="radio" name="option-{{ option_index }}" data-sku="{{ variant.sku }}"
-                value="{{ variant.id }}" {% if forloop.first %} checked{% endif %} {% unless variant.available %}disabled{% endunless %} />
+        <input id="swatch-{{ option_index }}-{{ val | handle }}-{{ variant.id }}" type="radio" name="option-{{ option_index }}" data-sku="{{ variant.sku }}"
+                value="{{ variant.id }}" {% if forloop.first and variant.available %} checked{% endif %} {% unless variant.available %}disabled{% endunless %} />
         {% if is_color %}
-        <label for="swatch-{{ option_index }}-{{ value | handle }}-{{ variant.id }}" style="background-color: {{ value | split: ' ' | last | handle }};">
+        <label for="swatch-{{ option_index }}-{{ val | handle }}-{{ variant.id }}" style="background-color: {{ val | split: ' ' | last | handle }};">
          
         </label>
         {% else %}
-        <label for="swatch-{{ option_index }}-{{ value | handle }}-{{ variant.id }}">
-          {{ value }}
+        <label for="swatch-{{ option_index }}-{{ val | handle }}-{{ variant.id }}">
+          {{ val }}
           
         </label>
         {% endif %}
       </div>
     {% endunless %}
-    {% if variant.available %}
-    <script>
-      jQuery('.swatch[data-option-index="{{ option_index }}"] .{{ value | handle }}').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-    </script>
-    {% endif %}
+  	{% comment %}
+      {% if variant.available %}
+      <script>
+        jQuery('.swatch[data-option-index="{{ option_index }}"] .{{ val | handle }}').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
+      </script>
+      {% endif %}
+    {% endcomment %}
   {% endfor %}
 </div>
 

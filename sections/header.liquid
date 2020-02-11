@@ -17,6 +17,8 @@
 	{% endif %}
 </style>
 
+{% assign image_size = "138x" %}
+
 <div data-section-id="{{ section.id }}" data-section-type="header-section" data-template="{{ request.page_type }}">
 
 	<div id="NavDrawer" class="drawer drawer--left">
@@ -26,7 +28,6 @@
 	{% if request.page_type == 'index'
 		or template contains 'collection'
 		or template contains 'about'
-		or template contains 'blog'
 		or template contains 'article.journal-post'
 		or template == '404'
 		or template == 'page.lookbook' %}
@@ -37,6 +38,12 @@
 		<style>
 			body {
 				padding-top: 65px;
+			}
+
+			@media screen and (max-width: 768px) {
+				body{
+					padding-top: 59px;
+				}
 			}
 		</style>
 		<div class="header-container-scroll drawer__header-container">

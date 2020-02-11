@@ -21,8 +21,50 @@
                         {% for item in search.results %}
                             {% if item.object_type == 'product' %}
                                 {% assign product = item %}
+                                {% assign on_sale = false %}
+                                {% if product.compare_at_price > product.price %}
+                                    {% assign on_sale = true %}
+                                {% endif %}
 
-                                {% include 'product-grid-item-search' %}
+                                {% assign sold_out = true %}
+                                {% if product.available %}
+                                    {% assign sold_out = false %}
+                                {% endif %}
+
+                                <div class="search__item">
+                                    <div class="grid-search__page">
+                                        <a href="{{ product.url }}" class="grid-search__page-link">
+                                            <div class="search__item-image-wrapper">
+                                                <img class="search__item-image" src="{{ product.featured_image | img_url: '500x' }}" alt="">
+
+                                                {% if sold_out %}
+                                                    <div class="search__item-label search__item-label--sold-out">
+                                                        <p>{{ 'products.product.sold_out_html' | t }}</p>
+                                                    </div>
+                                                    {% elsif on_sale %}
+                                                    <div class="search__item-label search__item-label--sale">
+                                                        <p>{{ 'products.general.sale' | t }}</p>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <span class="grid-search__page-content">
+                                                  <span class="search__item-title">
+                                                      {{- item.title -}}
+                                                  </span>
+                                            </span>
+                                            <span class="grid-product__price">
+                                              {% if on_sale %}
+                                                  <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+                                                  <span>{{ product.price | money_without_trailing_zeros }}</span>
+                                                  <span class="search__item-price search__item-price--sale">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                                              {% else %}
+                                                  <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                                                  {{ product.price | money_without_trailing_zeros }}
+                                              {% endif %}
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
                             {% endif %}
 
                             {% if item.object_type == 'article' %}

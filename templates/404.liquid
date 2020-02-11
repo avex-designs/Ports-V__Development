@@ -1,14 +1,14 @@
 <!-- /templates/404.liquid -->
 <div class="page-404--wrapper">
-	<section class="section-header section-header--404 text-center">
-		<img src="{{ '404.png' | asset_url }}" data-src="{{ '404.png' | asset_url }}" class="section-header--404__image lazyload">
+	<header class="section-header section-header--404 text-center">
+		<img src="{{ '404.png' | asset_url }}" data-src="{{ '404.png' | asset_url }}" class="section-header--404__image lazyload" alt="404">
+
 		<h1 class="h4 section-header--404__title">{{ 'general.404.title' | t }}</h1>
-		<a href="{{ routes.root_url }}" class="ports-btn section-header--404__button hero__cta white"><span>{{ 'general.404.back_home_btn' | t }}</span></a>
 
 		<a href="{{ routes.root_url }}" class="ports-btn section-header--404__button hero__cta white">
 			<span>
 				{{- 'general.404.back_home_btn' | t -}}
 			</span>
 		</a>
-	</section>
+	</header>
 </div>

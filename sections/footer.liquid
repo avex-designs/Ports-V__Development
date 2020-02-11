@@ -2,11 +2,15 @@
 	<div class="wrapper">
 
 		<div class="grid-uniform-footer">
-			<div class="footer-logo-container" itemscope itemtype="http://schema.org/Organization">
-				<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-					<img src="{{ 'black.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
-				</a>
-			</div>
+			{% if section.settings.logo != blank %}
+				<div class="footer-logo-container" itemscope itemtype="http://schema.org/Organization">
+					<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+						<img src="{{ section.settings.logo | img_url: '142x' }}"
+							 alt="{{ section.settings.logo.alt | default: shop.name }}"
+							 itemprop="logo">
+					</a>
+				</div>
+			{% endif %}
 
 			<div class="grid__item-footer site-footer__linklist-wrapper">
 				<ul class="no-bullets site-footer__linklist">
@@ -149,6 +153,11 @@
 				"zh-TW": "顯示付款圖示"
 			},
 			"default": true
+		},
+		{
+			"id": "logo",
+			"type": "image_picker",
+			"label": "logo"
 		}
 	],
 	"blocks": [

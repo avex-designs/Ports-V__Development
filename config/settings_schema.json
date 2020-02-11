@@ -1283,18 +1283,18 @@
     ]
   },
   {
-	"name": "Product Details Page",
-	"settings": [
-	  {
-		"type": "header",
-		"content": "Size Guide"
-	  },
-	  {
-		"type": "page",
-		"id": "size_chart",
-		"label": "Page with Size Chart"
-	  }
-	]
+    "name": "Product Details Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Size Guide"
+      },
+      {
+        "type": "page",
+        "id": "size_chart",
+        "label": "Page with Size Chart"
+      }
+    ]
   },
   {
     "name": {
@@ -3007,17 +3007,17 @@
         "label": "Disable the display of the Filter Menu temporarily",
         "default": false
       }
-	]
+    ]
   },
   {
-	"name": "Klaviyo",
-	"settings": [
-	  {
-		"type": "text",
-		"id": "klaviyo_list_id",
-		"label": "Newsletters List ID",
-		"default": "MFmjny"
-	  }
-	]
+    "name": "Klaviyo",
+    "settings": [
+      {
+        "type": "text",
+        "id": "klaviyo_list_id",
+        "label": "Newsletters List ID",
+        "default": "MFmjny"
+      }
+    ]
   }
 ]

@@ -1,5 +1,5 @@
 <section data-section-id="{{ section.id }}" id="home_mosaic-a" class="viewport-section">
-	<div class="wrapper">
+	<div class="wrapper mosaic">
 		<div class="column">
 			<header>
 				<div class="text-header-container">
@@ -13,14 +13,14 @@
 					</h2>
 				</div>
 			</header>
-			<div class="img-wrap">
+			<div class="img-wrap mosaic__image-desktop">
 				<img src="{{ section.settings.image-picker_a | img_url: 'master' }}"
 					 alt="{{ section.settings.image-picker_a.alt }}">
 			</div>
 		</div>
 
 		<div class="column">
-			<div class="img-wrap">
+			<div class="img-wrap mosaic__image-desktop">
 				<img src="{{ section.settings.image-picker_b | img_url: 'master' }}"
 					 alt="{{ section.settings.image-picker_b.alt }}">
 			</div>
@@ -36,6 +36,20 @@
 				{% endif %}
 			</div>
 		</div>
+
+        <div class="mosaic__images-mobile">
+            <div class="img-wrap">
+                <img class="mosaic__image"
+                     src="{{ section.settings.image-picker_a | img_url: 'master' }}"
+                     alt="{{ section.settings.image-picker_a.alt }}">
+            </div>
+
+            <div class="img-wrap">
+                <img class="mosaic__image"
+                     src="{{ section.settings.image-picker_b | img_url: 'master' }}"
+                     alt="{{ section.settings.image-picker_b.alt }}">
+            </div>
+        </div>
 	</div>
 </section>
 

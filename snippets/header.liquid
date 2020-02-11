@@ -31,24 +31,28 @@
 				</div>
 
 				<div class="large--one-thirdzor medium-down--one-half">
-					{% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' or template contains 'article.journal-post' %}
-						<div class="h1 site-header__logo large--left index-clear-logo" itemscope
+					{% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' or template contains 'article.journal-post' or template == "404" or template contains "lookbook" %}
+						<div class="site-header__logo large--left index-clear-logo" itemscope
 							 itemtype="http://schema.org/Organization">
 							<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
 								<img src="{{ section.settings.logo-inverted | img_url: image_size }}"
-									 srcset="{{ section.settings.logo-inverted | img_url: image_size }} 1x, {{ section.settings.logo-inverted | img_url: image_size, scale: 2 }} 2x"
 									 alt="{{ section.settings.logo-inverted.alt | default: shop.name }}"
 									 itemprop="logo">
 							</a>
 						</div>
 					{% endif %}
-					<div class="h1 site-header__logo large--left fixed--logo" itemscope
-						 itemtype="http://schema.org/Organization">
+
+					<div
+						class="site-header__logo large--left fixed--logo"
+						itemscope
+						itemtype="http://schema.org/Organization"
+					>
 						<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-							<img src="{{ section.settings.logo | img_url: image_size }}"
-								 srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
-								 alt="{{ section.settings.logo.alt | default: shop.name }}"
-								 itemprop="logo">
+							<img
+								src="{{ section.settings.logo | img_url: image_size }}"
+								alt="{{ section.settings.logo.alt | default: shop.name }}"
+								itemprop="logo"
+							>
 						</a>
 					</div>
 				</div>

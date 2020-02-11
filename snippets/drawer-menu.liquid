@@ -13,9 +13,11 @@
 			<span class="fallback-text">Site navigation</span>
 		</button>
 
-		<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-			<img src="{{ 'Ports_V_logo.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
-		</a>
+		{% if section.settings.logo != blank %}
+			<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+				<img src="{{ section.settings.logo | img_url: image_size }}" alt="Ports V Logo" itemprop="logo">
+			</a>
+		{% endif %}
 	</div>
 
 	{% comment %}

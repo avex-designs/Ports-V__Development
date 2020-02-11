@@ -83,7 +83,7 @@
                 {% if section.settings.logo_max_width != blank %}
                   {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
                 {% else %}
-                  {% assign image_size = "180x" %}
+                  {% assign image_size = "138x" %}
                 {% endif %}
 
                 {% if section.settings.logo-inverted and request.page_type == 'index' %}

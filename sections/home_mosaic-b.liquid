@@ -1,5 +1,5 @@
-<section data-section-id="{{ section.id }}" id="home_mosaic-b" class="viewport-section">
-  <div class="wrapper">
+<section data-section-id="{{ section.id }} mosaic" id="home_mosaic-b" class="viewport-section">
+  <div class="wrapper mosaic">
 
     <div class="column">
         <header>
@@ -15,16 +15,32 @@
 			  <a href="{{ section.settings.link }}" class="ports-btn" title="link to shop products"><span> {{ section.settings.linktext }} </span></a>
           {% endif %}
         </header>
-        <div class="img-wrap">
-           <img src="{{ section.settings.image-picker_a | img_url: 'master' }}" alt="{{ section.settings.image-picker_a.alt }}">
+
+        <div class="img-wrap mosaic__image-desktop">
+           <img src="{{ section.settings.image-picker_a | img_url: 'master' }}"
+                alt="{{ section.settings.image-picker_a.alt }}">
         </div>
     </div>
 
     <div class="column">
-        <div class="img-wrap">
-          <img src="{{ section.settings.image-picker_b | img_url: 'master' }}" alt="{{ section.settings.image-picker_b.alt }}">
+        <div class="img-wrap mosaic__image-desktop">
+          <img src="{{ section.settings.image-picker_b | img_url: 'master' }}"
+               alt="{{ section.settings.image-picker_b.alt }}">
         </div>
+    </div>
 
+    <div class="mosaic__images-mobile">
+      <div class="img-wrap">
+        <img class="mosaic__image"
+             src="{{ section.settings.image-picker_a | img_url: 'master' }}"
+             alt="{{ section.settings.image-picker_a.alt }}">
+      </div>
+
+      <div class="img-wrap">
+        <img class="mosaic__image"
+             src="{{ section.settings.image-picker_b | img_url: 'master' }}"
+             alt="{{ section.settings.image-picker_b.alt }}">
+      </div>
     </div>
 
   </div>
