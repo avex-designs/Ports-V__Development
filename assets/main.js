@@ -173,3 +173,13 @@
 	});
 })();
 
+;(function () {
+    $(window).scroll(function () {
+        if ($(window).scrollTop() !== 0) {
+            $('.header-container').addClass('hover');
+        } else {
+            $('.header-container').removeClass('hover');
+        }
+    })
+})();
+

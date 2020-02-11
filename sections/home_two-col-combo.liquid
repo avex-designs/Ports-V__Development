@@ -1,29 +1,27 @@
 <section data-section-id="{{ section.id }}" id="home-two-col-section">
-  <div class="wrapper animation-holder viewport-section">
-    
-    {% for block in section.blocks %}
-      <div class="column animation-block">
-        <a href="{{ block.settings.link }}" class="animation-img-block">
-          <img src="{{ block.settings.image-picker | img_url: '800x' }}" alt="{{ block.settings.image.alt }}">
-        
-          <div class="text-wrap white--text">
-            <h5>{{ block.settings.eyebrow }}</h5>
-            <h2> {{ block.settings.title }} </h2>
-            {% if block.settings.link %}
-            <button class="ports-btn white" href="{{ block.settings.link }}"><span>
-              {{ block.settings.linktext }}
-            </span></button>
-            {% endif %}
-          </div>
-        </a>
-      </div>
-    {% endfor %}
+	<div class="wrapper animation-holder viewport-section">
+		{% for block in section.blocks %}
+			<div class="column animation-block">
+				<a href="{{ block.settings.link }}" class="animation-img-block">
+					<img src="{{ block.settings.image-picker | img_url: '800x' }}" alt="{{ block.settings.image.alt }}">
 
-  </div>
+					<div class="text-wrap white--text">
+						<h5>{{ block.settings.eyebrow }}</h5>
+						<h2>{{ block.settings.title }}</h2>
+
+						{% if block.settings.link %}
+							<button class="ports-btn white" href="{{ block.settings.link }}">
+								<span>
+									{{- block.settings.linktext -}}
+								</span>
+							</button>
+						{% endif %}
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
 </section>
-
-
-
 
 {% schema %}
   {

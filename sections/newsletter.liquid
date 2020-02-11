@@ -1,3 +1,5 @@
+{% assign list_id = settings.klaviyo_list_id %}
+
 <div class="newsletter" data-section-id="{{ section.id }}" data-section-type="newsletter-section">
 	<div class="wrapper">
 		<div class="column newsletter-align">
@@ -15,71 +17,95 @@
 		</div>
 
 		<div class="column">
-			{% form 'customer' %}
-				{{ form.errors | default_errors }}
+			<form
+				id="contact_form"
+				class="contact-form contact-form--bottom js-placeholder-shown klaviyo_gdpr_embed_{{ list_id }}"
+				action="//manage.kmail-lists.com/subscriptions/subscribe"
+				data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+				method="GET"
+				target="_blank"
+				novalidate="novalidate"
+				data-klaviyo="true"
+			>
+				<div class="klaviyo_messages newsletter--form">
+					<div class="success_message note form-success" style="display:none;"></div>
+				</div>
 
-				{% assign email_error_modifier = '' %}
+				<div class="klaviyo-form">
+					<input type="hidden" name="g" value="{{ list_id }}">
+					<input type="hidden" name="$fields" value="$first_name,$last_name">
 
-				{% for error in form.errors %}
-					{% if error contains 'email' %}
-						{% assign email_error_modifier = 'input--error' %}
-
-						{% break %}
-					{% endif %}
-				{% endfor %}
-
-				{% if form.posted_successfully? %}
-					<div class="newsletter--form">
-						<div class="note form-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
-					</div>
-				{% else %}
 					<div class="form-input-halves">
 						<div class="form-group-wrapper">
 							<div class="form-group">
-								<input type="text" id="ContactFormFirstName" class="input-full input" placeholder="{{ 'contact.form.first_name' | t }}"
-									   name="contact[first_name]"
-									   autocapitalize="off" required="required">
-								{% comment %} value="{% if form.first_name %}{{ form.first_name }}{% elsif customer %}{{ customer.first_name }}{% endif %}"> {% endcomment %}
-								<label for="ContactFormFirstName"
-									   class="newsletter__label">{{ 'contact.form.first_name' | t }}</label>
+								<input
+										type="text"
+										id="klaviyo_form_first_name"
+										class="input-full input"
+										name="$first_name"
+										autocapitalize="off"
+										required="required"
+								/>
+
+								<label for="klaviyo_form_first_name" class="newsletter__label">
+									{{- 'contact.form.first_name' | t -}}
+								</label>
 							</div>
 						</div>
 
 						<div class="form-group-wrapper">
 							<div class="form-group">
-								<input type="text" id="ContactFormLastName" placeholder="{{ 'contact.form.last_name' | t }}" class="input-full input" name="contact[last_name]"
-									   autocorrect="off" autocapitalize="off" required="required">
-								{% comment %} value="{% if form.last_name %}{{ form.last_name }}{% elsif customer %}{{ customer.last_name }}{% endif %}"> {% endcomment %}
-								<label for="ContactFormLastName"
-									   class="newsletter__label">{{ 'contact.form.last_name' | t }}</label>
+								<input
+										type="text"
+										id="klaviyo_form_last_name"
+										class="input-full input"
+										name="$last_name"
+										autocorrect="off"
+										autocapitalize="off"
+										required="required"
+								/>
+
+								<label for="klaviyo_form_last_name" class="newsletter__label">
+									{{- 'contact.form.last_name' | t -}}
+								</label>
 							</div>
 						</div>
 					</div>
 
-					<input type="hidden" name="contact[tags]" value="newsletter">
-
 					<div class="form-group">
-						<input type="email" value="{% if customer %}{{ customer.email }}{% endif %}"
-							   name="contact[email]"
-							   id="Email" class="input-full input {{ email_error_modifier }}" autocorrect="off" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" autocapitalize="off" required="required">
-						<label for="Email"
-							   class="newsletter__label">{{ 'general.newsletter_form.newsletter_placeholder' | t }}</label>
+						<input
+								type="email"
+								value="{% if customer %}{{ customer.email }}{% endif %}"
+								name="email"
+								id="k_id_email"
+								class="input-full input {{ email_error_modifier }}"
+								autocorrect="off"
+								autocapitalize="off"
+								data-validate="email"
+						/>
+
+						<label for="k_id_email" class="newsletter__label">
+							{{- 'general.newsletter_form.newsletter_enter_email' | t -}}
+						</label>
 					</div>
 
 					<span class="input-group-btn-wrap">
-          	<button id="Subscribe" type="submit"
-					class="ports-btn"
-					aria-label="{{ 'general.newsletter_form.sign_up' | t }}">
-            <span class="newsletter__submit-text--largezor">{{ 'general.newsletter_form.sign_up' | t }}</span>
-          </button>
-        </span>
-				{% endif %}
-			{% endform %}
+						<button
+								id="Subscribe"
+								type="submit"
+								class="ports-btn klaviyo_submit_button"
+								aria-label="{{ 'general.newsletter_form.sign_up' | t }}"
+						>
+							<span class="newsletter__submit-text--largezor">
+								{{- 'general.newsletter_form.sign_up' | t -}}
+							</span>
+						</button>
+					</span>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
-
-
 
 {% schema %}
 {

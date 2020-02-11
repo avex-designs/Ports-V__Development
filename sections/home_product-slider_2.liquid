@@ -1,60 +1,49 @@
-<section class="BANANA viewport-section" data-section-id="{{ section.id }}" id="home-product-slider">
+{% if section.settings.collection %}
+	<section class="BANANA viewport-section" data-section-id="{{ section.id }}" id="home-product-slider">
+		<header>
+			<div class="text-header-container">
+				<div class="eyebrow_text">
+					<span class="slash-img"></span>
 
-  <header>
-    <div class="text-header-container">
-      <div class="eyebrow_text">
-        <span class="slash-img"></span>
-        <h5>{{ section.settings.eyebrow }}</h5>
-      </div>
-      <h2>{{ section.settings.title }}</h2>
-    </div>
-  </header>
+					<h5>
+						{{- section.settings.eyebrow -}}
+					</h5>
+				</div>
 
-  <div class="product-scroll" id="product_slider_container">
-    <div class="product-scroll__wrapper">
-      {% for product in collections.pants-1.products limit:10 %}
-        {% if product.available %}
+				<h2>
+					{{- section.settings.title -}}
+				</h2>
+			</div>
+		</header>
 
-          <div class="item">
-
-            {% include 'product-grid-item_ports' %}
-
-          </div><!-- item -->
-
-        {% endif %}
-      {% endfor %}
-    </div> <!-- product_slider -->
-
-
-  </div> <!-- #product_slider_container -->
-
-
-</section>
+		<div class="product-scroll" id="product_slider_container">
+			<div class="product-scroll__wrapper">
+				{% for product in collections[section.settings.collection].products limit:10 %}
+					{% if product.available %}
+						<div class="item">
+							{% include 'product-grid-item_ports' %}
+						</div><!-- item -->
+					{% endif %}
+				{% endfor %}
+			</div> <!-- product_slider -->
+		</div> <!-- #product_slider_container -->
+	</section>
+{% endif %}
 
 <script type="text/javascript">
-$(document).ready(function(){
+	$(document).ready(function(){
+		$('.swatch :radio').change(function () {
+			var optionIndex = $(this).closest('.swatch').attr('data-option-index');
+			var optionValue = $(this).val();
 
-
-
-
-  //$('.le_slider').slick();
-
-
-  $('.swatch :radio').change(function() {
-    var optionIndex = $(this).closest('.swatch').attr('data-option-index');
-    var optionValue = $(this).val();
-
-    console.log(optionIndex)
-
-    $(this)
-      .closest('form')
-      .find('.single-option-selector')
-      .eq(optionIndex)
-      .val(optionValue)
-      .trigger('change');
-  });
-
-});
+			$(this)
+				.closest('form')
+				.find('.single-option-selector')
+				.eq(optionIndex)
+				.val(optionValue)
+				.trigger('change');
+		});
+	});
 </script>
 
 
@@ -73,6 +62,11 @@ $(document).ready(function(){
         "type": "text",
         "label": "Title",
         "default": "Hello world"
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
       }
     ],
 	  "presets": [

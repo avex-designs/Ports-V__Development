@@ -284,6 +284,11 @@ header {
 	}
 }
 
+.index_header {
+	.header-wrapper {
+		position: fixed;
+	}
+}
 .site-nav--has-dropdown:hover > a, .site-nav--has-dropdown > a.nav-focus, .site-nav--has-dropdown.nav-hover > a {
 	background-color: transparent;
 	transition: opacity 0.3s ease;
@@ -520,6 +525,10 @@ header {
 				padding-bottom: 23px;
 			}
 		}
+
+		.mobile-nav__toggle-btn{
+			outline: none;
+		}
 	}
 
 
@@ -650,18 +659,18 @@ header {
 .newsletter{
 	#contact_form, .contact-form {
 		.input{
-			border-bottom-color: rgba(0,0,0,0.43);
+			border-bottom: 1px solid rgba(0,0,0,0.43);
 			outline: none;
 			font-size: 14px;
 			color: rgba(0,0,0,.6);
 			margin-bottom: 0;
-			transition-property: color, border, margin-bottom;
+			transition-property: color, border-color;
 			transition-duration: .2s;
 
 			&:focus{
 				color: #000;
-				border-bottom-color: #000;
 				margin-bottom: -1px;
+				border-bottom-color: #000;
 				border-bottom-width: 2px;
 			}
 
@@ -875,16 +884,19 @@ header {
     background-color: #fff;
     color: #9F1616;
     font-family: "stevie-sans", sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 12px;
     letter-spacing: 1px;
     line-height: 15px;
     border: none;
     border-radius: 0;
+    z-index: auto;
 
     p {
         font-size: 12px;
         padding: 0 11px;
+		font-weight: 400;
+		letter-spacing: 1px;
     }
 
     @include breakpoint(small-tablet-portrait) {
@@ -895,6 +907,7 @@ header {
 .grid-product__sold-out {
     color: #727272;
 }
+
 #minicart{
 	position: relative;
 	z-index: 99999;
@@ -1541,6 +1554,11 @@ header {
         min-height: 48px;
     }
 
+    .quantity-alert-message {
+        margin-top: 15px;
+        line-height: 18px;
+    }
+
     .cart-item__price {
         display: flex;
         align-items: center;
@@ -1630,6 +1648,10 @@ header {
             margin-top: 10px;
         }
 
+        .quantity-alert-message {
+            margin-top: 8px;
+        }
+
         .cart-item__quantity {
             align-items: flex-start;
             width: auto;
@@ -1685,7 +1707,7 @@ header {
         -webkit-appearance: none;
         outline: none;
         color: $black;
-
+        
         @include placeholder {
             font-family: "stevie-sans", sans-serif;
 			font-weight: 300;
@@ -2483,17 +2505,24 @@ header {
     }
 
     .product-scroll__wrapper {
-        display: flex;
-        margin-left: -80px;
+        display: inline-flex;
     }
 
     .item {
         min-width: 320px;
-        margin-left: 80px;
+        margin: 0 40px;
+
+		&:first-child{
+			margin-left: 5rem;
+		}
+
+		&:last-child{
+			margin-right: 5rem;
+		}
     }
 
     &::-webkit-scrollbar {
-        height: 3px;
+        height: 4px;
     }
 
     &::-webkit-scrollbar-track {
@@ -2504,28 +2533,47 @@ header {
         background: $black;
     }
 
-    @include breakpoint(medium) {
-        .product-scroll__wrapper {
-            margin-left: -40px;
-        }
+	@media screen and (max-width: 1023px){
+		.item{
+			&:first-child {
+				margin-left: 2rem;
+			}
 
+			&:last-child {
+				margin-right: 2rem;
+			}
+		}
+	}
+
+	@media screen and (max-width: 719px){
+		padding-bottom: 0;
+
+		.item{
+			&:first-child {
+				margin-left: 1rem;
+			}
+
+			&:last-child {
+				margin-right: 1rem;
+			}
+		}
+	}
+
+    @include breakpoint(medium) {
         .item {
             min-width: 266px;
-            margin-left: 40px;
+            margin: 0 20px;
         }
     }
 
     @include breakpoint(extra-small) {
-        .product-scroll__wrapper {
-            margin-left: -17px;
-        }
-
         .item {
             min-width: 200px;
-            margin-left: 17px;
+            margin: 0 17px;
         }
     }
 }
+
 .journal-post {
     .journal-post__banner {
         width: 100%;
@@ -2624,11 +2672,11 @@ header {
     }
 }
 
-.journal-post-featured-products {
-    &#home-product-slider {
-        padding-bottom: 30px;
-    }
-}
+//.journal-post-featured-products {
+//    &#home-product-slider {
+//        padding-bottom: 30px;
+//    }
+//}
 
 .journal-post-large-container {
     @media (min-width: 1480px) {
@@ -2714,6 +2762,7 @@ header {
         }
     }
 }
+
 .journal-post-rte {
 
     h3 {
@@ -2911,7 +2960,7 @@ header {
         &:hover {
             background-color: #f4f4f4;
         }
-
+        
         &:focus, &:active {
             background-color: #fff;
         }
@@ -2933,7 +2982,7 @@ header {
         list-style: none;
         cursor: pointer;
         transition: border-color 0.3s;
-
+        
         &:hover {
             background-color: #f4f4f4;
         }
@@ -3424,6 +3473,10 @@ header {
 		line-height: 56px;
 	}
 
+	.hero__cta{
+		font-weight: 400;
+	}
+
 	.ports-btn {
 		min-width: 142px;
 	}
@@ -3455,6 +3508,27 @@ header {
 
 	@include breakpoint(extra-small) {
 
+	}
+}
+
+#home-product-slider{
+	.text-header-container{
+		margin-left: 5rem;
+		margin-right: 5rem;
+	}
+
+	@media screen and (max-width: 1023px){
+		.text-header-container{
+			margin-right: 2rem;
+			margin-left: 2rem;
+		}
+	}
+
+	@media screen and (max-width: 719px){
+		.text-header-container{
+			margin-right: 1rem;
+			margin-left: 1rem;
+		}
 	}
 }
 

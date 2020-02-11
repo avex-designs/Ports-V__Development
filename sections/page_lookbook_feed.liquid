@@ -1,7 +1,6 @@
 {% for block in section.blocks %}
 	<section data-section-id="{{ section.id }}-{{ forloop.index }}" class="lookbook-feed--block animation-holder viewport-section">
 		<div class="two-col-img-text">
-
 			<div class="img-wrap animation-block">
 				<div class="animation-img-block">
 					<img src="{{ block.settings.image-picker | img_url: 'master' }}" alt="{{ block.settings.image-picker.alt }}">
@@ -9,19 +8,19 @@
 			</div>
 
 			<div class="text-header-container">
-
 				<div class="eyebrow_text">
 					<span class="slash-img"></span>
 					<h5>{{ block.settings.eyebrow }}</h5>
 				</div>
+
 				<h2>{{ block.settings.title }}</h2>
+
 				<p> {{ block.settings.copy }}</p>
+
 				{% if block.settings.link %}
 					<a href="{{ block.settings.link }}" class="ports-btn" title="link to shop products"><span> {{ block.settings.linktext }}</span></a>
 				{% endif %}
-
 			</div>
-
 		</div>
 	</section>
 {% endfor %}
