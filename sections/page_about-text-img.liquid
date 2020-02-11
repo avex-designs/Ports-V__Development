@@ -1,44 +1,43 @@
 <section data-section-id="{{ section.id }}" id="about_text-img" class="viewport-section">
+	<div class="wrapper desk--hide tablet-down">
+		<header>
+			<div class="text-header-container">
+				<div class="eyebrow_text">
+					<span class="slash-img"></span>
 
-  <div class="wrapper desk--hide tablet-down">
-    <header>
-      <div class="text-header-container">
-        <div class="eyebrow_text">
-          <span class="slash-img"></span>
-          <h5>{{ section.settings.eyebrow }}</h5>
-        </div>
-        <h4> {{ section.settings.title }} </h4>
-      </div>
-    </header>
-  </div>
+					<h5 class="h5">{{ section.settings.eyebrow }}</h5>
+				</div>
 
-  <div class="wrapper">
+				<h4> {{ section.settings.title }} </h4>
+			</div>
+		</header>
+	</div>
 
-    <div class="column text-container">
-        <header>
-          <div class="text-header-container tab-down--hide">
-            <div class="eyebrow_text">
-              <span class="slash-img"></span>
-              <h5>{{ section.settings.eyebrow }}</h5>
-            </div>
-            <h4> {{ section.settings.title }} </h4>
-          </div>
-          <p> {{ section.settings.copy }} </p>
-        </header>
-    </div>
+	<div class="wrapper">
+		<div class="column text-container">
+			<header>
+				<div class="text-header-container tab-down--hide">
+					<div class="eyebrow_text">
+						<span class="slash-img"></span>
 
-    <div class="column">
-        <div class="img-wrap">
-          <img src="{{ section.settings.image-picker | img_url: 'master' }}" alt="{{ section.settings.image-picker.alt }}">
-        </div>
+						<h5>{{ section.settings.eyebrow }}</h5>
+					</div>
 
-    </div>
+					<h4> {{ section.settings.title }} </h4>
+				</div>
 
-  </div>
+				<p> {{ section.settings.copy }} </p>
+			</header>
+		</div>
+
+		<div class="column">
+			<div class="img-wrap">
+				<img src="{{ section.settings.image-picker | img_url: 'master' }}"
+					 alt="{{ section.settings.image-picker.alt }}">
+			</div>
+		</div>
+	</div>
 </section>
-
-
-
 
 {% schema %}
   {

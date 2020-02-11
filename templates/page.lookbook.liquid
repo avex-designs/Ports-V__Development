@@ -1,36 +1,36 @@
 <!-- /templates/page.liquid -->
 {% assign bg = page.metafields.lookbook.bgi %}
 <div class="lookbook_header"{% if bg != blank %} style="background-image: url({{ bg }});"{% endif %}>
-  <header class="section-header text-center">
-    <span class="eyebrow h4"> {{ page.content }} </span>
-    <h1>{{ page.title }}</h1>
-  </header>
+	<header class="section-header text-center">
+		<span class="eyebrow h4"> {{ page.content }} </span>
+		<h1>{{ page.title }}</h1>
+	</header>
 </div>
 {% section 'page_lookbook_2' %}
 
 {% if page.metafields.lookbook.footer_bgi != blank or page.metafields.lookbook.footer_eyebrow_text != blank or page.metafields.lookbook.footer_bold_text != blank or page.metafields.lookbook.footer_button_link and page.metafields.lookbook.footer_button_text %}
-<div id="about">
-  <section id="about_featured">
+	<div id="about">
+		<section id="about_featured">
 
-    {% if page.metafields.lookbook.footer_bgi %}
-      <img src="{{ page.metafields.lookbook.footer_bgi }}" alt="{{ page.metafields.lookbook.footer_bold_text }}">
-    {% endif %}
+			{% if page.metafields.lookbook.footer_bgi %}
+				<img src="{{ page.metafields.lookbook.footer_bgi }}" alt="{{ page.metafields.lookbook.footer_bold_text }}">
+			{% endif %}
 
-    {% if page.metafields.lookbook.footer_eyebrow_text != blank or page.metafields.lookbook.footer_bold_text != blank or page.metafields.lookbook.footer_button_link and page.metafields.lookbook.footer_button_text %}
-      <div class="img_overlay">
-        {% if page.metafields.lookbook.footer_eyebrow_text %}
-          <span class="eyebrow h5">{{ page.metafields.lookbook.footer_eyebrow_text }}</span>
-        {% endif %}
-        {% if page.metafields.lookbook.footer_bold_text %}
-          <h3 class="h1">{{ page.metafields.lookbook.footer_bold_text }}</h3>
-        {% endif %}
+			{% if page.metafields.lookbook.footer_eyebrow_text != blank or page.metafields.lookbook.footer_bold_text != blank or page.metafields.lookbook.footer_button_link and page.metafields.lookbook.footer_button_text %}
+				<div class="img_overlay">
+					{% if page.metafields.lookbook.footer_eyebrow_text %}
+						<span class="eyebrow h5">{{ page.metafields.lookbook.footer_eyebrow_text }}</span>
+					{% endif %}
+					{% if page.metafields.lookbook.footer_bold_text %}
+						<h3 class="h1">{{ page.metafields.lookbook.footer_bold_text }}</h3>
+					{% endif %}
 
-        {% if page.metafields.lookbook.footer_button_link and page.metafields.lookbook.footer_button_text %}
-          <a href="{{ page.metafields.lookbook.footer_button_link }}" class="ports-btn white"><span> {{ page.metafields.lookbook.footer_button_text }} </span></a>
-        {% endif %}
-      </div>
-    {% endif %}
+					{% if page.metafields.lookbook.footer_button_link and page.metafields.lookbook.footer_button_text %}
+						<a href="{{ page.metafields.lookbook.footer_button_link }}" class="ports-btn white"><span> {{ page.metafields.lookbook.footer_button_text }} </span></a>
+					{% endif %}
+				</div>
+			{% endif %}
 
-  </section>
-</div>
+		</section>
+	</div>
 {% endif %}

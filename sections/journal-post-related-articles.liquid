@@ -1,6 +1,8 @@
 {% if article.metafields.journal.related_article %}
     <div class="journal-post-related-articles">
-        <h2 class="page-title">{{ 'blogs.article.related_articles' | t }}</h2>
+        <h2 class="page-title">
+			{{- 'blogs.article.related_articles' | t -}}
+		</h2>
 
         <div class="journal-post-related-articles__content viewport-section">
             <div class="journal-post-related-articles__items-wrapper">
@@ -13,11 +15,13 @@
                         </a>
 
                         <div class="journal-post-related-articles__item-date">
-                            {{ article.published_at | date: format: 'abbreviated_date' }}
+                            {{- article.published_at | date: format: 'abbreviated_date' -}}
                         </div>
 
                         <h3 class="journal-post-related-articles__item-title">
-                            <a href="{{ article.url }}">{{ article.title }}</a>
+                            <a href="{{ article.url }}">
+								{{- article.title -}}
+							</a>
                         </h3>
 
                         <a class="journal-post-related-articles__item-link" href="{{ article.url }}">

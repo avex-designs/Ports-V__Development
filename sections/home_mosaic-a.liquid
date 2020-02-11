@@ -1,39 +1,43 @@
 <section data-section-id="{{ section.id }}" id="home_mosaic-a" class="viewport-section">
-  <div class="wrapper">
+	<div class="wrapper">
+		<div class="column">
+			<header>
+				<div class="text-header-container">
+					<div class="eyebrow_text">
+						<span class="slash-img"></span>
+						<h5 class="h5">{{ section.settings.eyebrow }}</h5>
+					</div>
 
-    <div class="column">
-        <header>
-          <div class="text-header-container">
-            <div class="eyebrow_text">
-              <span class="slash-img"></span>
-              <h5>{{ section.settings.eyebrow }}</h5>
-            </div>
-            <h2> {{ section.settings.title }} </h2>
-          </div>
-        </header>
-        <div class="img-wrap">
-          <img src="{{ section.settings.image-picker_a | img_url: 'master' }}" alt="{{ section.settings.image-picker_a.alt }}">
-        </div>
-    </div>
+					<h2>
+						{{- section.settings.eyebrow -}}
+					</h2>
+				</div>
+			</header>
+			<div class="img-wrap">
+				<img src="{{ section.settings.image-picker_a | img_url: 'master' }}"
+					 alt="{{ section.settings.image-picker_a.alt }}">
+			</div>
+		</div>
 
-    <div class="column">
-        <div class="img-wrap">
-          <img src="{{ section.settings.image-picker_b | img_url: 'master' }}" alt="{{ section.settings.image-picker_b.alt }}">
-        </div>
+		<div class="column">
+			<div class="img-wrap">
+				<img src="{{ section.settings.image-picker_b | img_url: 'master' }}"
+					 alt="{{ section.settings.image-picker_b.alt }}">
+			</div>
 
-        <div class="text-header-container">
-            <p> {{ section.settings.copy }}</p>
-            {% if section.settings.link %}
-            <a href="{{ section.settings.link }}" class="ports-btn" title="link to shop products"><span> {{ section.settings.linktext }} </span></a>
-            {% endif %}
-        </div>
-    </div>
-
-  </div>
+			<div class="text-header-container">
+				<p> {{ section.settings.copy }}</p>
+				{% if section.settings.link %}
+					<a href="{{ section.settings.link }}" class="ports-btn" title="link to shop products">
+						<span>
+							{{- section.settings.linktext -}}
+						</span>
+					</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 </section>
-
-
-
 
 {% schema %}
   {

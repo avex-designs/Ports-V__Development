@@ -676,6 +676,10 @@ timber.accessibleNav = function() {
     // Make sure we close any opened same level dropdown before opening a new one
     if (evtType === 'touchstart' && $dropdowns.length > 0) {
       hideDropdown($el);
+
+	  if(evt.target.hasAttribute('data-meganav-type')){
+		showDropdown($el);
+	  }
     } else {
       showDropdown($el);
     }
@@ -722,6 +726,8 @@ timber.accessibleNav = function() {
 
     $el.addClass(classes.active);
 
+	$(".header-container").addClass("hover");
+
     setTimeout(function() {
       timber.cache.$body.on('touchstart.MegaNav', function() {
         hideDropdowns();
@@ -737,6 +743,10 @@ timber.accessibleNav = function() {
 
     $dropdowns.removeClass(classes.active);
     $parentLink.removeClass(classes.focus);
+
+    if ($(window).scrollTop() == 0) {
+        $(".header-container").removeClass("hover");
+    }
 
     timber.cache.$body.off('touchstart.MegaNav');
   }
@@ -1537,7 +1547,7 @@ theme.Product = (function() {
       singleOptionSelector: '.single-option-selector__radio',
       radioWrapper: '.radio-wrapper',
       meta: '.product-single__meta',
-      thumbnails: '.thumbnails-holder',
+	  thumbnails: '.thumbnails-holder',
       productWrapper: '.product-single',
       shopifyPaymentButton: '.shopify-payment-button',
       unitPrice: '[data-unit-price]',
@@ -1574,12 +1584,12 @@ theme.Product = (function() {
     $window
       .on(
         'resize' + this.settings.namespace,
-        theme.debounce(this.initStickyProductThumbnails, 150).bind(this),
+	    theme.debounce(this.initStickyProductThumbnails, 150).bind(this),
         theme.debounce(this.initStickyProductMeta, 150).bind(this)
       )
       .on(
         'load' + this.settings.namespace,
-        theme.debounce(this.initStickyProductThumbnails, 150).bind(this),
+	    theme.debounce(this.initStickyProductThumbnails, 150).bind(this),
         theme.debounce(this.initStickyProductMeta, 150).bind(this)
       )
       //.on('load' + this.settings.namespace, theme.initStickyProductMeta);
@@ -2095,116 +2105,60 @@ theme.Product = (function() {
 
 
     },
+	  initStickyProductThumbnails: function() {
 
-    initStickyProductThumbnails: function() {
+		  //return false;
+		  var $thumbnails = $(this.selectors.thumbnails, this.$container);
+		  var $wrapper = $(this.selectors.productWrapper, this.$container);
 
-      //return false;
-      var $thumbnails = $(this.selectors.thumbnails, this.$container);
-      var $wrapper = $(this.selectors.productWrapper, this.$container);
+		  if ($thumbnails.find('#shopify-product-reviews').length) {
+			  theme.variables.productPageSticky = false;
+			  return;
+		  }
 
-      if ($thumbnails.find('#shopify-product-reviews').length) {
-        theme.variables.productPageSticky = false;
-        return;
-      }
+		  if (
+				  !$thumbnails.length ||
+				  $(this.selectors.productImagePhoto, this.$container).length < 2
+		  ) {
+			  return;
+		  }
 
-      if (
-        !$thumbnails.length ||
-        $(this.selectors.productImagePhoto, this.$container).length < 2
-      ) {
-        return;
-      }
+		  // Force detatch if already detached. Prevent layout issues.
+		  $thumbnails.trigger('detach.ScrollToFixed');
 
-      // Force detatch if already detached. Prevent layout issues.
-      $thumbnails.trigger('detach.ScrollToFixed');
+		  // Detach and stop if on mobile breakpoint
+		  if (theme.variables.bpSmall) {
+			  return;
+		  }
 
-      // Detach and stop if on mobile breakpoint
-      if (theme.variables.bpSmall) {
-        return;
-      }
+		  var productCopyHeight = $thumbnails.outerHeight();
+		  var productImagesHeight = $(
+				  this.selectors.productImages,
+				  this.$container
+		  ).height();
 
-      var productCopyHeight = $thumbnails.outerHeight();
-      var productImagesHeight = $(
-        this.selectors.productImages,
-        this.$container
-      ).height();
+		  /*============================================================================
+			Calculate when to detach fixed element to avoid content overlap.
+			Subtract product copy height from the limit because plugin uses offset().top
+		  ==============================================================================*/
+		  var calcLimit = $wrapper.offset().top + $wrapper.height();
+		  calcLimit -= productCopyHeight;
 
-      /*============================================================================
-        Calculate when to detach fixed element to avoid content overlap.
-        Subtract product copy height from the limit because plugin uses offset().top
-      ==============================================================================*/
-      var calcLimit = $wrapper.offset().top + $wrapper.height();
-      calcLimit -= productCopyHeight;
-
-      // Init sticky if desc shorter than images and fits in viewport
-      if (
-        productCopyHeight < productImagesHeight &&
-        productCopyHeight < $(window).height()
-      ) {
-        theme.variables.productPageSticky = true;
-        $thumbnails.scrollToFixed({
-          limit: calcLimit
-        });
-      } else {
-        theme.variables.productPageSticky = false;
-      }
-
-
-    },
-
-    initStickyProductThumbnails: function() {
-
-      //return false;
-      var $thumbnails = $(this.selectors.thumbnails, this.$container);
-      var $wrapper = $(this.selectors.productWrapper, this.$container);
-
-      if ($thumbnails.find('#shopify-product-reviews').length) {
-        theme.variables.productPageSticky = false;
-        return;
-      }
-
-      if (
-        !$thumbnails.length ||
-        $(this.selectors.productImagePhoto, this.$container).length < 2
-      ) {
-        return;
-      }
-
-      // Force detatch if already detached. Prevent layout issues.
-      $thumbnails.trigger('detach.ScrollToFixed');
-
-      // Detach and stop if on mobile breakpoint
-      if (theme.variables.bpSmall) {
-        return;
-      }
-
-      var productCopyHeight = $thumbnails.outerHeight();
-      var productImagesHeight = $(
-        this.selectors.productImages,
-        this.$container
-      ).height();
-
-      /*============================================================================
-        Calculate when to detach fixed element to avoid content overlap.
-        Subtract product copy height from the limit because plugin uses offset().top
-      ==============================================================================*/
-      var calcLimit = $wrapper.offset().top + $wrapper.height();
-      calcLimit -= productCopyHeight;
-
-      // Init sticky if desc shorter than images and fits in viewport
-      if (
-        productCopyHeight < productImagesHeight &&
-        productCopyHeight < $(window).height()
-      ) {
-        theme.variables.productPageSticky = true;
-        $thumbnails.scrollToFixed({
-          limit: calcLimit
-        });
-      } else {
-        theme.variables.productPageSticky = false;
-      }
+		  // Init sticky if desc shorter than images and fits in viewport
+		  if (
+				  productCopyHeight < productImagesHeight &&
+				  productCopyHeight < $(window).height()
+		  ) {
+			  theme.variables.productPageSticky = true;
+			  $thumbnails.scrollToFixed({
+				  limit: calcLimit
+			  });
+		  } else {
+			  theme.variables.productPageSticky = false;
+		  }
 
 
-    },
+	  },
 
     onUnload: function() {
       this.$container.off(this.settings.namespace);
@@ -2475,25 +2429,32 @@ theme.HeaderSection = (function() {
         $button.attr('aria-controls', $button.attr('data-aria-controls'));
       });
 
-      $toggleBtns.on('click', function() {
-        var $button = $(this);
-        var currentlyExpanded = $button.attr('aria-expanded');
-        var toggleState = false;
-        // Updated aria-expanded value based on state pre-click
-        if (currentlyExpanded === 'true') {
-          $button.attr('aria-expanded', 'false');
-        } else {
-          $button.attr('aria-expanded', 'true');
-          toggleState = true;
-        }
+		$toggleBtns.on('click', function () {
+			var $button = $(this);
+			var currentlyExpanded = $button.attr('aria-expanded');
 
-        // Toggle that expands/collapses sublist
-        $button
-          .closest('.mobile-nav__has-sublist')
-          .toggleClass('mobile-nav--expanded', toggleState)
-          .next()
-          .slideToggle();
-      });
+			if (currentlyExpanded === 'true') {
+				$button.attr('aria-expanded', 'false')
+			} else {
+				var $parent = $button.closest('.js-toggle-wrapper');
+
+				$parent.find('.mobile-nav__toggle-btn').attr('aria-expanded', 'false');
+
+				$parent.find('.mobile-nav--expanded')
+						.removeClass('mobile-nav--expanded')
+						.next()
+						.stop()
+						.slideUp();
+
+				$button.attr('aria-expanded', 'true')
+			}
+
+			$button.closest('.mobile-nav__has-sublist')
+					.toggleClass('mobile-nav--expanded')
+					.next()
+					.stop()
+					.slideToggle();
+		});
     },
 
     initSideBarCartDrawer: function() {
@@ -2512,7 +2473,8 @@ theme.HeaderSection = (function() {
         $button.attr('aria-controls', $button.attr('data-aria-controls'));
       });
 
-      $toggleBtns.on('click', function() {
+      $toggleBtns.on('click', function(event) {
+          event.preventDefault();
         var $button = $(this);
         var currentlyExpanded = $button.attr('aria-expanded');
         var toggleState = false;
@@ -2534,11 +2496,15 @@ theme.HeaderSection = (function() {
       });
 
       $toggleClose.on('click', function() {
-        //var $button = $toggleBtns;
-        var $button = $(this).closest('.mobile-nav__item').find('.mobile-nav__toggle-btnzor');
+      	var $target = $(this);
+        var $button = $target.closest('.mobile-nav__item').find('.mobile-nav__toggle-btnzor');
         var currentlyExpanded = $button.attr('aria-expanded');
         var toggleState = false;
-        // Updated aria-expanded value based on state pre-click
+
+        var $toggleItems = $target.closest('.js-level').find('.js-toggle-wrapper').find('.mobile-nav--expanded');
+        $toggleItems.find('.mobile-nav__toggle-btn').attr('aria-expanded', 'false');
+        $toggleItems.removeClass('mobile-nav--expanded').next().stop().slideUp();
+
         if (currentlyExpanded === 'true') {
           $button.attr('aria-expanded', 'false');
         } else {
@@ -3360,12 +3326,10 @@ function initPasswordToggler() {
 	});
 }
 
-
 // in view port init
 function initInViewport() {
 	jQuery('.viewport-section').itemInViewport({});
 }
-
 
 // add class when element is in focus
 function initFocusClass() {
@@ -3380,14 +3344,12 @@ function initCustomForms() {
 	jcf.replaceAll('.general-form');
 }
 
-
 function initProductItemCarousel() {
-  $('.grid-product__slider').slick({
-    prevArrow: '<button type="button" class="slick-prev slick-nav"><span>Previous</span></button>',
-    nextArrow: '<button type="button" class="slick-next slick-nav"><span>Next</span></button>',
-  });
+	$('.grid-product__slider').slick({
+		prevArrow: '<button type="button" class="slick-prev slick-nav"><span>Previous</span></button>',
+		nextArrow: '<button type="button" class="slick-next slick-nav"><span>Next</span></button>',
+	});
 }
-
 
 /*
  * Add Class on focusthis.blurHandler = function(
@@ -3417,8 +3379,8 @@ function initProductItemCarousel() {
 			this.blurHandler = function () {
 				if (self.options.stayFocusOnFilled) {
 					if (self.element.prop('tagName') !== 'SELECT') {
-            self.container.toggleClass(self.options.focusClass, !!self.element.val().trim().length);
-          }
+						self.container.toggleClass(self.options.focusClass, !!self.element.val().trim().length);
+					}
 				} else {
 					self.container.removeClass(self.options.focusClass);
 				}
@@ -3448,9 +3410,6 @@ function initProductItemCarousel() {
 		});
 	};
 }(jQuery));
-
-
-
 
 /*
  * jQuery In Viewport plugin
@@ -3642,7 +3601,6 @@ function initProductItemCarousel() {
 		});
 	};
 }(jQuery, jQuery(window)));
-
 
 /*!
  * JavaScript Custom Forms
@@ -5072,6 +5030,6 @@ $(function () {
 	initCustomForms();
 	initPasswordToggler();
 	initFocusClass();
-  initInViewport();
-  initProductItemCarousel();
+	initInViewport();
+	initProductItemCarousel();
 });

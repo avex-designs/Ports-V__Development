@@ -1,16 +1,18 @@
 <section id="about_featured">
+	<img src="{{ section.settings.image-picker | img_url: 'master' }}" alt="{{ section.settings.image-picker.alt }}">
 
-  <img src="{{ section.settings.image-picker | img_url: 'master' }}" alt="{{ section.settings.image-picker.alt }}">
+	<div class="img_overlay">
+		<span class="eyebrow h5">{{ section.settings.eyebrow }}</span>
+		<h3 class="h1">{{ section.settings.title }}</h3>
 
-  <div class="img_overlay">
-    <span class="eyebrow h5">{{ section.settings.eyebrow }}</span>
-    <h3 class="h1">{{ section.settings.title }}</h3>
-
-    {% if section.settings.link %}
-    <a href="{{ section.settings.link }}" class="ports-btn white"><span> {{ section.settings.linktext }} </span></a>
-    {% endif %}
-  </div>
-
+		{% if section.settings.link %}
+			<a href="{{ section.settings.link }}" class="ports-btn white">
+				<span>
+					{{- section.settings.linktext -}}
+				</span>
+			</a>
+		{% endif %}
+	</div>
 </section>
 
 {% schema %}

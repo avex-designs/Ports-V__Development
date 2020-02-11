@@ -63,7 +63,7 @@
             background: {{ block.settings.slide_text_color }};
           }
           .hero--color-{{ forloop.index0 }} .slick-dots li a:before {
-            background: transparent;
+			background: transparent;
             border-color: {{ block.settings.slide_text_color }};
           }
           .hero--color-{{ forloop.index0 }} li.slick-active a:before {
@@ -82,6 +82,7 @@
               flex-direction: column;
               justify-content: {{ block.settings.text_vertical_alignment }};
               align-items: {{ block.settings.text_alignment }};
+              text-align: {% if block.settings.text_alignment == 'flex-end' %}right;{% elsif block.settings.text_alignment == 'flex-start' %}left;{% elsif block.settings.text_alignment == 'center' %}center{% endif %}
           }
         {%- endstyle -%}
         {%- comment -%}
@@ -95,6 +96,7 @@
           opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.00 }};
 
         {%- endcomment -%}
+
         {%- if block.settings.image_overlay -%}
           {%- style -%}
             .slide--{{ block.id }} .slideshow__overlay:before {
@@ -151,9 +153,11 @@
                   </h2>
                 {%- endunless -%}
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
-                  <a href="{{ block.settings.button_link }}" style="width: auto; color: {{ block.settings.slide_button_label_color }}; background-color: {{ block.settings.slide_button_background_color }}" class="ports-btn hero__cta"><span>
-                    {{ block.settings.button_label | escape }}
-                  </span></a>
+                  <a href="{{ block.settings.button_link }}" style="width: auto; color: {{ block.settings.slide_button_label_color }}; background-color: {{ block.settings.slide_button_background_color }}" class="ports-btn white hero__cta">
+                    <span>
+						{{- block.settings.button_label | escape -}}
+					</span>
+                  </a>
                 {%- endif -%}
               </div>
             </div>
@@ -834,7 +838,7 @@
           },
           "options": [
             {
-              "value": "end",
+              "value": "flex-start",
               "label": {
                 "da": "Venstre",
                 "de": "Links",
@@ -934,7 +938,7 @@
           },
           "options": [
             {
-              "value": "end",
+              "value": "flex-start",
               "label": {
                 "da": "Venstre",
                 "de": "Links",

@@ -141,6 +141,8 @@
 
 		{% section 'footer' %}
 
+		{% section 'newsletter-popup' %}
+
 		{% section 'gdpr' %}
 	</div>
 
@@ -155,15 +157,6 @@
 		{% endif %}
 	</script>
 
-	{% comment %}
-		Ajaxify your cart with this plugin.
-		Documentation:
-		- http://shopify.com/timber#ajax-cart
-	{% endcomment %}
-	{% if settings.cart_type == 'drawer' %}
-		{% include 'ajax-cart-template' %}
-	{% endif %}
-
 	{% if request.page_type == 'product' or request.page_type == 'index' %}
 		<script>
 			// Override default values of shop.strings for each template.
@@ -176,7 +169,6 @@
 			}
 		</script>
 	{% endif %}
-
 
 	{% include 'spurit_po2_theme_snippet' %}
 
@@ -212,6 +204,7 @@
 				document.getElementById('contact_form').classList.add("contact-form--success")
 			}
 		});
+
 		KlaviyoSubscribe.attachToForms('#newsletter_form', {
 			hide_form_on_success: true,
 			extra_properties: {
@@ -222,6 +215,7 @@
 			},
 			success: function () {
 				console.log(document.getElementById('newsletter_form'));
+
 				document.getElementById('newsletter_form').classList.add("contact-form--success")
 			}
 		});

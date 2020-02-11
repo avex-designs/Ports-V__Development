@@ -1,248 +1,340 @@
-  <div class="drawer__inner drawer-left__inner">
+<div class="drawer__inner drawer-left__inner">
+	<div class="drawer-header">
+		<button
+			type="button"
+			class="site-nav__link--burger icon-fallback-text drawer__close-button js-drawer-close"
+			aria-controls="NavDrawer"
+			aria-expanded="false"
+		>
+			<span class="burger-icon burger-icon--top"></span>
 
-    <div class="drawer-header">
+			<span class="burger-icon burger-icon--bottom"></span>
 
-      <button type="button" class="site-nav__link--burger icon-fallback-text drawer__close-button js-drawer-close" aria-controls="NavDrawer" aria-expanded="false">
-        <span class="burger-icon burger-icon--top"></span>
-        <span class="burger-icon burger-icon--bottom"></span>
-        <span class="fallback-text">Site navigation</span>
-      </button>
+			<span class="fallback-text">Site navigation</span>
+		</button>
 
-      <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-        <img src="{{ 'Ports_V_logo.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
-      </a>
-    </div>
+		<a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+			<img src="{{ 'Ports_V_logo.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
+		</a>
+	</div>
 
-    {% comment %}
-    {% include 'search-bar', search_btn_style: 'btn--secondary', search_bar_location: 'search-bar--drawer' %}
-    {% endcomment %}
-    <form action="{{ routes.search_url }}" method="get" class="input-group search-bar {{ search_bar_location }}" role="search">
-      {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
-      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field search-bar__input--mobile" aria-label="{{ 'general.search.placeholder' | t }}" required="required">
-      <span class="input-group-btn-mob-menu search-bar__button-wrapper--mobile">
-        <button type="submit" class="{{ search_btn_style }} icon-fallback-text search-bar__button--mobile">
-          <img src="{{ 'search-black.svg' | file_url }}"/>
-        </button>
-      </span>
-    </form>
+	{% comment %}
+		{% include 'search-bar', search_btn_style: 'btn--secondary', search_bar_location: 'search-bar--drawer' %}
+	{% endcomment %}
 
-    <ul class="mobile-nav">
-      {% for link in linklists[section.settings.main_menu_link_list].links %}
+	<ul class="mobile-nav">
+		<form
+			action="{{ routes.search_url }}"
+			method="get"
+			class="input-group search-bar {{ search_bar_location }}"
+			role="search"
+		>
+			{% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
 
-        {% if link.links != blank %}
-          <li class="mobile-nav__item main">
-            <div class="mobile-nav__has-sublistzors">
-              <a
-                href="{{ link.url }}"
-                class="mobile-nav__link h6"
-                id="Label-{{ forloop.index }}"
-                {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>{{ link.title | escape }}</a>
-              <div class="mobile-nav__toggle">
-                <button type="button" class="mobile-nav__toggle-btnzor icon-fallback-text" aria-controls="Linklist-{{ forloop.index }}" aria-expanded="false">
-                  <span class="icon-fallback-text mobile-nav__toggle-open">
+			<input
+				type="search"
+				name="q"
+				value="{{ search.terms | escape }}"
+				placeholder="{{ 'general.search.placeholder' | t }}"
+				class="input-group-field search-bar__input--mobile"
+				aria-label="{{ 'general.search.placeholder' | t }}"
+				required="required"
+			>
 
-                    <!--<span class="icon icon-plus" aria-hidden="true"></span>-->
-                    <img src="{{ 'nav-carat-side.svg' | file_url }}">
-                    <span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
-                  </span>
-                  <span class="icon-fallback-text mobile-nav__toggle-close">
-                    <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
-                  </span>
-                </button>
-              </div>
-            </div>
-            <div class="first-sublink">
-              <button type="button" class="mobile-nav__toggle-btnzor-close icon-fallback-text" aria-controls="Linklist-{{ forloop.index }}" aria-expanded="false">
-                <span class="icon-fallback-text mobile-nav__toggle-open">
-                  
-                  <!-- <span class="icon icon-plus" aria-hidden="true"></span>-->
+			<span class="input-group-btn-mob-menu search-bar__button-wrapper--mobile">
+				<button type="submit" class="{{ search_btn_style }} icon-fallback-text search-bar__button--mobile">
+					<img src="{{ 'search-black.svg' | file_url }}"/>
+				</button>
+			</span>
+		</form>
 
-                  <img src="{{ 'nav-carat-back.svg' | file_url }}">
-                  <span class="h6">{{ link.title | escape }}</span>
+		{% for link in linklists[section.settings.main_menu_link_list].links %}
+			{% if link.links != blank %}
+				<li class="mobile-nav__item main">
+					<div class="mobile-nav__has-sublistzors mobile-nav__toggle-btnzor">
+						<a
+							href="{{ link.url }}"
+							class="mobile-nav__link h6"
+							id="Label-{{ forloop.index }}"
+							{% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}
+						>
+							{{- link.title | escape -}}
+						</a>
 
-                  <span class="fallback-text"> {{ link.title | escape }}</span>
-                </span>
-                <span class="icon-fallback-text mobile-nav__toggle-close">
-                  <span class="icon icon-minus" aria-hidden="true"></span>
-                  <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
-                </span>
-              </button>
+						<div class="mobile-nav__toggle">
+							<button
+								type="button"
+								class="mobile-nav__toggle-btnzor icon-fallback-text"
+								aria-controls="Linklist-{{ forloop.index }}"
+								aria-expanded="false"
+							>
+								<span class="icon-fallback-text mobile-nav__toggle-open">
+									<img src="{{ 'nav-carat-side.svg' | file_url }}">
 
-              <!-- Shop featured -->
-              <ul class="featured-menu">
-                {% for link in linklists[section.settings.featured_nav].links %}
-                <li class="h6">
-                    <a href="{{ link.url }}">
-                     {{ link.title | escape }}
-                    </a>
-                </li>
-                {% endfor %}
-              </ul>
-              <!-- Shop featured -->
+									<span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
+								</span>
 
-              <ul class="mobile-nav__sublistzor" id="Linklist-{{ forloop.index }}" aria-labelledby="Label-{{ forloop.index }}" role="navigation">
-                {% assign parent_index = forloop.index %}
-                {% for childlink in link.links %}
-                  {% if childlink.links != blank %}
-                  <li class="mobile-nav__item">
-                    <div class="mobile-nav__has-sublist">
-                      <a
-                        href="{{ childlink.url }}"
-                        class="mobile-nav__link h6"
-                        id="Label-{{ parent_index }}-{{ forloop.index }}"
-                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
-                          {{ childlink.title }}
-                      </a>
-                      <div class="mobile-nav__toggle">
-                        <button type="button" class="mobile-nav__toggle-btn icon-fallback-text" aria-controls="Linklist-{{ parent_index }}-{{ forloop.index }}" aria-expanded="false">
-                          <span class="icon-fallback-text mobile-nav__toggle-open">
-                            <!--<span class="icon icon-plus" aria-hidden="true"></span>-->
-                            <img src="{{ 'nav-carat-down.svg' | file_url }}">
-                            <span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
-                          </span>
-                          <span class="icon-fallback-text mobile-nav__toggle-close">
-                            <!--<span class="icon icon-minus" aria-hidden="true"></span>-->
-                            <img src="{{ 'nav-carat-up.svg' | file_url }}">
-                            <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                    <ul class="mobile-nav__sublist mobile-nav__subsublist" id="Linklist-{{ parent_index }}-{{ forloop.index }}" aria-labelledby="Label-{{ parent_index }}-{{ forloop.index }}" role="navigation">
-                      {% for grandchildlink in childlink.links %}
-                        <li class="mobile-nav__item">
-                          <a
-                            href="{{ grandchildlink.url }}"
-                            class="mobile-nav__link"
-                            {% unless request.page_type == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless%}>
-                              {{ grandchildlink.title | escape }}
-                          </a>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  </li>
-                  {% else %}
-                  <li class="mobile-nav__item">
-                    <a
-                      href="{{ childlink.url }}"
-                      class="mobile-nav__link"
-                      {% unless request.page_type == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}>
-                        {{ childlink.title | escape }}
-                    </a>
-                  </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            </div> <!-- / first sublink -->
-          </li>
+								<span class="icon-fallback-text mobile-nav__toggle-close">
+									<span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
+								</span>
+							</button>
+						</div>
+					</div>
+
+					<div class="first-sublink js-level">
+						<button
+							type="button"
+							class="mobile-nav__toggle-btnzor-close icon-fallback-text"
+							aria-controls="Linklist-{{ forloop.index }}"
+							aria-expanded="false"
+						>
+							<span class="icon-fallback-text mobile-nav__toggle-open">
+								<img src="{{ 'nav-carat-back.svg' | file_url }}">
+
+								<span class="h6">
+									{{- link.title | escape -}}
+								</span>
+
+								<span class="fallback-text">
+									{{- link.title | escape -}}
+								</span>
+							</span>
+
+							<span class="icon-fallback-text mobile-nav__toggle-close">
+								<span class="icon icon-minus" aria-hidden="true"></span>
+
+								<span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
+							</span>
+						</button>
+
+						<!-- Shop featured -->
+						<ul class="featured-menu">
+							{% for link in linklists[section.settings.featured_nav].links %}
+								<li class="h6">
+									<a href="{{- link.url -}}">
+										{{- link.title | escape -}}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+						<!-- Shop featured -->
+
+						<ul
+							class="mobile-nav__sublistzor js-toggle-wrapper"
+							id="Linklist-{{ forloop.index }}"
+							aria-labelledby="Label-{{ forloop.index }}"
+							role="navigation"
+						>
+							{% assign parent_index = forloop.index %}
+							{% for childlink in link.links %}
+								{% if childlink.links != blank %}
+									<li class="mobile-nav__item">
+										<div class="mobile-nav__has-sublist js-mobile-nav__sublist">
+											<a
+												href="{{ childlink.url }}"
+												class="mobile-nav__link h6"
+												id="Label-{{ parent_index }}-{{ forloop.index }}"
+												{% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}
+											>
+												{{ childlink.title }}
+											</a>
+
+											<div class="mobile-nav__toggle">
+												<button
+													type="button"
+													class="mobile-nav__toggle-btn icon-fallback-text"
+													aria-controls="Linklist-{{ parent_index }}-{{ forloop.index }}"
+													aria-expanded="false"
+												>
+													<span class="icon-fallback-text mobile-nav__toggle-open">
+														<img src="{{ 'nav-carat-down.svg' | file_url }}">
+
+														<span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
+													</span>
+
+													<span class="icon-fallback-text mobile-nav__toggle-close">
+														<img src="{{ 'nav-carat-up.svg' | file_url }}">
+
+														<span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
+													</span>
+												</button>
+											</div>
+										</div>
+
+										<ul
+											class="mobile-nav__sublist mobile-nav__subsublist"
+											id="Linklist-{{ parent_index }}-{{ forloop.index }}"
+											aria-labelledby="Label-{{ parent_index }}-{{ forloop.index }}"
+											role="navigation"
+										>
+											{% for grandchildlink in childlink.links %}
+												<li class="mobile-nav__item">
+													<a
+														href="{{ grandchildlink.url }}"
+														class="mobile-nav__link"
+														{% unless request.page_type == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}
+													>
+														{{ grandchildlink.title | escape }}
+													</a>
+												</li>
+											{% endfor %}
+										</ul>
+									</li>
+								{% else %}
+									<li class="mobile-nav__item">
+										<a
+											href="{{ childlink.url }}"
+											class="mobile-nav__link"
+											{% unless request.page_type == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless %}
+										>
+											{{- childlink.title | escape -}}
+										</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div> <!-- / first sublink -->
+				</li>
 
 
+				{% elsif link.title == 'Collections' %}
+				{% comment %}
+					<!-----
+					COLLECTIONS MEGA MENU DROP DOWN
+					---->
+				{% endcomment %}
 
-        {% elsif link.title == 'Collections' %}
-          {% comment %}
-          <!-----
-          COLLECTIONS MEGA MENU DROP DOWN
-          ---->
-          {% endcomment %}
-          <li class="mobile-nav__item main">
+				<li class="mobile-nav__item main">
+					<div class="mobile-nav__has-sublistzors mobile-nav__toggle-btnzor">
+						<a
+							href="{{ link.url }}"
+							class="mobile-nav__link h6"
+							id="Label-{{ forloop.index }}"
+							{% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}
+						>
+							{{- link.title | escape -}}
+						</a>
 
-            <div class="mobile-nav__has-sublistzors">
-              <a
-                href="{{ link.url }}"
-                class="mobile-nav__link h6"
-                id="Label-{{ forloop.index }}"
-                {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>{{ link.title | escape }}</a>
-              <div class="mobile-nav__toggle">
-                <button type="button" class="mobile-nav__toggle-btnzor icon-fallback-text" aria-controls="Linklist-{{ forloop.index }}" aria-expanded="false">
-                  <span class="icon-fallback-text mobile-nav__toggle-open">
-                    <!--<span class="icon icon-plus" aria-hidden="true"></span>-->
-                    <img src="{{ 'nav-carat-side.svg' | file_url }}">
-                    <span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
-                  </span>
-                  <span class="icon-fallback-text mobile-nav__toggle-close">
-                    <span class="icon icon-minus" aria-hidden="true"></span>
-                    <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
-                  </span>
-                </button>
-              </div>
-            </div>
+						<div class="mobile-nav__toggle">
+							<button
+								type="button"
+								class="mobile-nav__toggle-btnzor icon-fallback-text"
+								aria-controls="Linklist-{{ forloop.index }}"
+								aria-expanded="false"
+							>
+								<span class="icon-fallback-text mobile-nav__toggle-open">
+									<img src="{{ 'nav-carat-side.svg' | file_url }}">
 
-            <div class="first-sublink">
+									<span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
+								</span>
 
-              <button type="button" class="mobile-nav__toggle-btnzor-close icon-fallback-text" aria-controls="Linklist-{{ forloop.index }}" aria-expanded="false">
-                <span class="icon-fallback-text mobile-nav__toggle-open">
-                  <!--<span class="icon icon-plus" aria-hidden="true"></span>-->
-                  <img src="{{ 'nav-carat-back.svg' | file_url }}">
-                  <span class="h6">{{ link.title | escape }}</span>
+								<span class="icon-fallback-text mobile-nav__toggle-close">
+									<span class="icon icon-minus" aria-hidden="true"></span>
 
-                  <span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
-                </span>
-                <span class="icon-fallback-text mobile-nav__toggle-close">
-                  <span class="icon icon-minus" aria-hidden="true"></span>
-                  <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
-                </span>
-              </button>
+									<span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
+								</span>
+							</button>
+						</div>
+					</div>
 
-              <ul class="mobile-nav__sublistzor" id="Linklist-{{ forloop.index }}" aria-labelledby="Label-{{ forloop.index }}" role="navigation">
-                {% for block in section.blocks %}
-                <li>
-                    <a href="/collections/{{ block.settings.link }}">
-                      {% if block.settings.linktext != blank %}
-                      <h6> {{ block.settings.linktext }} </h6>
-                      {% else %}
-                      <h6> {{ block.settings.link }} </h6>
-                      {% endif %}
-                    </a>
-                </li>
-                {% endfor %}
-              </ul>
+					<div class="first-sublink js-level">
+						<button
+							type="button"
+							class="mobile-nav__toggle-btnzor-close icon-fallback-text"
+							aria-controls="Linklist-{{ forloop.index }}"
+							aria-expanded="false"
+						>
+							<span class="icon-fallback-text mobile-nav__toggle-open">
+								<img src="{{ 'nav-carat-back.svg' | file_url }}">
 
-            </div>
-          </li>
+								<span class="h6">{{ link.title | escape }}</span>
 
-        {% else %}
+								<span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
+							</span>
 
-          <li class="mobile-nav__item main">
-            <a
-              href="{{ link.url }}"
-              class="mobile-nav__link h6"
-              {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
-                {{ link.title | escape }}
-            </a>
-          </li>
+							<span class="icon-fallback-text mobile-nav__toggle-close">
+								<span class="icon icon-minus" aria-hidden="true"></span>
 
-        {% endif %}
-      {% endfor %}
-      {% comment %}
-        Spacer element
-      {% endcomment %}
-      <li class="mobile-nav__spacer"></li>
+								<span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
+							</span>
+						</button>
 
-      {% comment %}
-        If customer accounts are enabled, provide login and create account links
+						<ul
+							class="mobile-nav__sublistzor js-toggle-wrapper"
+							id="Linklist-{{ forloop.index }}"
+							aria-labelledby="Label-{{ forloop.index }}"
+							role="navigation"
+						>
+							{% for block in section.blocks %}
+								<li class="h6">
+									<a href="/collections/{{- block.settings.link -}}">
+										{% if block.settings.linktext != blank %}
+											{{- block.settings.linktext -}}
+										{% else %}
+											{{- block.settings.link -}}
+										{% endif %}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
 
-      {% if shop.customer_accounts_enabled %}
-        {% if customer %}
-          <li class="mobile-nav__item mobile-nav__item--secondary">
-            <a href="{{ routes.account_url }}">{{ 'layout.customer.account' | t }}</a>
-          </li>
-          <li class="mobile-nav__item mobile-nav__item--secondary">
-            {{ 'layout.customer.log_out' | t | customer_logout_link }}
-          </li>
-        {% else %}
-          <li class="mobile-nav__item mobile-nav__item--secondary">
-            {{ 'layout.customer.log_in' | t | customer_login_link }}
-          </li>
-          <li class="mobile-nav__item mobile-nav__item--secondary">
-            {{ 'layout.customer.create_account' | t | customer_register_link }}
-          </li>
-        {% endif %}
-      {% endif %}
-      {% endcomment %}
-      {% for link in linklists[section.settings.drawer_bottom_link_list].links %}
-        <li class="mobile-nav__item mobile-nav__item--secondary"><a href="{{ link.url }}">{{ link.title }}</a></li>
-      {% endfor %}
-    </ul>
-    <!-- //mobile-nav -->
-  </div>
+					</div>
+				</li>
+			{% else %}
+				<li class="mobile-nav__item main">
+					<a
+						href="{{ link.url }}"
+						class="mobile-nav__link h6"
+						{% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}
+					>
+						{{- link.title | escape -}}
+					</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+
+		{% comment %}
+			Spacer element
+		{% endcomment %}
+
+		<li class="mobile-nav__spacer"></li>
+
+		{% comment %}
+			If customer accounts are enabled, provide login and create account links
+
+			{% if shop.customer_accounts_enabled %}
+				{% if customer %}
+					<li class="mobile-nav__item mobile-nav__item--secondary">
+						<a href="{{- routes.account_url -}}">
+							{{- 'layout.customer.account' | t -}}
+						</a>
+					</li>
+
+					<li class="mobile-nav__item mobile-nav__item--secondary">
+						{{ 'layout.customer.log_out' | t | customer_logout_link }}
+					</li>
+				{% else %}
+					<li class="mobile-nav__item mobile-nav__item--secondary">
+						{{ 'layout.customer.log_in' | t | customer_login_link }}
+					</li>
+
+					<li class="mobile-nav__item mobile-nav__item--secondary">
+						{{ 'layout.customer.create_account' | t | customer_register_link }}
+					</li>
+				{% endif %}
+			{% endif %}
+		{% endcomment %}
+
+		{% for link in linklists[section.settings.drawer_bottom_link_list].links %}
+			<li class="mobile-nav__item mobile-nav__item--secondary">
+				<a href="{{- link.url -}}">
+					{{- link.title -}}
+				</a>
+			</li>
+		{% endfor %}
+
+		{% render 'social-icons', wrapper_class: 'drawer-header__social' %}
+	</ul>
+	<!-- //mobile-nav -->
+</div>
 

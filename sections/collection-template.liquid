@@ -1,242 +1,233 @@
 <!-- /templates/collection.liquid -->
 {%- if section.settings.show_collection_image -%}
-  <div class="collection-hero">
-    <noscript>
-      <div class="collection-hero__image-no-js" style="background-image:url({{ collection.image | img_url: '2048x2048' }});"></div>
-    </noscript>
+	<div class="collection-hero">
+		<noscript>
+			<div class="collection-hero__image-no-js" style="background-image:url({{ collection.image | img_url: '2048x2048' }});"></div>
+		</noscript>
 
-    {% if collection.image %}
-        {%- assign img_url = collection.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-    {% else %}
-        {%- assign img_url = collections.all.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-    {% endif %}
+		{% if collection.image %}
+			{%- assign img_url = collection.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+		{% else %}
+			{%- assign img_url = collections.all.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+		{% endif %}
 
-    {%- comment -%}
-      If the collection.image height is < 70% of its width on mobile or < 45% on desktop,
-      we crop the container to make sure it's the same height as the image.
-    {%- endcomment -%}
-    {% if collection.image %}
-      {%- assign height_width_ratio = 100 | divided_by: collection.image.aspect_ratio | floor -%}
-    {% else %}
-      {%- assign height_width_ratio = 100 | divided_by: collections.all.image.aspect_ratio | floor -%}
-    {% endif %}
-    {%- if height_width_ratio < 70 -%}
-      <style>
-        {%- if height_width_ratio < 45 -%}
-          .collection-hero__image-wrapper::after {
-            padding-bottom: {{ height_width_ratio }}%;
-            padding-bottom: 25%;
-          }
-        {%- else -%}
-          @media screen and (max-width: 768px) {
-            .collection-hero__image-wrapper::after {
-              padding-bottom: {{ height_width_ratio }}%;
-              padding-bottom: 25%;
-            }
-          }
-        {%- endif -%}
-      </style>
-    {%- endif -%}
-    <div class="collection-hero__image-wrapper">
-      <img class="collection-hero__image lazyload"
-        src="{{ collection.image | img_url: '300x' }}"
-        data-src="{{ img_url }}"
-        data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
-        data-aspectratio="{{ collection.image.aspect_ratio }}"
-        data-sizes="auto"
-        data-parent-fit="cover"
-        alt="{{ collection.image.alt | escape }}">
-    </div>
+		{%- comment -%}
+			If the collection.image height is < 70% of its width on mobile or < 45% on desktop,
+			we crop the container to make sure it's the same height as the image.
+		{%- endcomment -%}
+		{% if collection.image %}
+			{%- assign height_width_ratio = 100 | divided_by: collection.image.aspect_ratio | floor -%}
+		{% else %}
+			{%- assign height_width_ratio = 100 | divided_by: collections.all.image.aspect_ratio | floor -%}
+		{% endif %}
+		{%- if height_width_ratio < 70 -%}
+			<style>
+				{%- if height_width_ratio < 45 -%}
+				.collection-hero__image-wrapper::after {
+					padding-bottom: {{ height_width_ratio }}%;
+					padding-bottom: 25%;
+				}
+				{%- else -%}
+				@media screen and (max-width: 768px) {
+					.collection-hero__image-wrapper::after {
+						padding-bottom: {{ height_width_ratio }}%;
+						padding-bottom: 25%;
+					}
+				}
+				{%- endif -%}
+			</style>
+		{%- endif -%}
+		<div class="collection-hero__image-wrapper">
+			<img class="collection-hero__image lazyload"
+				 src="{{ collection.image | img_url: '300x' }}"
+				 data-src="{{ img_url }}"
+				 data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
+				 data-aspectratio="{{ collection.image.aspect_ratio }}"
+				 data-sizes="auto"
+				 data-parent-fit="cover"
+				 alt="{{ collection.image.alt | escape }}">
+		</div>
 
-    <header class="collection-section-header text-center">
+		<header class="collection-section-header text-center">
 
-        {%- if collection.description != blank -%}
-        <div class="grid-sub-title">
-          <div class="rte h5">
-            {{ collection.description }}
-          </div>
-        </div>
-        {%- endif -%}
+			{%- if collection.description != blank -%}
+				<div class="grid-sub-title">
+					<div class="rte h5">
+						{{ collection.description }}
+					</div>
+				</div>
+			{%- endif -%}
 
-        <h1 class="h2">{{ collection.title }}</h1>
+			<h1 class="h2">{{ collection.title }}</h1>
 
-    </header>
-  </div>
+		</header>
+	</div>
 {%- endif -%}
 
 <div id="CollectionSection" data-section-id="{{ section.id }}" data-section-type="collection-template" data-grid-type="{{ section.settings.collection_products_grid }}">
-  {%- paginate collection.products by 24 -%}
+	{%- paginate collection.products by 24 -%}
 
-  {% comment %}
-  <header class="section-header text-center">
-    <h1>{{ collection.title }}</h1>
-    {%- if collection.description != blank -%}
-      <div class="grid-sub-title">
-          <div class="rte">
-            {{ collection.description }}
-          </div>
-      </div>
-    {%- endif -%}
-    <div class="grid--full collection-sorting{% if section.settings.collection_sort_enable %} collection-sorting--enabled{% endif %}">
-      {%- if section.settings.collection_sort_enable -%}
-        {%- include 'collection-sorting' -%}
-      {%- endif -%}
-    </div>
-    {%- if section.settings.collection_tags_enable -%}
-      {%- if collection.all_tags.size > 0 -%}
-        <ul class="tags tags--collection inline-list">
-          { comment }   Used for the catalog collection (/collections/all) and product collections (collections/{collection.handle})   { endcomment }
-          <li{% unless current_tags %} class="tag--active"{% endunless %}>
-            <a href="{% if collection.url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ collection.url }}{% endif %}">
-              {{ 'collections.general.all_of_collection' | t }}
-            </a>
-          </li>
-          {%- for tag in collection.all_tags -%}
-            {%- if current_tags contains tag -%}
-              <li class="tag--active">
-                {{ tag | link_to_remove_tag: tag }}
-              </li>
-            {%- else -%}
-              <li>
-                { comment }
-                  Use link_to_add_tag if you want to allow filtering
-                  by multiple tags
-                { endcomment }
-                {{ tag | link_to_tag: tag }}
-              </li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-    {%- endif -%}
-  </header>
-  {% endcomment %}
+		{% comment %}
+			<header class="section-header text-center">
+				<h1>{{ collection.title }}</h1>
+				{%- if collection.description != blank -%}
+					<div class="grid-sub-title">
+						<div class="rte">
+							{{ collection.description }}
+						</div>
+					</div>
+				{%- endif -%}
+				<div class="grid--full collection-sorting{% if section.settings.collection_sort_enable %} collection-sorting--enabled{% endif %}">
+					{%- if section.settings.collection_sort_enable -%}
+						{%- include 'collection-sorting' -%}
+					{%- endif -%}
+				</div>
+				{%- if section.settings.collection_tags_enable -%}
+					{%- if collection.all_tags.size > 0 -%}
+						<ul class="tags tags--collection inline-list">
+							{ comment }   Used for the catalog collection (/collections/all) and product collections (collections/{collection.handle})   { endcomment }
+							<li{% unless current_tags %} class="tag--active"{% endunless %}>
+								<a href="{% if collection.url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ collection.url }}{% endif %}">
+									{{ 'collections.general.all_of_collection' | t }}
+								</a>
+							</li>
+							{%- for tag in collection.all_tags -%}
+								{%- if current_tags contains tag -%}
+									<li class="tag--active">
+										{{ tag | link_to_remove_tag: tag }}
+									</li>
+								{%- else -%}
+									<li>
+										{ comment }
+										Use link_to_add_tag if you want to allow filtering
+										by multiple tags
+										{ endcomment }
+										{{ tag | link_to_tag: tag }}
+									</li>
+								{%- endif -%}
+							{%- endfor -%}
+						</ul>
+					{%- endif -%}
+				{%- endif -%}
+			</header>
+		{% endcomment %}
 
-    <div id="Collections_grid-container">
+		<div id="Collections_grid-container">
 
-      <div class="filter_menu-container">
+			<div class="filter_menu-container">
 
-          {% render 'breadcrumbs' %}
+				{% render 'breadcrumbs' %}
 
-          {% include 'filter-menu' %}
-      </div>
+				{% include 'filter-menu' %}
+			</div>
 
-      <div class="grid-uniform_collections">
-        {%- assign grid_item_width = 'medium--one-half large--one-third' -%}
-        {%- for product in collection.products -%}
-          {%- include 'product-grid-item_ports' -%}
-        {%- else -%}
-          {%- if collection.handle == 'all' -%}
-            {% comment %}  Add default products to help with onboarding for collections/all only  {% endcomment %}
-            {%- include 'onboarding-featured-products' -%}
-          {%- else -%}
-            {% comment %}  If collection exists but is empty, display message  {% endcomment %}
-            <div class="grid__item text-center">
-              <p>{{ 'collections.general.no_matches' | t }}</p>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
+			<div class="grid-uniform_collections">
+				{%- assign grid_item_width = 'medium--one-half large--one-third' -%}
+				{%- for product in collection.products -%}
+					{%- include 'product-grid-item_ports' -%}
+				{%- else -%}
+					{%- if collection.handle == 'all' -%}
+						{% comment %}  Add default products to help with onboarding for collections/all only  {% endcomment %}
+						{%- include 'onboarding-featured-products' -%}
+					{%- else -%}
+						{% comment %}  If collection exists but is empty, display message  {% endcomment %}
+						<div class="grid__item text-center">
+							<p>{{ 'collections.general.no_matches' | t }}</p>
+						</div>
+					{%- endif -%}
+				{%- endfor -%}
 
-        {%- if paginate.pages > 1 -%}
-          {%- include 'pagination' -%}
-        {%- endif -%}
-      </div>
-
-
-  </div>
-
-  {%- endpaginate -%}
+				{%- if paginate.pages > 1 -%}
+					{%- include 'pagination' -%}
+				{%- endif -%}
+			</div>
+		</div>
+	{%- endpaginate -%}
 </div>
 
-
-
-
-
-
 <script type="text/javascript">
-$(document).ready(function(){
+	$(document).ready(function(){
 
-  $('.swatch :radio').change(function() {
-    var optionIndex = $(this).closest('.swatch').attr('data-option-index');
-    var optionValue = $(this).val();
+		$('.swatch :radio').change(function() {
+			var optionIndex = $(this).closest('.swatch').attr('data-option-index');
+			var optionValue = $(this).val();
 
-    console.log(optionIndex)
+			console.log(optionIndex)
 
-    $(this)
-      .closest('form')
-      .find('.single-option-selector')
-      .eq(optionIndex)
-      .val(optionValue)
-      .trigger('change');
-  });
-
-
-    var init_array = []
-
-    $('.filter-group h6').click(function(){
-
-        let new_added_filter_id = $(this).attr("data-attr");
-        localStorage.setItem("previous_new_added_filter_id", new_added_filter_id);
-        console.log( "on click - new_added_filter_id:")
-        console.log( new_added_filter_id);
-
-        if ( init_array.includes(new_added_filter_id) ) {
-          var index = 1;
-          console.log(new_added_filter_id);
-          init_array.splice(new_added_filter_id);
-        } else {
-          init_array.push(new_added_filter_id);
-        }
-        //console.log("on click - init_array:");    console.log(init_array);
-
-        localStorage.setItem("init_array_Stored", init_array);
-        //console.log("on click - init_array_Stored:");   console.log(init_array_Stored);
-
-        var init_array_Stringified = JSON.stringify(init_array);
-        localStorage.setItem("init_array_Stringified", init_array_Stringified);
-        //console.log("on click - init_array_Stringified:");    console.log(init_array_Stringified);
-
-        var new_array = JSON.parse(init_array_Stringified);
-        console.log("on click - new_array:");
-        console.log(new_array);
+			$(this)
+					.closest('form')
+					.find('.single-option-selector')
+					.eq(optionIndex)
+					.val(optionValue)
+					.trigger('change');
+		});
 
 
-        let banana = $(this).parent().find('.scroll-content');
-        if ( banana.hasClass('banana') ) {
-            $(this).removeClass('select');
-            banana.removeClass('banana');
-        } else {
-           $(this).addClass('select');
-           banana.addClass('banana');
-        }
-    });
+		var init_array = []
 
-    var previous_new_added_filter_id = localStorage.getItem('previous_new_added_filter_id');
-    var init_array_Stored = localStorage.getItem('init_array_Stored');
-    var init_array_Stringified = localStorage.getItem('init_array_Stringified');
+		$('.filter-group h6').click(function(){
 
-    //console.log("page load - previous_new_added_filter_id:");   console.log(previous_new_added_filter_id);
-    //console.log("page load - init_array:");   console.log(init_array);
-    //console.log("page load - init_array_Stored (string) :");    console.log(init_array_Stored);
+			let new_added_filter_id = $(this).attr("data-attr");
+			localStorage.setItem("previous_new_added_filter_id", new_added_filter_id);
+			console.log( "on click - new_added_filter_id:")
+			console.log( new_added_filter_id);
 
-    var new_array_STORED = JSON.parse(init_array_Stringified);
-    console.log("page load - new_array_STORED:");
-    console.log(new_array_STORED);
+			if ( init_array.includes(new_added_filter_id) ) {
+				var index = 1;
+				console.log(new_added_filter_id);
+				init_array.splice(new_added_filter_id);
+			} else {
+				init_array.push(new_added_filter_id);
+			}
+			//console.log("on click - init_array:");    console.log(init_array);
 
-    if ( new_array_STORED != null ) {
-      //alert('non e nil');
-      init_array = new_array_STORED;
+			localStorage.setItem("init_array_Stored", init_array);
+			//console.log("on click - init_array_Stored:");   console.log(init_array_Stored);
 
-      new_array_STORED.forEach(function(value){
-        //console.log(value);
-        $('h6[data-attr= '+value+']').addClass('select');
-        $('#' + value).addClass('banana');
-      });
-    }
+			var init_array_Stringified = JSON.stringify(init_array);
+			localStorage.setItem("init_array_Stringified", init_array_Stringified);
+			//console.log("on click - init_array_Stringified:");    console.log(init_array_Stringified);
 
-});
+			var new_array = JSON.parse(init_array_Stringified);
+			console.log("on click - new_array:");
+			console.log(new_array);
+
+
+			let banana = $(this).parent().find('.scroll-content');
+			if ( banana.hasClass('banana') ) {
+				$(this).removeClass('select');
+				banana.removeClass('banana');
+			} else {
+				$(this).addClass('select');
+				banana.addClass('banana');
+			}
+		});
+
+		var previous_new_added_filter_id = localStorage.getItem('previous_new_added_filter_id');
+		var init_array_Stored = localStorage.getItem('init_array_Stored');
+		var init_array_Stringified = localStorage.getItem('init_array_Stringified');
+
+		//console.log("page load - previous_new_added_filter_id:");   console.log(previous_new_added_filter_id);
+		//console.log("page load - init_array:");   console.log(init_array);
+		//console.log("page load - init_array_Stored (string) :");    console.log(init_array_Stored);
+
+		var new_array_STORED = JSON.parse(init_array_Stringified);
+		console.log("page load - new_array_STORED:");
+		console.log(new_array_STORED);
+
+		if ( new_array_STORED != null ) {
+			//alert('non e nil');
+			init_array = new_array_STORED;
+
+			new_array_STORED.forEach(function(value){
+				//console.log(value);
+				$('h6[data-attr= '+value+']').addClass('select');
+				$('#' + value).addClass('banana');
+			});
+		}
+
+	});
 </script>
-
 
 {% schema %}
 {
