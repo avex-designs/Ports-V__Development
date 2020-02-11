@@ -3013,10 +3013,10 @@
     "name": "Klaviyo",
     "settings": [
       {
-      "type": "text",
-      "id": "klaviyo_list_id",
-      "label": "Newsletters List ID",
-      "default": "MFmjny"
+        "type": "text",
+        "id": "klaviyo_list_id",
+        "label": "Newsletters List ID",
+        "default": "MFmjny"
       }
     ]
   }

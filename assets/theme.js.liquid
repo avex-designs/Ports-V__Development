@@ -2095,7 +2095,62 @@ theme.Product = (function() {
 
 
     },
-    
+
+    initStickyProductThumbnails: function() {
+
+      //return false;
+      var $thumbnails = $(this.selectors.thumbnails, this.$container);
+      var $wrapper = $(this.selectors.productWrapper, this.$container);
+
+      if ($thumbnails.find('#shopify-product-reviews').length) {
+        theme.variables.productPageSticky = false;
+        return;
+      }
+
+      if (
+        !$thumbnails.length ||
+        $(this.selectors.productImagePhoto, this.$container).length < 2
+      ) {
+        return;
+      }
+
+      // Force detatch if already detached. Prevent layout issues.
+      $thumbnails.trigger('detach.ScrollToFixed');
+
+      // Detach and stop if on mobile breakpoint
+      if (theme.variables.bpSmall) {
+        return;
+      }
+
+      var productCopyHeight = $thumbnails.outerHeight();
+      var productImagesHeight = $(
+        this.selectors.productImages,
+        this.$container
+      ).height();
+
+      /*============================================================================
+        Calculate when to detach fixed element to avoid content overlap.
+        Subtract product copy height from the limit because plugin uses offset().top
+      ==============================================================================*/
+      var calcLimit = $wrapper.offset().top + $wrapper.height();
+      calcLimit -= productCopyHeight;
+
+      // Init sticky if desc shorter than images and fits in viewport
+      if (
+        productCopyHeight < productImagesHeight &&
+        productCopyHeight < $(window).height()
+      ) {
+        theme.variables.productPageSticky = true;
+        $thumbnails.scrollToFixed({
+          limit: calcLimit
+        });
+      } else {
+        theme.variables.productPageSticky = false;
+      }
+
+
+    },
+
     initStickyProductThumbnails: function() {
 
       //return false;
@@ -3325,6 +3380,13 @@ function initCustomForms() {
 	jcf.replaceAll('.general-form');
 }
 
+
+function initProductItemCarousel() {
+  $('.grid-product__slider').slick({
+    prevArrow: '<button type="button" class="slick-prev slick-nav"><span>Previous</span></button>',
+    nextArrow: '<button type="button" class="slick-next slick-nav"><span>Next</span></button>',
+  });
+}
 
 
 /*
@@ -5011,4 +5073,5 @@ $(function () {
 	initPasswordToggler();
 	initFocusClass();
   initInViewport();
+  initProductItemCarousel();
 });

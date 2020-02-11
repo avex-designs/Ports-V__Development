@@ -45,23 +45,25 @@
                       <button class="ports-btn white back slider_btn_destroy" data-slider="slider_right_{{ count }}"><span>&#x2715; Hide products</span></button>
                     </div>
                 </div>
-                <div class="block-slider-container ports-pad-all product-scroll">
-                    <div id="slider_right_{{ count }}">
-                        {%- assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' -%}
-                        {% for selected_handle in selected_handles %}
-                            {% assign product = all_products[selected_handle] %}
-                            {% if product != empty %}
-                                {% if section.settings.show_sold_out %}
-                                    <div class="item">
-                                        {% include 'product-grid-item_ports' %}
-                                    </div>
-                                {% elsif product.available %}
-                                    <div class="item">
-                                        {% include 'product-grid-item_ports' %}
-                                    </div>
+                <div class="block-slider-container ports-pad-all">
+                    <div id="slider_right_{{ count }}" class=" product-scroll">
+                        <div class="product-scroll__wrapper">
+                            {%- assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' -%}
+                            {% for selected_handle in selected_handles %}
+                                {% assign product = all_products[selected_handle] %}
+                                {% if product != empty %}
+                                    {% if section.settings.show_sold_out %}
+                                        <div class="item">
+                                            {% include 'product-grid-item_ports' %}
+                                        </div>
+                                    {% elsif product.available %}
+                                        <div class="item">
+                                            {% include 'product-grid-item_ports' %}
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div> <!-- slider -->
                 </div><!-- block-slider-container -->
             </div><!-- column 1 wrapper -->
@@ -74,23 +76,25 @@
                       <button class="ports-btn white back slider_btn_destroy" data-slider="slider_left_{{ count }}"><span>&#x2715; Hide products</span></button>
                     </div>
                 </div>
-                <div class="block-slider-container ports-pad-all product-scroll">
-                    <div id="slider_left_{{ count }}">
-                        {%- assign selected_handles = page.metafields.lookbook.column_two_products[forloop.index0] | split: '|' -%}
-                        {% for selected_handle in selected_handles %}
-                            {% assign product = all_products[selected_handle] %}
-                            {% if product != empty %}
-                                {% if section.settings.show_sold_out %}
-                                    <div class="item">
-                                        {% include 'product-grid-item_ports' %}
-                                    </div>
-                                {% elsif product.available %}
-                                    <div class="item">
-                                        {% include 'product-grid-item_ports' %}
-                                    </div>
+                <div class="block-slider-container ports-pad-all">
+                    <div id="slider_left_{{ count }}" class="product-scroll">
+                        <div class="product-scroll__wrapper">
+                            {%- assign selected_handles = page.metafields.lookbook.column_two_products[forloop.index0] | split: '|' -%}
+                            {% for selected_handle in selected_handles %}
+                                {% assign product = all_products[selected_handle] %}
+                                {% if product != empty %}
+                                    {% if section.settings.show_sold_out %}
+                                        <div class="item">
+                                            {% include 'product-grid-item_ports' %}
+                                        </div>
+                                    {% elsif product.available %}
+                                        <div class="item">
+                                            {% include 'product-grid-item_ports' %}
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div> <!-- slider -->
                 </div><!-- block-slider-container -->
             </div><!-- column 2 wrapper -->
@@ -107,22 +111,24 @@
                     </div>
                 </div>
                 <div class="block-slider-container ports-pad-all">
-                    <div id="slider_full_{{ count }}">
-                        {% assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' %}
-                        {% for selected_handle in selected_handles %}
-                            {% assign product = all_products[selected_handle] %}
-                            {% if product != empty %}
-                                {% if section.settings.show_sold_out %}
-                                    <div class="item">
-                                        {% include 'product-grid-item_ports' %}
-                                    </div>
-                                {% elsif product.available %}
-                                    <div class="item">
-                                        {% include 'product-grid-item_ports' %}
-                                    </div>
+                    <div id="slider_full_{{ count }}" class="product-scroll">
+                        <div class="product-scroll__wrapper">
+                            {% assign selected_handles = page.metafields.lookbook.column_one_products[forloop.index0] | split: '|' %}
+                            {% for selected_handle in selected_handles %}
+                                {% assign product = all_products[selected_handle] %}
+                                {% if product != empty %}
+                                    {% if section.settings.show_sold_out %}
+                                        <div class="item">
+                                            {% include 'product-grid-item_ports' %}
+                                        </div>
+                                    {% elsif product.available %}
+                                        <div class="item">
+                                            {% include 'product-grid-item_ports' %}
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div> <!-- slider -->
                 </div> <!-- block-slider-container -->
             </div><!-- single column wrapper -->
@@ -168,13 +174,13 @@
             var $btn = $(this);
             var $slider = $('#'+$btn.data('slider'));
 
-            // $btnClose.trigger('click');
+            /* $btnClose.trigger('click');
 
             if (!$slider.hasClass('slick-initialized')) {
                 initProductsCarousel($slider);
             }
 
-            $slider.resize();
+            $slider.resize(); */
 
             $btn.addClass(btnToggleClass);
             $btn.next().removeClass(btnToggleClass);

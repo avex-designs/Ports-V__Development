@@ -70,7 +70,9 @@
             quantity: {{ 'cart.label.quantity' | t | json }},
             item: {{ 'cart.label.item' | t | json }},
             options: {{ 'cart.label.options' | t | json }},
-            price: {{ 'cart.label.price' | t | json }}
+            price: {{ 'cart.label.price' | t | json }},
+			soldOut: {{ 'products.product.sold_out' | t | json }},
+			onlyOneLeftInStock: {{ 'products.product.only_one_left_in_stock' | t | json }}
 		};
 		theme.settings = {
 			cartType: {{ settings.cart_type | json }},
@@ -112,85 +114,117 @@
 	Add the page template as a class for easy page or template specific styling.
 {% endcomment %}
 <body id="{{ page_title | handle }}"
-	  class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }}{% if request.page_type == 'page' %} {{ template | handle }}{% endif %}">
-{% section 'minicart' %}
+	  class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }}{% if request.page_type == 'page' %} {{ template | handle }}{% endif %}{{ if template == 'article.journal-post' }} template-journal-post {{ endif }}">
+	{% section 'minicart' %}
 
-{% section 'header' %}
+	{% section 'header' %}
 
-<div id="PageContainer" class="page-container">
+	<div id="PageContainer" class="page-container">
 
-	{% if request.page_type == "index" %}
-		{% section 'slideshow' %}
-	{% endif %}
+		{% if request.page_type == "index" %}
+			{% section 'slideshow' %}
+		{% endif %}
 
-	<main class="main-content" role="main">
-		{% unless request.page_type == "index" %}
-		<div class="wrapper">
+		<main class="main-content" role="main">
+			{% unless request.page_type == "index" or template == 'article.journal-post' %}
+			<div class="wrapper">
+				{% endunless %}
+				{{ content_for_layout }}
+				{% unless request.page_type == "index" or template == 'article.journal-post' %}
+			</div>
 			{% endunless %}
-			{{ content_for_layout }}
-			{% unless request.page_type == "index" %}
-		</div>
-		{% endunless %}
-	</main>
+		</main>
 
-	{% if template == "product" or template == "blog" or template == "search" or template == "404" or template contains "lookbook"  %}
-		{% section 'newsletter' %}
-	{% endif %}
+		{% if template == "product" or template == "blog" or template == "search" or template == "article.journal-post" or template == "404" or template contains "lookbook" %}
+			{% section 'newsletter' %}
+		{% endif %}
 
-	{% section 'footer' %}
+		{% section 'footer' %}
 
-	{% section 'gdpr' %}
-</div>
+		{% section 'gdpr' %}
+	</div>
 
-{% comment %}
-	Template-specific js
-{% endcomment %}
-<script>
-	{% if resetPassword %}
-	$(function () {
-		timber.resetPasswordSuccess();
-	});
-	{% endif %}
-</script>
-
-{% comment %}
-	Ajaxify your cart with this plugin.
-	Documentation:
-	- http://shopify.com/timber#ajax-cart
-{% endcomment %}
-{% if settings.cart_type == 'drawer' %}
-	{% include 'ajax-cart-template' %}
-{% endif %}
-
-{% if request.page_type == 'product' or request.page_type == 'index' %}
+	{% comment %}
+		Template-specific js
+	{% endcomment %}
 	<script>
-		// Override default values of shop.strings for each template.
-		// Alternate product templates can change values of
-		// add to cart button, sold out, and unavailable states here.
-		theme.productStrings = {
-			addToCart: {{ 'products.product.add_to_cart' | t | json }},
-			soldOut: {{ 'products.product.sold_out' | t | json }},
-			unavailable: {{ 'products.product.unavailable' | t | json }}
-		}
+		{% if resetPassword %}
+			$(function () {
+				timber.resetPasswordSuccess();
+			});
+		{% endif %}
 	</script>
-{% endif %}
+
+	{% comment %}
+		Ajaxify your cart with this plugin.
+		Documentation:
+		- http://shopify.com/timber#ajax-cart
+	{% endcomment %}
+	{% if settings.cart_type == 'drawer' %}
+		{% include 'ajax-cart-template' %}
+	{% endif %}
+
+	{% if request.page_type == 'product' or request.page_type == 'index' %}
+		<script>
+			// Override default values of shop.strings for each template.
+			// Alternate product templates can change values of
+			// add to cart button, sold out, and unavailable states here.
+			theme.productStrings = {
+				addToCart: {{ 'products.product.add_to_cart' | t | json }},
+				soldOut: {{ 'products.product.sold_out' | t | json }},
+				unavailable: {{ 'products.product.unavailable' | t | json }}
+			}
+		</script>
+	{% endif %}
 
 
-{% include 'spurit_po2_theme_snippet' %}
+	{% include 'spurit_po2_theme_snippet' %}
 
-<div id="SearchModal" class="mfp-hide">
-	{% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--modal' %}
-</div>
+	<div id="SearchModal" class="mfp-hide">
+		{% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--modal' %}
+	</div>
 
-<script src="//cdn.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=portsv-us.myshopify.com"></script>
-<ul hidden>
-	<li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
-	<li id="a11y-selection-message">{{ 'general.accessibility.selection_help' | t }}</li>
-</ul>
-{% include 'social-login' %}
-<script src="{{ 'bodyScrollLock.min.js' | asset_url }}"></script>
-<script src="{{ 'theme-slate.js' | asset_url }}"></script>
-<script src="{{ 'main.js' | asset_url }}"></script>
-<script src="{{ 'minicart.js' | asset_url }}"></script>
+	<script src="//cdn.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=portsv-us.myshopify.com"></script>
+	<ul hidden>
+		<li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
+		<li id="a11y-selection-message">{{ 'general.accessibility.selection_help' | t }}</li>
+	</ul>
+
+	{% include 'social-login' %}
+
+	<script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+	<script src="{{ 'bodyScrollLock.min.js' | asset_url }}"></script>
+	<script src="{{ 'slick.min.js' | asset_url }}"></script>
+	<script src="{{ 'theme-slate.js' | asset_url }}"></script>
+	<script src="{{ 'main.js' | asset_url }}"></script>
+	<script src="{{ 'vendor.js' | asset_url }}"></script>
+	<script src="{{ 'minicart.js' | asset_url }}"></script>
+	<script type="text/javascript">
+		KlaviyoSubscribe.attachToForms('#contact_form', {
+			hide_form_on_success: true,
+			extra_properties: {
+				$source: '$embed',
+				$method_type: "Klaviyo Form",
+				$method_id: 'embed',
+				$consent_version: 'Embed default text'
+			},
+			success: function () {
+				document.getElementById('contact_form').classList.add("contact-form--success")
+			}
+		});
+		KlaviyoSubscribe.attachToForms('#newsletter_form', {
+			hide_form_on_success: true,
+			extra_properties: {
+				$source: '$embed',
+				$method_type: "Klaviyo Form",
+				$method_id: 'embed',
+				$consent_version: 'Embed default text'
+			},
+			success: function () {
+				console.log(document.getElementById('newsletter_form'));
+				document.getElementById('newsletter_form').classList.add("contact-form--success")
+			}
+		});
+	</script>
 </body>
 </html>
