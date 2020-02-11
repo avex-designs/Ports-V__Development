@@ -32,7 +32,7 @@
             </div>
 
             <div class="large--one-thirdzor medium-down--one-half">
-               {% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' %}
+               {% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' or template == '404' or template == 'page.lookbook' %}
                 <div class="h1 site-header__logo large--left index-clear-logo" itemscope itemtype="http://schema.org/Organization">
                   <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
                     <img src="{{ 'black.svg' | asset_url }}" alt="Ports V Logo" itemprop="logo">
@@ -220,7 +220,7 @@
                               <a class="img-wrap" href="/collections/{{ section.settings.shop_drop_link }}">
                                 <img src="{{ section.settings.image-picker | img_url: '800x' }}" alt="{{ block.settings.image.alt }}">
                               </a>
-                              
+
                               <div>
                                 <a href="/collections/{{ section.settings.shop_drop_link }}">
                                   {% if section.settings.linktext != blank %}
@@ -234,7 +234,7 @@
                           </div>
 
                         </div>
-                        
+
                       </div><!-- mega menu container -->
                     </li>
 
@@ -254,7 +254,7 @@
                         data-meganav-type="parent"
                         aria-controls="MenuParent-{{ parent_index }}"
                         aria-expanded="false"
-                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}>
                           {{ link.title | escape }}
                       </a>
                       <div
@@ -265,12 +265,12 @@
                         <div class="mega-three-col">
                           {% for block in section.blocks %}
                           <div>
-                            <a class="img-wrap" href="/collections/{{ block.settings.link }}">
+                            <a class="img-wrap" href="/pages/{{ block.settings.link }}">
                               <img src="{{ block.settings.image-picker | img_url: '800x' }}" alt="{{ block.settings.image.alt }}">
                             </a>
-                            
+
                             <div>
-                              <a href="/collections/{{ block.settings.link }}">
+                              <a href="/pages/{{ block.settings.link }}">
                                 {% if block.settings.linktext != blank %}
                                 <h6> {{ block.settings.linktext }} </h6>
                                 {% else %}
@@ -295,7 +295,7 @@
                         href="{{ link.url }}"
                         class="site-nav__link ports-link"
                         data-meganav-type="child"
-                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless %}>
                           {{ link.title | escape }}
                       </a>
                     </li>

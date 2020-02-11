@@ -54,7 +54,7 @@
       line-height: 18px;
       background-color: {{ settings.color_pt_clear_bg  | default: '#EEE' }};
       color: {{ settings.color_pt_clear_text  | default: '#222' }};
-      overflow: hidden; 
+      overflow: hidden;
     }
 
     .filter-clear:hover {
@@ -292,7 +292,7 @@ a:hover i.check-icon:before {
 
 {% if settings.pt_scroll_filter_group %}
 .filter-group .scroll-content {
-  max-height: 400px;
+  max-height: 20rem;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -1044,7 +1044,7 @@ i.check-icon {
   .pt-sticky-mode {
     position: sticky;
     position: -webkit-sticky;
-    top: {{ settings.pt_sticky_offset | default: '25px' }}; 
+    top: {{ settings.pt_sticky_offset | default: '25px' }};
   }
 }
 
@@ -1055,16 +1055,16 @@ i.check-icon {
 
   .filter-group {
     text-align: right;
-    
+
     li a {
       margin-right: 35px;
     }
-    
+
     h4 {
       text-align: right;
       padding-right: 0;
     }
-    
+
     .filter-clear {
       left: 10px;
       right: unset;

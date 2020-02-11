@@ -1,0 +1,163 @@
+{% assign list_id = settings.klaviyo_list_id %}
+
+{% if section.settings.isEnable %}
+	<div class="newsletter-popup" id="newsletter-popup">
+		<div class="newsletter-popup__overlay js-newsletter-popup-close"></div>
+
+		<div class="newsletter-popup__content">
+			<div class="newsletter-popup__content-wrapper">
+				{% if section.settings.image != blank %}
+					<div class="newsletter-popup__close js-newsletter-popup-close">
+						{% include 'icon-popup-close' %}
+					</div>
+				{% endif %}
+
+				{% if section.settings.image %}
+					<div class="newsletter-popup__image-wrapper">
+						<picture>
+							<source srcset="{{ section.settings.image | img_url: '400x' }} 1x, {{ section.settings.image | img_url: '800x' }} 2x" media="(max-width: 400px)">
+							<source srcset="{{ section.settings.image | img_url: '767x' }} 1x, {{ section.settings.image | img_url: '1534x' }} 2x" media="(max-width: 767px)">
+							<source srcset="{{ section.settings.image | img_url: '991x' }} 1x, {{ section.settings.image | img_url: '1982x' }} 2x" media="(max-width: 991px)">
+							<source srcset="{{ section.settings.image | img_url: '700x' }} 1x, {{ section.settings.image | img_url: '1400x' }} 2x" media="(min-width: 992px)">
+							<img class="newsletter-popup__image" srcset="{{ section.settings.image | img_url: '700x' }}" alt="{{ section.settings.image.alt }}">
+						</picture>
+					</div>
+				{% endif %}
+
+				<div class="newsletter newsletter-popup__form-wrapper">
+					{% if section.settings.image == blank %}
+						<div class="newsletter-popup__close js-newsletter-popup-close">
+							{% include 'icon-popup-close' %}
+						</div>
+					{% endif %}
+
+					<h5 class="newsletter-popup__subtitle section-subheading h5">
+						{{- section.settings.subtitle -}}
+					</h5>
+
+					<h3 class="newsletter-popup__title">
+						{{- section.settings.heading -}}
+					</h3>
+
+					<form
+						id="newsletter_form"
+						class="contact-form js-placeholder-shown klaviyo_gdpr_embed_{{ list_id }}"
+						action="//manage.kmail-lists.com/subscriptions/subscribe"
+						data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+						method="GET"
+						target="_blank"
+						novalidate="novalidate"
+						data-klaviyo="true"
+					>
+						<div class="klaviyo_messages newsletter--form">
+							<div class="success_message note form-success" style="display:none;"></div>
+						</div>
+
+						<div class="klaviyo-form">
+							<input type="hidden" name="g" value="{{ list_id }}">
+							<input type="hidden" name="$fields" value="$first_name,$last_name">
+
+							<div class="form-input-halves">
+								<div class="form-group-wrapper">
+									<div class="form-group">
+										<input
+											type="text"
+											id="klaviyo_form_first_name"
+											class="input-full input"
+											name="$first_name"
+											autocapitalize="off"
+											required="required"
+										/>
+
+										<label for="klaviyo_form_first_name" class="newsletter__label">
+											{{- 'contact.form.first_name' | t -}}
+										</label>
+									</div>
+								</div>
+
+								<div class="form-group-wrapper">
+									<div class="form-group">
+										<input
+											type="text"
+											id="klaviyo_form_last_name"
+											class="input-full input"
+											name="$last_name"
+											autocorrect="off"
+											autocapitalize="off"
+											required="required"
+										/>
+
+										<label for="klaviyo_form_last_name" class="newsletter__label">
+											{{- 'contact.form.last_name' | t -}}
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<input
+									type="email"
+									value="{% if customer %}{{ customer.email }}{% endif %}"
+									name="email"
+									id="k_id_email"
+									class="input-full input {{ email_error_modifier }}"
+									autocorrect="off"
+									autocapitalize="off"
+									data-validate="email"
+								/>
+
+								<label for="k_id_email" class="newsletter__label">
+									{{- 'general.newsletter_form.newsletter_enter_email' | t -}}
+								</label>
+							</div>
+
+							<span class="input-group-btn-wrap">
+								<button
+									id="Subscribe"
+									type="submit"
+									class="ports-btn klaviyo_submit_button"
+									aria-label="{{ 'general.newsletter_form.sign_up' | t }}"
+								>
+									<span class="newsletter__submit-text--largezor">
+										{{- 'general.newsletter_form.sign_up' | t -}}
+									</span>
+								</button>
+							</span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% schema %}
+	{
+		"name": "Newsletter popup",
+		"settings": [
+			{
+				"type": "checkbox",
+				"id": "isEnable",
+				"label": "Newsletter popup enable",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "heading",
+				"label": "Title",
+				"default": "Sign Up & Feel the Beat"
+			},
+			{
+				"type": "text",
+				"id": "subtitle",
+				"label": "Subtitle",
+				"default": "Enjoy 15% off your first order"
+			},
+			{
+				"type": "image_picker",
+				"id": "image",
+				"label": "Image in popup"
+			}
+		]
+	}
+{% endschema %}

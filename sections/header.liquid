@@ -16,7 +16,7 @@
     {% include 'drawer-menu' %}
   </div> <!-- # Nav Drawer -->
 
-  {% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' %}
+  {% if request.page_type == 'index' or template contains 'collection' or template contains 'about' or template contains 'blog' or template == '404' or template == 'page.lookbook' %}
   <div class="header-container index_header drawer__header-container">
     {% include 'header' %}
   </div> <!-- header-container -->
@@ -373,7 +373,7 @@
       "id": "shop_drop_link",
       "type": "collection",
       "label": "Featured Collection Link"
-    },         
+    },
     {
       "id": "image-picker",
       "type": "image_picker",
@@ -396,9 +396,9 @@
           },
           {
             "id": "link",
-            "type": "collection",
+            "type": "page",
             "label": "Button link"
-          },         
+          },
           {
             "id": "image-picker",
             "type": "image_picker",

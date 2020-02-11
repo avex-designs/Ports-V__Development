@@ -1,0 +1,31 @@
+{% if article.metafields.journal.related_article %}
+    <div class="journal-post-related-articles">
+        <h2 class="page-title">{{ 'blogs.article.related_articles' | t }}</h2>
+
+        <div class="journal-post-related-articles__content viewport-section">
+            <div class="journal-post-related-articles__items-wrapper">
+                {% for article_handle in article.metafields.journal.related_article %}
+                    {% assign article = articles[article_handle] %}
+
+                    <div class="journal-post-related-articles__item">
+                        <a href="{{ article.url }}" class="journal-post-related-articles__item-image-wrapper">
+                            <img class="journal-post-related-articles__item-image" src="{{ article.image | img_url:'600x' }}" alt="{{ article.image.alt }}">
+                        </a>
+
+                        <div class="journal-post-related-articles__item-date">
+                            {{ article.published_at | date: format: 'abbreviated_date' }}
+                        </div>
+
+                        <h3 class="journal-post-related-articles__item-title">
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                        </h3>
+
+                        <a class="journal-post-related-articles__item-link" href="{{ article.url }}">
+                            {{ 'blogs.article.read_more_link' | t }}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}

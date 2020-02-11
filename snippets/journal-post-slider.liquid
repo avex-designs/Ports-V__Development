@@ -1,0 +1,20 @@
+{% assign slider_images = article.metafields.journal.slider_image %}
+
+<div class="journal-post__container journal-post-slider">
+    <div class="journal-post-slider__wrapper js-journal-post-slider__wrapper">
+        {% for slider_image in slider_images %}
+            <div class="journal-post-slider__slide-wrapper">
+                <div class="journal-post-slider__image-wrapper">
+                    <img class="journal-post-slider__image" src="{{ slider_image }}" alt="">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="journal-post-slider__arrow journal-post-slider__arrow--prev js-journal-post-slider__arrow--prev">
+        <div class="journal-post-slider__arrow-icon journal-post-slider__arrow-icon--prev"></div>
+    </div>
+    <div class="journal-post-slider__arrow journal-post-slider__arrow--next js-journal-post-slider__arrow--next">
+        <div class="journal-post-slider__arrow-icon journal-post-slider__arrow-icon--next"></div>
+    </div>
+</div>

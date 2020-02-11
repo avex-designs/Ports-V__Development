@@ -1283,6 +1283,20 @@
     ]
   },
   {
+    "name": "Product Details Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Size Guide"
+      },
+      {
+        "type": "page",
+        "id": "size_chart",
+        "label": "Page with Size Chart"
+      }
+    ]
+  },
+  {
     "name": {
       "da": "Sociale medier",
       "de": "Social Media",
@@ -2992,6 +3006,17 @@
         "id": "pt_temporary_disable",
         "label": "Disable the display of the Filter Menu temporarily",
         "default": false
+      }
+    ]
+  },
+  {
+    "name": "Klaviyo",
+    "settings": [
+      {
+        "type": "text",
+        "id": "klaviyo_list_id",
+        "label": "Newsletters List ID",
+        "default": "MFmjny"
       }
     ]
   }

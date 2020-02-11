@@ -1,0 +1,32 @@
+<div class="journal-post">
+    <picture>
+        <source srcset="{{ article.image | img_url: 'x250' }} 1x, {{ article.image | img_url: 'x500' }} 2x" media="(max-width: 400px)">
+        <source srcset="{{ article.image | img_url: 'x440' }} 1x, {{ article.image | img_url: 'x880' }} 2x" media="(min-width: 992px)">
+        <img class="journal-post__banner" src="{{ article.image | img_url: 'x440' }}" alt="">
+    </picture>
+
+    <div class="journal-post__date">Sep 5, 2019{{ article.published_at | date: format: 'abbreviated_date' }}</div>
+
+    <h3 class="journal-post__container journal-post__title">{{ article.title }}</h3>
+
+
+    <div class="journal-post__container journal-post-rte">
+        {{ article.metafields.journal.rte_first }}
+    </div>
+
+    {% include 'journal-post-slider' %}
+
+    <div class="journal-post__container journal-post-rte">
+        {{ article.metafields.journal.rte_second }}
+    </div>
+
+    {% include 'journal-post-full-width-image' %}
+
+    <div class="journal-post__container journal-post-rte">
+        {{ article.metafields.journal.rte_third }}
+    </div>
+
+    <div class="journal-post__container">
+        {% include 'share-this-story', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+    </div>
+</div>

@@ -1,0 +1,28 @@
+{% assign shareButtonStyle = settings.social_sharing_style %}
+
+<div class="share-this-story">
+    <span class="share-this-story__text">share this story</span>
+
+    <div class="share-this-story__icons">
+        {% if settings.share_facebook %}
+            <a target="_blank" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}" class="share-this-story__link" title="{{ 'general.social.alt_text.share_on_facebook' | t }}">
+                {% include 'icon-facebook' %}
+            </a>
+        {% endif %}
+        {% if settings.share_twitter %}
+            <a target="_blank" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}" class="share-this-story__link" title="{{ 'general.social.alt_text.share_on_twitter' | t }}">
+                {% include 'icon-twitter' %}
+            </a>
+        {% endif %}
+
+        {% if settings.share_pinterest %}
+            <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}" class="share-this-story__link" title="{{ 'general.social.alt_text.share_on_pinterest' | t }}">
+                {% include 'icon-pinterest' %}
+            </a>
+        {% endif %}
+
+        <a target="_blank" href="mailto:" class="share-this-story__link" title="email to a friend">
+            {% include 'icon-letter' %}
+        </a>
+    </div>
+</div>

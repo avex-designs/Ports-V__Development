@@ -36,7 +36,7 @@
           <div class="rte">
             {{ article_content | strip_html | truncatewords: 15 }}
           </div>
-          <a href="{{ article.url }}" class="ports-btn">read more <span class="read-more-arrow" aria-hidden="true"></span></a>
+          <a href="{{ article.url }}" class="ports-btn"><span>read more</span> <span class="read-more-arrow" aria-hidden="true"></span></a>
         </p>
       </div>
     </div>
@@ -52,6 +52,7 @@
 {% schema %}
   {
     "name": "Featured Post",
+    "class": "viewport-section",
     "settings": [
       {
          "type": "article",

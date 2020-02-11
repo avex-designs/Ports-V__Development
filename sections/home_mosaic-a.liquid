@@ -1,4 +1,4 @@
-<section data-section-id="{{ section.id }}" id="home_mosaic-a">
+<section data-section-id="{{ section.id }}" id="home_mosaic-a" class="viewport-section">
   <div class="wrapper">
 
     <div class="column">
@@ -24,7 +24,7 @@
         <div class="text-header-container">
             <p> {{ section.settings.copy }}</p>
             {% if section.settings.link %}
-            <a href="{{ section.settings.link }}" class="ports-btn" title="link to shop products"> {{ section.settings.linktext }} </a>
+            <a href="{{ section.settings.link }}" class="ports-btn" title="link to shop products"><span> {{ section.settings.linktext }} </span></a>
             {% endif %}
         </div>
     </div>

@@ -42,7 +42,7 @@
 <div class="grid-product {% if sold_out %} is-sold-out{% endif %}">
   <div class="grid-product__content">
     <div class="grid-product__image-wrapper">
-      <a class="grid-product__image-link" href="{{ product.url | within: collection }}">
+      <div class="grid-product__image-link">
         {% if product.featured_image.src == blank %}
           <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}">
         {% else %}
@@ -50,27 +50,36 @@
           <div id="{{ img_wrapper_id }}" class="product--wrapper">
             <div class="le_slider" style="padding-top:{{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%;">
               <div class="reveal">
-                <img class="product--image lazyload {{ img_id_class }}"
-                   src="{{ product.featured_image | img_url: '150x150' }}"
-                   data-src="{{ img_url }}"
-                   data-widths="[180, 370, 590, 740, 900, 1080, 1296, 1512, 1728, 2048]"
-                   data-aspectratio="{{ product.featured_image.aspect_ratio }}"
-                   data-sizes="auto"
-                   alt="{{ product.featured_image.alt | escape }}">
-                <img class="hidden" src="{{ product.images[1] | img_url: '450x450' }}" alt="{{ product.images[1].alt | escape }}" />
+                <a href="{{ product.url | within: collection }}" class="product--image__link">
+                  <img class="product--image lazyload {{ img_id_class }}"
+                     src="{{ product.featured_image | img_url: '150x150' }}"
+                     data-src="{{ img_url }}"
+                     data-widths="[180, 370, 590, 740, 900, 1080, 1296, 1512, 1728, 2048]"
+                     data-aspectratio="{{ product.featured_image.aspect_ratio }}"
+                     data-sizes="auto"
+                     alt="{{ product.featured_image.alt | escape }}">
+                  </a>
+                  {% if product.images.size > 2 %}
+                    <div class="grid-product__slider hidden">
+                      {% for image in product.images offset:1 %}
+                        {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                        <div>
+                          <a href="{{ product.url | within: collection }}">
+                            <img class="product--image lazyload {{ img_id_class }}"
+                               src="{{ image | img_url: '320x' }}"
+                               data-src="{{ img_url }}"
+                               data-widths="[180, 370, 590, 740, 900, 1080, 1296, 1512, 1728, 2048]"
+                               data-aspectratio="{{ product.featured_image.aspect_ratio }}"
+                               data-sizes="auto"
+                               alt="{{ image.alt | escape }}">
+                          </a>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    <img class="hidden" src="{{ product.images[1] | img_url: '450x450' }}" alt="{{ product.images[1].alt | escape }}" />
+                  {% endif %}
               </div>
-
-              {% comment %}{ for image in product.images offset:2 }
-              <div>
-                <img class="product--image lazyload {{ img_id_class }}"
-                   src="{{ image | img_url: '150x150' }}"
-                   data-src="{{ img_url }}"
-                   data-widths="[180, 370, 590, 740, 900, 1080, 1296, 1512, 1728, 2048]"
-                   data-aspectratio="{{ product.featured_image.aspect_ratio }}"
-                   data-sizes="auto"
-                   alt="{{ image.alt | escape }}">
-              </div>
-              { endfor }{% endcomment %}
 
             </div>
           </div>
@@ -78,7 +87,7 @@
             <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}">
           </noscript>
         {% endif %}
-      </a>
+      </div>
       {% if sold_out %}
         <div class="grid-product__sold-out">
           <p>{{ 'products.product.sold_out_html' | t }}</p>
@@ -90,13 +99,12 @@
         </div>
       {% endif %}
 
-    {% unless sold_out %}
     <div class="product-collection-hover">
       <!--<div class="product-hover-close"> </div>-->
-      
+
       <form id="{{ product.id }}" method="post" action="/cart/add" data-product-form>
 
-        <select  name="id" id="ProductSelect" class="product-single__variant no-js single-option-selector">
+        <select  name="id" id="ProductSelect-{{ product.id }}" class="product-single__variant no-js single-option-selector">
           {% for variant in product.variants %}
             {% if variant.available %}
               <option {% if variant == product.selected_or_first_available_variant %}
@@ -107,21 +115,23 @@
               </option>
             {% else %}
               <option disabled="disabled">
-                {{ variant.title }} - Sold Out
+                {{ variant.title }} - {{ 'products.product.sold_out' | t }}
               </option>
             {% endif %}
           {% endfor %}
         </select>
-        {% if product.available and product.variants.size > 1 %}
+        {% if product.variants.size > 1 and product.options contains 'Size' %}
          {% include 'swatch' with 'Size' %}
         {% endif %}
-        <input type="submit" value="Add to cart" class="add-to-cart ports-btn" />
+        <input type="submit" value="{% if sold_out %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% else %}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {% endif %}" class="add-to-cart ports-btn"{% if sold_out %} disabled="disabled"{% endif %} />
       </form>
     </div>
 
-    {% endunless %}
-      
-      
+
     </div>
 
     <a href="{{ product.url | within: collection }}" class="grid-product__meta">
@@ -154,6 +164,6 @@
         <p class="grid-product__vendor">{{ product.vendor }}</p>
       {% endif %}
     </a>
-    
+
   </div>
 </div>

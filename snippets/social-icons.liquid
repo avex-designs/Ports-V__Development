@@ -1,0 +1,113 @@
+<!-- Social START-->
+{% assign footer_social_enable = false %}
+	{% if
+		settings.social_twitter_link != blank
+		or settings.social_facebook_link != blank
+		or settings.social_pinterest_link != blank
+		or settings.social_google_plus_link != blank
+		or settings.social_instagram_link != blank
+		or settings.social_tumblr_link != blank
+		or settings.social_youtube_link != blank
+		or settings.social_vimeo_link != blank
+		or settings.social_fancy_link != blank
+		or settings.social_snapchat_link != blank %}
+		{% assign footer_social_enable = true %}
+	{% endif %}
+
+	{% if footer_social_enable %}
+		<div class="social-icons__wrapper {{ wrapper_class }}">
+			<ul class="no-bullets social-icons">
+				{% if settings.social_facebook_link != blank %}
+					<li>
+						<a href="{{ settings.social_facebook_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+							{% render 'icon-facebook-footer' %}
+							<p>Facebook</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_twitter_link != blank %}
+					<li>
+						<a href="{{ settings.social_twitter_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+							{% render 'icon-twitter-footer' %}
+							<p>Twitter</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_instagram_link != blank %}
+					<li>
+						<a href="{{ settings.social_instagram_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+							{% render 'icon-instagram-footer' %}
+							<p>Instagram</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_pinterest_link != blank %}
+					<li>
+						<a href="{{ settings.social_pinterest_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+							{% render 'icon-pinterest-footer' %}
+							<p>Pinterest</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_snapchat_link != blank %}
+					<li>
+						<a href="{{ settings.social_snapchat_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+							<span class="icon icon-snapchat" aria-hidden="true"></span>
+							<p>Snapchat</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_google_plus_link != blank %}
+					<li>
+						<a href="{{ settings.social_google_plus_link | escape }}" rel="publisher"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Google Plus' }}">
+							<span class="icon icon-google_plus" aria-hidden="true"></span>
+							<p>Google Plus</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_tumblr_link != blank %}
+					<li>
+						<a href="{{ settings.social_tumblr_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+							<span class="icon icon-tumblr" aria-hidden="true"></span>
+							<p>Tumblr</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_youtube_link != blank %}
+					<li>
+						<a href="{{ settings.social_youtube_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+							<span class="icon icon-youtube" aria-hidden="true"></span>
+							<p>YouTube</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_vimeo_link != blank %}
+					<li>
+						<a href="{{ settings.social_vimeo_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+							<span class="icon icon-vimeo" aria-hidden="true"></span>
+							<p>Vimeo</p>
+						</a>
+					</li>
+				{% endif %}
+				{% if settings.social_fancy_link != blank %}
+					<li>
+						<a href="{{ settings.social_fancy_link | escape }}"
+						   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Fancy' }}">
+							<span class="icon icon-fancy" aria-hidden="true"></span>
+							<p>Fancy</p>
+						</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	{% endif %}
+<!-- Social END -->
